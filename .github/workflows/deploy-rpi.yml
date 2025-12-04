@@ -32,5 +32,5 @@ jobs:
           echo "MY_HOME_CLOCK_TUNNEL_TOKEN=${{ secrets.MY_HOME_CLOCK_TUNNEL_TOKEN }}" >> .env
           echo ".env file created with 3 lines."
           docker compose pull
-          docker compose up -d --remove-orphans
+          docker compose up -d --remove-orphans --force-recreate
           docker system prune -af
