@@ -1,0 +1,56 @@
+services:
+  homeassistant:
+    image: homeassistant/home-assistant:stable
+    container_name: homeassistant
+    restart: unless-stopped
+    volumes:
+      - ./homeassistant/config:/config
+    environment:
+       - TZ=${TZ}
+    ports:
+      - "8123:8123"
+    networks:
+      - tunnel_net
+
+  web:
+    image: nginx:stable-alpine
+    container_name: nginx-web
+    restart: unless-stopped
+    volumes:
+      - ./web/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./web/my-home-clock/dist:/usr/share/nginx/html:ro
+      - ./web/logs:/var/log/nginx
+    ports:
+      - "8080:80"
+    environment:
+       - TZ=${TZ}
+    networks:
+      - tunnel_net
+
+  cloudflared-homeassistant:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared-homeassistant
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${HOMEASSISTANT_TUNNEL_TOKEN}
+    depends_on:
+      - homeassistant
+    networks:
+      - tunnel_net
+
+  cloudflared-my-home-clock:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared-my-home-clock
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${MY_HOME_CLOCK_TUNNEL_TOKEN}
+    depends_on:
+      - web
+    networks:
+      - tunnel_net
+
+networks:
+  tunnel_net:
+    driver: bridge
