@@ -7,28 +7,26 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: Production
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up SSH key
+      - name: Synchronize Code to Project Directory
         run: |
-          echo "${{ secrets.SSH_KEY }}" > rpi_key
-          chmod 600 rpi_key
+          sudo apt update && sudo apt install rsync -y
+          rsync -av --delete ${{ github.workspace }}/ /home/pi/home-lab/
 
       - name: Deploy to Raspberry Pi
         run: |
-          ssh -i rpi_key -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'ENDSSH'
-            cd /home/pi/home-lab
-            git pull origin main
-            echo "TZ=${{ secrets.TZ }}" > .env
-            echo "HOMEASSISTANT_TUNNEL_TOKEN=${{ secrets.HOMEASSISTANT_TUNNEL_TOKEN }}" >> .env
-            echo "MY_HOME_CLOCK_TUNNEL_TOKEN=${{ secrets.MY_HOME_CLOCK_TUNNEL_TOKEN }}" >> .env
-            echo ".env file created with 3 lines."
-            docker compose pull
-            docker compose up -d --remove-orphans
-            docker system prune -af
-          ENDSSH
+          PROJECT_PATH="/home/pi/home-lab"
+          cd $PROJECT_PATH
+          echo "TZ=${{ secrets.TZ }}" > .env
+          echo "HOMEASSISTANT_TUNNEL_TOKEN=${{ secrets.HOMEASSISTANT_TUNNEL_TOKEN }}" >> .env
+          echo "MY_HOME_CLOCK_TUNNEL_TOKEN=${{ secrets.MY_HOME_CLOCK_TUNNEL_TOKEN }}" >> .env
+          echo ".env file created with 3 lines."
+          docker compose pull
+          docker compose up -d --remove-orphans
+          docker system prune -af
