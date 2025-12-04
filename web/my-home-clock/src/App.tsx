@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="p-10 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-green-600">
+      <h1 className="text-3xl font-bold text-red-600">
         Home Clock is working!
       </h1>
       <div className="mt-6 text-4xl font-mono text-gray-800">
