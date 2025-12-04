@@ -17,7 +17,11 @@ jobs:
       - name: Synchronize Code to Project Directory
         run: |
           sudo apt update && sudo apt install rsync -y
-          sudo rsync -av --delete ${{ github.workspace }}/ /home/pi/home-lab/
+          sudo rsync -av --delete \
+            --exclude 'homeassistant/config/.storage' \
+            --exclude 'homeassistant/config/*.db' \
+            --exclude 'homeassistant/config/*.log' \
+            ${{ github.workspace }}/ /home/pi/home-lab/
 
       - name: Deploy to Raspberry Pi
         run: |
