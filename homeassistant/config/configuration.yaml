@@ -1,19 +1,7 @@
-# Loads default set of integrations. Do not remove.
-default_config:
-
-# Load frontend themes from the themes folder
-frontend:
-  themes: !include_dir_merge_named themes
-
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-
 # --- Cloudflare Tunnel Fix ---
 http:
-  # Instructs HA to read the original client IP from the X-Forwarded-For header
   use_x_forwarded_for: true
-
-  # The Gateway IP of the default Docker Bridge network
   trusted_proxies:
     - 172.18.0.0/16
+    - 127.0.0.1 
+    - ::1
