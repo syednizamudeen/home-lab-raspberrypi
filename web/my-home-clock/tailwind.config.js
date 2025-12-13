@@ -2,11 +2,13 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{ts,tsx,js,jsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
-}
-
+  plugins: [require('daisyui')],
+  daisyui: {
+    themes: ["light", "dark", "forest"],
+  },
+};
