@@ -1,9 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faServer, faSignal, faWifi } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMosque,
+  faServer,
+  faSignal,
+  faWifi,
+} from "@fortawesome/free-solid-svg-icons";
+// @ts-ignore
+import Papa from "papaparse";
+
+type PrayerTimes = {
+  Asar: string;
+  Date: string;
+  Day: string;
+  Isyak: string;
+  Maghrib: string;
+  Subuh: string;
+  Syuruk: string;
+  Zohor: string;
+};
 
 function App() {
   const [time, setTime] = useState(new Date());
+  const [prayerTimes, setPrayerTimes] = useState<PrayerTimes | null>(null);
+  const formattedDate = useMemo(() => {
+    const y = time.getFullYear();
+    const m = String(time.getMonth() + 1).padStart(2, "0");
+    const d = String(time.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  }, [time]);
 
   useEffect(() => {
     let timer: number | undefined;
@@ -16,6 +41,21 @@ function App() {
     sync();
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    fetch("/MuslimPrayerTimetable2026.csv")
+      .then((response) => response.text())
+      .then((data) => {
+        const result = Papa.parse(data, { header: true });
+        const filtered = (result.data as PrayerTimes[]).find(
+          (row) => row.Date === formattedDate
+        );
+        setPrayerTimes(filtered || null);
+      })
+      .catch((error) => {
+        console.error("Error fetching prayer timetable:", error);
+      });
+  }, [formattedDate]);
 
   // 12-hour format
   let hours = time.getHours();
@@ -84,7 +124,61 @@ function App() {
         </div>
       </div>
       <div className="border rounded-xl p-4 border-primary flex flex-col items-center justify-center">
-        {/* 02 */}
+        <h3>
+          <FontAwesomeIcon
+            icon={faMosque}
+            size="2xl"
+            className="text-primary"
+          />{" "}
+          Prayer Times
+        </h3>
+        <div className="grid grid-cols-2 gap-4 mt-4 w-full h-full">
+          <div className="border border-neutral rounded-xl flex flex-col items-center justify-center gap-1">
+            <div className="flex flex-row justify-between items-center flex-wrap gap-1 text-xl">
+              <div>Fajr</div>
+              <div>الفجر</div>
+            </div>
+            <div className="font-bold text-3xl">
+              {prayerTimes?.Subuh || "--"} AM
+            </div>
+          </div>
+          <div className="border border-neutral rounded-xl flex flex-col items-center justify-center gap-1">
+            <div className="flex flex-row justify-between items-center flex-wrap gap-1 text-xl">
+              <div>Dhuhur</div>
+              <div>الظهر</div>
+            </div>
+            <div className="font-bold text-3xl">
+              {prayerTimes?.Zohor || "--"} PM
+            </div>
+          </div>
+          <div className="border border-neutral rounded-xl flex flex-col items-center justify-center gap-1">
+            <div className="flex flex-row justify-between items-center flex-wrap gap-1 text-xl">
+              <div>Asar</div>
+              <div>العصر</div>
+            </div>
+            <div className="font-bold text-3xl">
+              {prayerTimes?.Asar || "--"} PM
+            </div>
+          </div>
+          <div className="border border-neutral rounded-xl flex flex-col items-center justify-center gap-1">
+            <div className="flex flex-row justify-between items-center flex-wrap gap-1 text-xl">
+              <div>Maghrib</div>
+              <div>المغرب</div>
+            </div>
+            <div className="font-bold text-3xl">
+              {prayerTimes?.Maghrib || "--"} PM
+            </div>
+          </div>
+          <div className="border border-neutral rounded-xl flex flex-col items-center justify-center gap-1">
+            <div className="flex flex-row justify-between items-center flex-wrap gap-1 text-xl">
+              <div>Isha</div>
+              <div>العشاء</div>
+            </div>
+            <div className="font-bold text-3xl">
+              {prayerTimes?.Isyak || "--"} PM
+            </div>
+          </div>
+        </div>
       </div>
       <div className="border rounded-xl p-4 border-primary">{/* 03 */}</div>
       <div className="border rounded-xl p-4 border-primary md:col-span-2">
