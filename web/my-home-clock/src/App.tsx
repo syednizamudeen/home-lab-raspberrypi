@@ -1,31 +1,67 @@
 import { useEffect, useState } from "react";
+
 function App() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
+    let timer: number | undefined;
+    const sync = () => {
+      const now = new Date();
+      setTime(now);
+      const delay = 1000 - now.getMilliseconds();
+      timer = setTimeout(sync, delay);
+    };
+    sync();
+    return () => clearTimeout(timer);
   }, []);
+
+  // 12-hour format
+  let hours = time.getHours();
+  const minutes = time.getMinutes();
+  const seconds = time.getSeconds();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+
+  // Get today's date details
+  const today = time;
+  const year = today.getFullYear();
+  const month = today.toLocaleString("default", { month: "long" });
+  const date = today.getDate();
+  const weekday = today.toLocaleString("default", { weekday: "long" });
+
   return (
     <>
-      <div className="p-10 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold text-red-600">
-          Home Clock is working!
-        </h1>
-        <div className="mt-6 text-4xl font-mono text-gray-800">
-          {time.toLocaleTimeString()}
+      <div className="text-center p-4 border border-primary rounded-xl shadow-lg m-5 inline-block">
+        <span className="countdown text-7xl tracking-wider text-primary">
+          <span
+            style={{ "--value": hours, "--digits": 2 } as React.CSSProperties}
+            aria-live="polite"
+            aria-label={String(hours)}
+          >
+            {hours}
+          </span>
+          :
+          <span
+            style={{ "--value": minutes, "--digits": 2 } as React.CSSProperties}
+            aria-live="polite"
+            aria-label={String(minutes)}
+          >
+            {minutes}
+          </span>
+          :
+          <span
+            style={{ "--value": seconds, "--digits": 2 } as React.CSSProperties}
+            aria-live="polite"
+            aria-label={String(seconds)}
+          >
+            {seconds}
+          </span>
+        </span>
+        <span className="text-accent">{ampm}</span>
+        <div className="text-4xl text-secondary">
+          {weekday}, {date} {month}, {year}
         </div>
       </div>
-      <button className="btn btn-neutral">Neutral</button>
-      <button className="btn btn-primary">Primary</button>
-      <button className="btn btn-secondary">Secondary</button>
-      <button className="btn btn-accent">Accent</button>
-      <button className="btn btn-info">Info</button>
-      <button className="btn btn-success">Success</button>
-      <button className="btn btn-warning">Warning</button>
-      <button className="btn btn-error">Error</button>
     </>
   );
 }
