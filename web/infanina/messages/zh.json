@@ -1,0 +1,54 @@
+{
+    "Navigation": {
+        "home": "首页",
+        "services": "服务",
+        "products": "AI 产品",
+        "about": "关于我们",
+        "contact": "联系我们"
+    },
+    "HomePage": {
+        "title_prefix": "Infanina: 您的合作伙伴",
+        "title_suffix": "AI & 定制软件开发",
+        "subtitle": "通过智能聊天机器人自动化、定制 SaaS 解决方案和无缝的数字体验，赋能新加坡中小企业。",
+        "cta_primary": "立即开始 / 查看 AI 解决方案",
+        "cta_secondary": "预约咨询",
+        "ready_title": "准备好改变您的业务了吗？",
+        "ready_subtitle": "让我们讨论如何根据您的独特需求定制解决方案。",
+        "ready_cta": "联系我们"
+    },
+    "AIShowcase": {
+        "title": "智能自动化促进增长",
+        "subtitle": "利用我们的人工智能聊天机器人转变您的客户互动。专为无缝潜在客户生成、24/7 支持和即时 CRM 同步而设计。",
+        "feature_1_title": "即时潜在客户生成",
+        "feature_1_desc": "自动捕获和筛选潜在客户，即使在您睡觉时也是如此。",
+        "feature_2_title": "24/7 客户支持",
+        "feature_2_desc": "利用理解语境的 AI 即时解决常见查询。",
+        "feature_3_title": "无缝 CRM 同步",
+        "feature_3_desc": "自动将合格的潜在客户推送到您最喜欢的 CRM 工具。",
+        "chatbot_name": "Infanina 助手",
+        "status": "在线",
+        "msg_hello": "您好！今天我能如何帮助您实现业务自动化？",
+        "msg_user": "我正在为我的电子商务商店寻找聊天机器人。",
+        "msg_response": "绝佳的选择！我们的 AI 聊天机器人可以处理产品查询、订单跟踪甚至结账。您想看演示吗？",
+        "input_placeholder": "输入消息..."
+    },
+    "TechGrid": {
+        "title": "综合数字解决方案",
+        "subtitle": "除了 AI，我们还构建您的业务蓬勃发展所需的基础数字基础设施。",
+        "service_1_title": "移动应用开发",
+        "service_1_desc": "在旅途中吸引您的客户的原生和跨平台移动应用程序。",
+        "service_2_title": "现代 POS 系统",
+        "service_2_desc": "利用我们基于云的销售点解决方案简化您的零售运营。",
+        "service_3_title": "电子商务解决方案",
+        "service_3_desc": "与本地支付网关和物流集成的可扩展在线商店。"
+    },
+    "Footer": {
+        "company_desc": "通过智能数字解决方案赋能新加坡中小企业。",
+        "contact_title": "联系方式",
+        "links_title": "链接",
+        "copyright": "© {year} Infanina Pte Ltd. 版权所有。",
+        "reg_no": "公司注册号 202612345X",
+        "privacy_link": "隐私政策",
+        "terms_link": "条款和条件"
+    }
+}

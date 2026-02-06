@@ -1,0 +1,54 @@
+{
+    "Navigation": {
+        "home": "Utama",
+        "services": "Perkhidmatan",
+        "products": "Produk AI",
+        "about": "Tentang Kami",
+        "contact": "Hubungi"
+    },
+    "HomePage": {
+        "title_prefix": "Infanina: Rakan Anda dalam",
+        "title_suffix": "Pembangunan AI & Perisian",
+        "subtitle": "Memperkasakan PKS Singapura dengan automasi Chatbot pintar, penyelesaian SaaS tersuai, dan pengalaman digital yang lancar.",
+        "cta_primary": "Mula Sekarang / Lihat Penyelesaian AI",
+        "cta_secondary": "Tempah Konsultasi",
+        "ready_title": "Sedia untuk Transformasi Perniagaan Anda?",
+        "ready_subtitle": "Mari bincangkan bagaimana kami boleh menyesuaikan penyelesaian kami untuk keperluan unik anda.",
+        "ready_cta": "Hubungi Kami"
+    },
+    "AIShowcase": {
+        "title": "Automasi Pintar untuk Pertumbuhan",
+        "subtitle": "Transformasikan penglibatan pelanggan anda dengan chatbot berkuasa AI. Direka untuk penjanaan petunjuk yang lancar, sokongan 24/7, dan penyegerakan CRM segera.",
+        "feature_1_title": "Penjanaan Petunjuk Segera",
+        "feature_1_desc": "Tangkap dan kelayakan petunjuk secara automatik, walaupun semasa anda tidur.",
+        "feature_2_title": "Sokongan Pelanggan 24/7",
+        "feature_2_desc": "Selesaikan pertanyaan biasa dengan serta-merta dengan AI yang memahami konteks.",
+        "feature_3_title": "Penyegerakan CRM Tanpa Masalah",
+        "feature_3_desc": "Tolak petunjuk yang berkelayakan secara automatik ke alat CRM kegemaran anda.",
+        "chatbot_name": "Pembantu Infanina",
+        "status": "Dalam Talian",
+        "msg_hello": "Halo! Bagaimana saya boleh membantu mengautomasikan perniagaan anda hari ini?",
+        "msg_user": "Saya mencari chatbot untuk kedai e-dagang saya.",
+        "msg_response": "Pilihan yang sangat baik! Chatbot AI kami boleh mengendalikan pertanyaan produk, penjejakan pesanan, dan juga pembayaran. Adakah anda ingin melihat demo?",
+        "input_placeholder": "Taip mesej..."
+    },
+    "TechGrid": {
+        "title": "Penyelesaian Digital Komprehensif",
+        "subtitle": "Selain AI, kami membina infrastruktur digital asas yang diperlukan perniagaan anda untuk berkembang maju.",
+        "service_1_title": "Pembangunan Aplikasi Mudah Alih",
+        "service_1_desc": "Aplikasi mudah alih asli dan merentas platform yang melibatkan pelanggan anda semasa dalam perjalanan.",
+        "service_2_title": "Sistem POS Moden",
+        "service_2_desc": "Permudahkan operasi runcit anda dengan penyelesaian Point of Sale berasaskan awan kami.",
+        "service_3_title": "Penyelesaian E-Dagang",
+        "service_3_desc": "Kedai dalam talian berskala yang disepadukan dengan gerbang pembayaran dan logistik tempatan."
+    },
+    "Footer": {
+        "company_desc": "Memperkasakan PKS Singapura dengan penyelesaian digital pintar.",
+        "contact_title": "Hubungi",
+        "links_title": "Pautan",
+        "copyright": "© {year} Infanina Pte Ltd. Hak cipta terpelihara.",
+        "reg_no": "No. Pendaftaran Syarikat 202612345X",
+        "privacy_link": "Dasar Privasi",
+        "terms_link": "Terma & Syarat"
+    }
+}

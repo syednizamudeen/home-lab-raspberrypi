@@ -1,0 +1,54 @@
+{
+    "Navigation": {
+        "home": "Home",
+        "services": "Services",
+        "products": "AI Products",
+        "about": "About",
+        "contact": "Contact"
+    },
+    "HomePage": {
+        "title_prefix": "Infanina: Your Partner in",
+        "title_suffix": "AI & Custom Software",
+        "subtitle": "Empowering Singapore SMEs with intelligent Chatbot automation, custom SaaS solutions, and seamless digital experiences.",
+        "cta_primary": "Get Started / View AI Solutions",
+        "cta_secondary": "Book a Consultation",
+        "ready_title": "Ready to Transform Your Business?",
+        "ready_subtitle": "Let's discuss how we can tailor our solutions to your unique needs.",
+        "ready_cta": "Get in Touch"
+    },
+    "AIShowcase": {
+        "title": "Intelligent Automation for Growth",
+        "subtitle": "Transform your customer engagement with our AI-powered chatbots. Designed for seamless lead generation, 24/7 support, and instant CRM synchronization.",
+        "feature_1_title": "Instant Lead Generation",
+        "feature_1_desc": "Capture and qualify leads automatically, even when you sleep.",
+        "feature_2_title": "24/7 Customer Support",
+        "feature_2_desc": "Resolve common queries instantly with AI that understands context.",
+        "feature_3_title": "Seamless CRM Sync",
+        "feature_3_desc": "Automatically push qualified leads to your favorite CRM tools.",
+        "chatbot_name": "Infanina Assistant",
+        "status": "Online",
+        "msg_hello": "Hello! How can I help you automate your business today?",
+        "msg_user": "I'm looking for a chatbot for my e-commerce store.",
+        "msg_response": "Excellent choice! Our AI chatbots can handle product inquiries, order tracking, and even checkout. Would you like to see a demo?",
+        "input_placeholder": "Type a message..."
+    },
+    "TechGrid": {
+        "title": "Comprehensive Digital Solutions",
+        "subtitle": "Beyond AI, we build the fundamental digital infrastructure your business needs to thrive.",
+        "service_1_title": "Mobile App Development",
+        "service_1_desc": "Native and cross-platform mobile apps that engage your customers on the go.",
+        "service_2_title": "Modern POS Systems",
+        "service_2_desc": "Streamline your retail operations with our cloud-based Point of Sale solutions.",
+        "service_3_title": "E-Commerce Solutions",
+        "service_3_desc": "Scalable online stores integrated with local payment gateways and logistics."
+    },
+    "Footer": {
+        "company_desc": "Empowering Singapore SMEs with intelligent digital solutions.",
+        "contact_title": "Contact",
+        "links_title": "Links",
+        "copyright": "© {year} Infanina Pte Ltd. All rights reserved.",
+        "reg_no": "Co. Reg. No. 202612345X",
+        "privacy_link": "Privacy Policy",
+        "terms_link": "Terms & Conditions"
+    }
+}
