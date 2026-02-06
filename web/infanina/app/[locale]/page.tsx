@@ -13,7 +13,7 @@ export default function Home() {
       <TechGrid />
       <section id="contact" className="py-24 bg-blue-600 text-white text-center">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-6">{t('ready_title')}1test2</h2>
+          <h2 className="text-3xl font-bold mb-6">{t('ready_title')}</h2>
           <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
             {t('ready_subtitle')}
           </p>
