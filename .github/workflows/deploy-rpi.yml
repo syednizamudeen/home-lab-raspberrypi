@@ -17,18 +17,14 @@ jobs:
       - name: Synchronize Code to Project Directory
         run: |
           sudo apt update && sudo apt install rsync -y
-          sudo rsync -av --delete \
-            --exclude 'homeassistant/config/.storage' \
-            --exclude 'homeassistant/config/*.db' \
-            --exclude 'homeassistant/config/*.log' \
-            ${{ github.workspace }}/ /home/pi/home-lab/
+          sudo rsync -av --delete ${{ github.workspace }}/ /home/pi/home-lab/
 
       - name: Deploy to Raspberry Pi
         run: |
           PROJECT_PATH="/home/pi/home-lab"
           cd $PROJECT_PATH
           echo "TZ=${{ secrets.TZ }}" > .env
-          echo "HOMEASSISTANT_TUNNEL_TOKEN=${{ secrets.HOMEASSISTANT_TUNNEL_TOKEN }}" >> .env
+          echo "INFANINA_TUNNEL_TOKEN=${{ secrets.INFANINA_TUNNEL_TOKEN }}" >> .env
           echo "MY_HOME_CLOCK_TUNNEL_TOKEN=${{ secrets.MY_HOME_CLOCK_TUNNEL_TOKEN }}" >> .env
           echo ".env file created with 3 lines."
           docker compose pull
