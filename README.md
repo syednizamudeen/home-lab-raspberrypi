@@ -13,6 +13,7 @@ docker container ls
 ```
 docker compose logs -f nginx-web
 docker logs -f uptime-kuma
+docker logs -f infanina-app
 ```
 ### Docker Start Detached
 ```

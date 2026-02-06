@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./web/infanina:/app
-    command: sh -c "npm install && npm run build && npm run start"
+    command: sh -c "npm install && npm run build && NODE_ENV=production npm run start"
     environment:
       - NODE_ENV=production
       - TZ=${TZ}
