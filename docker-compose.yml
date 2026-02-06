@@ -1,12 +1,10 @@
 services:
   infanina-app:
-    image: node:20-alpine
+    build:
+      context: ./web/infanina
+      dockerfile: Dockerfile
     container_name: infanina-app
-    working_dir: /app
     restart: unless-stopped
-    volumes:
-      - ./web/infanina:/app
-    command: sh -c "npm install && npm run build && NODE_ENV=production npm run start"
     environment:
       - NODE_ENV=production
       - TZ=${TZ}
