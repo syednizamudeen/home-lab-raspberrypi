@@ -36,7 +36,7 @@ const Header = () => {
                     <Link href="/#contact" className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         {t('contact')}
                     </Link>
-                    <div className="flex items-center gap-2 border-l border-gray-200 dark:border-gray-800 pl-4">
+                    <div className="flex items-center gap-2 border-s border-gray-200 dark:border-gray-800 ps-4">
                         <LanguageSwitcher />
                         <ThemeToggle />
                     </div>

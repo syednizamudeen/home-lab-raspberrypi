@@ -56,7 +56,7 @@ export default function LanguageSwitcher() {
             </button>
 
             <div className={`
-            absolute right-0 mt-2 w-48 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-100 overflow-hidden transform transition-all duration-300 origin-top-right z-50
+            absolute end-0 mt-2 w-48 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-100 overflow-hidden transform transition-all duration-300 ltr:origin-top-right rtl:origin-top-left z-50
             ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}
         `}>
                 <div className="p-1.5">
