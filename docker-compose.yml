@@ -35,7 +35,7 @@ services:
       ports:
         - "3001:3001"
       volumes:
-        - ./uptime-kuma:/app/data
+        - uptime-kuma-data:/app/data
       environment:
         - TZ=${TZ}
       networks:
@@ -68,3 +68,6 @@ services:
 networks:
   tunnel_net:
     driver: bridge
+
+volumes:
+  uptime-kuma-data:
