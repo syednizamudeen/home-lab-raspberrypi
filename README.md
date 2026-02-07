@@ -33,8 +33,8 @@ cd /home/pi/actions-runner && sudo ./svc.sh status
 - [x] UpTime Monitoring
 - [x] Nginx React
 - [x] Github Workflow
+- [x] N8N
 ### Todo
-- [ ] N8N
 - [ ] Blue/Green Deployment
 - [ ] SEO
 - [ ] Analytics
