@@ -45,18 +45,18 @@ export default function LanguageSwitcher() {
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-200 bg-white/50 backdrop-blur-sm hover:bg-white hover:shadow-md transition-all duration-300 group"
+                className="flex items-center gap-2 px-2 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 hover:shadow-md transition-all duration-300 group"
             >
-                <div className="p-1.5 rounded-full bg-blue-50 text-blue-600 group-hover:bg-blue-100 transition-colors">
-                    <Globe className="w-4 h-4" />
+                <div className="p-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 transition-colors">
+                    <Globe className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-sm font-medium text-gray-700 hidden sm:block">{currentLanguage.name}</span>
-                <span className="text-sm font-medium text-gray-700 sm:hidden">{currentLanguage.label}</span>
-                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 hidden sm:block">{currentLanguage.name}</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 sm:hidden">{currentLanguage.label}</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
             </button>
 
             <div className={`
-            absolute end-0 mt-2 w-48 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-100 overflow-hidden transform transition-all duration-300 ltr:origin-top-right rtl:origin-top-left z-50
+            absolute end-0 mt-2 w-48 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden transform transition-all duration-300 ltr:origin-top-right rtl:origin-top-left z-50
             ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}
         `}>
                 <div className="p-1.5">
@@ -68,8 +68,8 @@ export default function LanguageSwitcher() {
                             className={`
                             w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all duration-200
                             ${locale === lang.code
-                                    ? 'bg-blue-50 text-blue-700 font-medium'
-                                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}
+                                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium'
+                                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'}
                         `}
                         >
                             <span className="flex items-center gap-3">

@@ -42,7 +42,7 @@ const Header = () => {
                     </div>
                 </nav>
                 <div className="flex md:hidden items-center gap-3">
-                    <ThemeToggle />
+
                     <LanguageSwitcher />
                     <button
                         className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
