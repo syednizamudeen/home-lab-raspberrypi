@@ -27,7 +27,5 @@ jobs:
           echo "INFANINA_TUNNEL_TOKEN=${{ secrets.INFANINA_TUNNEL_TOKEN }}" >> .env
           echo "MY_HOME_CLOCK_TUNNEL_TOKEN=${{ secrets.MY_HOME_CLOCK_TUNNEL_TOKEN }}" >> .env
           echo ".env file created with 3 lines."
-          docker compose down
-          docker system prune -af
-          docker compose build --no-cache
+          docker compose build --no-cache infanina-app
           docker compose up -d --remove-orphans
