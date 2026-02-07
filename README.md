@@ -4,6 +4,7 @@
 ### Access Docker Container Shell
 ```
 docker exec -it nginx-web /bin/sh
+docker exec -it infanina-app /bin/sh
 ```
 ### List Docker Containers
 ```
@@ -28,9 +29,9 @@ docker compose down
 cd /home/pi/actions-runner && sudo ./svc.sh status
 ```
 ### Services Running
+- [x] Business Page
 - [x] UpTime Monitoring
 - [x] Nginx React
 - [x] Github Workflow
 ### Todo
-- [ ] Business Page
 - [ ] Blue/Green Deployment
