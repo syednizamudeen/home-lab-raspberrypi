@@ -35,6 +35,7 @@ services:
       ports:
         - "5678:5678"
       environment:
+        - N8N_SECURE_COOKIE=false # ONLY FOR LOCALHOST TESTING, DO NOT USE IN PRODUCTION
         - GENERIC_TIMEZONE=${TZ}
         - TZ=${TZ}
         - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
