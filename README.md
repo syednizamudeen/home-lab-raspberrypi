@@ -34,4 +34,11 @@ cd /home/pi/actions-runner && sudo ./svc.sh status
 - [x] Nginx React
 - [x] Github Workflow
 ### Todo
+- [ ] N8N
 - [ ] Blue/Green Deployment
+- [ ] SEO
+- [ ] Analytics
+- [ ] OG Implementation
+- [ ] Social Media Handle
+- [ ] Hardening
+- [ ] CSP Check
