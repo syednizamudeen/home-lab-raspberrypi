@@ -2,42 +2,278 @@
 
 @variant dark (&:where(.dark, .dark *));
 
-html {
-  scroll-behavior: smooth;
-}
-
-@theme {
-  --color-primary: #0070F3;
-  --color-background: #FAFAFA;
-  --color-foreground: #171717;
-}
+/* =============================================================
+   Ocean Design System tokens
+   Brand: Ocean Blue #007CBE (lifted to #1F95D5 in dark mode)
+   Display: Space Grotesk · Body: Inter
+   ============================================================= */
 
 :root {
-  --background: #FAFAFA;
-  --foreground: #171717;
+    /* Brand */
+    --color-brand: #007CBE;
+    --color-brand-hover: #0069A1;
+    --color-brand-active: #005B8C;
+    --color-brand-subtle-bg: rgba(0, 124, 190, 0.12);
+    --color-brand-on: #FFFFFF;
+
+    /* Semantic */
+    --color-success: #00AF54;
+    --color-warning: #FFD639;
+    --color-attention: #FBAF00;
+    --color-coral: #FFA3AF;
+    --color-danger: #E5484D;
+
+    /* Surfaces (light) */
+    --color-surface-0: #F7FAFC;
+    --color-surface-1: #FFFFFF;
+    --color-surface-2: #F2F6FA;
+    --color-surface-3: #E6EEF6;
+
+    /* Text (light) */
+    --color-text-primary: #0E1726;
+    --color-text-secondary: #3A475C;
+    --color-text-muted: #6B7588;
+    --color-text-on-brand: #FFFFFF;
+
+    /* Borders (light) */
+    --color-border-subtle: #EDF1F6;
+    --color-border-default: #DCE3EC;
+    --color-border-strong: #C5CFDB;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 4px 6px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 12px 24px rgba(15, 23, 42, 0.10), 0 24px 48px rgba(15, 23, 42, 0.14);
+    --shadow-brand: 0 12px 30px rgba(0, 124, 190, 0.28);
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+
+    /* Aliases used by Tailwind utilities */
+    --background: var(--color-surface-0);
+    --foreground: var(--color-text-primary);
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+    --color-brand: #1F95D5;
+    --color-brand-hover: #36A8E5;
+    --color-brand-active: #5BBCEE;
+    --color-brand-subtle-bg: rgba(31, 149, 213, 0.18);
+
+    --color-surface-0: #0A1220;
+    --color-surface-1: #0E1726;
+    --color-surface-2: #16203A;
+    --color-surface-3: #1F2A48;
+
+    --color-text-primary: #F4F7FB;
+    --color-text-secondary: #B6C2D6;
+    --color-text-muted: #7E8AA1;
+
+    --color-border-subtle: #1B2638;
+    --color-border-default: #243049;
+    --color-border-strong: #344066;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40), 0 1px 3px rgba(0, 0, 0, 0.45);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.50), 0 24px 60px rgba(0, 0, 0, 0.55);
+    --shadow-brand: 0 12px 30px rgba(31, 149, 213, 0.35);
+
+    --background: var(--color-surface-0);
+    --foreground: var(--color-text-primary);
 }
 
-/* Override core theme variables using the CSS variables above so utilities align */
-@theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-brand: var(--color-brand);
+    --color-brand-hover: var(--color-brand-hover);
+    --color-brand-subtle: var(--color-brand-subtle-bg);
+    --color-success: var(--color-success);
+    --color-warning: var(--color-warning);
+    --color-attention: var(--color-attention);
+    --color-coral: var(--color-coral);
+    --color-danger: var(--color-danger);
+
+    --color-surface-0: var(--color-surface-0);
+    --color-surface-1: var(--color-surface-1);
+    --color-surface-2: var(--color-surface-2);
+    --color-surface-3: var(--color-surface-3);
+
+    --color-text-primary: var(--color-text-primary);
+    --color-text-secondary: var(--color-text-secondary);
+    --color-text-muted: var(--color-text-muted);
+
+    --color-border-subtle: var(--color-border-subtle);
+    --color-border-default: var(--color-border-default);
+    --color-border-strong: var(--color-border-strong);
+
+    --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+    --radius-sm: var(--radius-sm);
+    --radius-md: var(--radius-md);
+    --radius-lg: var(--radius-lg);
 }
 
-/* Custom utilities */
-@utility glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+html {
+    scroll-behavior: smooth;
+    background: var(--background);
+    color: var(--foreground);
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
+
+::selection {
+    background: var(--color-brand-subtle-bg);
+    color: var(--color-text-primary);
+}
+
+/* Display headings adopt Space Grotesk by default; override per-element when needed */
+.font-display {
+    font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+/* =============================================================
+   Mesh + grain backdrop — the signature flourish.
+   Used in <MeshBackdrop /> behind the hero.
+   ============================================================= */
+
+.mesh-backdrop {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.mesh-backdrop::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+        radial-gradient(60% 50% at 18% 20%, rgba(0, 124, 190, 0.28), transparent 70%),
+        radial-gradient(45% 40% at 82% 18%, rgba(255, 163, 175, 0.32), transparent 70%),
+        radial-gradient(55% 50% at 50% 95%, rgba(251, 175, 0, 0.18), transparent 70%);
+    filter: blur(40px);
+    animation: mesh-drift 22s ease-in-out infinite alternate;
+}
+
+.dark .mesh-backdrop::before {
+    background:
+        radial-gradient(60% 50% at 18% 20%, rgba(31, 149, 213, 0.32), transparent 70%),
+        radial-gradient(45% 40% at 82% 18%, rgba(255, 163, 175, 0.18), transparent 70%),
+        radial-gradient(55% 50% at 50% 95%, rgba(251, 175, 0, 0.14), transparent 70%);
+}
+
+.mesh-backdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.42 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+}
+
+@keyframes mesh-drift {
+    0%   { transform: translate3d(-2%, -1%, 0) scale(1.02); }
+    100% { transform: translate3d(2%,  1%, 0) scale(1.05); }
+}
+
+/* Decorative dotted grid for section dividers */
+.grid-dots {
+    background-image: radial-gradient(circle at 1px 1px, var(--color-border-default) 1px, transparent 0);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+
+/* Marquee for trusted-by strip */
+.marquee {
+    display: flex;
+    gap: 4rem;
+    animation: marquee 38s linear infinite;
+    width: max-content;
+}
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* Reveal-on-scroll utility (used via IntersectionObserver in client code or CSS-only stagger) */
+.reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 700ms ease, transform 700ms ease;
+}
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero entrance: staggered children */
+.hero-stagger > * {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: hero-rise 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+.hero-stagger > *:nth-child(1) { animation-delay: 80ms; }
+.hero-stagger > *:nth-child(2) { animation-delay: 200ms; }
+.hero-stagger > *:nth-child(3) { animation-delay: 320ms; }
+.hero-stagger > *:nth-child(4) { animation-delay: 440ms; }
+.hero-stagger > *:nth-child(5) { animation-delay: 560ms; }
+
+@keyframes hero-rise {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ambient pulse used for live indicators */
+@keyframes pulse-soft {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 175, 84, 0.45); }
+    50%      { box-shadow: 0 0 0 8px rgba(0, 175, 84, 0); }
+}
+.pulse-dot {
+    animation: pulse-soft 1.8s ease-out infinite;
+}
+
+/* Wordmark accent (used on Logo) */
+.brand-mark {
+    background: linear-gradient(120deg, var(--color-brand) 0%, var(--color-brand) 60%, var(--color-coral) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Focus ring — applied to any [data-focus-ring] interactive element */
+[data-focus-ring]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-brand-subtle-bg);
+    border-radius: var(--radius-md);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    .mesh-backdrop::before { animation: none; }
+    .marquee { animation: none; }
+}
+
+/* RTL adjustments — most layout uses logical properties already. */
+html[dir="rtl"] .marquee { animation-direction: reverse; }

@@ -1,54 +1,327 @@
 {
     "Navigation": {
-        "home": "Utama",
+        "home": "Laman Utama",
         "services": "Perkhidmatan",
-        "products": "Produk AI",
-        "about": "Tentang Kami",
+        "products": "Produk",
+        "work": "Kerja",
+        "about": "Tentang",
         "contact": "Hubungi"
     },
-    "HomePage": {
-        "title_prefix": "Infanina: Rakan Anda dalam",
-        "title_suffix": "Pembangunan AI & Perisian",
-        "subtitle": "Memperkasakan PKS Singapura dengan automasi Chatbot pintar, penyelesaian SaaS tersuai, dan pengalaman digital yang lancar.",
-        "cta_primary": "Mula Sekarang / Lihat Penyelesaian AI",
-        "cta_secondary": "Tempah Konsultasi",
-        "ready_title": "Sedia untuk Transformasi Perniagaan Anda?",
-        "ready_subtitle": "Mari bincangkan bagaimana kami boleh menyesuaikan penyelesaian kami untuk keperluan unik anda.",
-        "ready_cta": "Hubungi Kami"
+    "Common": {
+        "learn_more": "Ketahui lebih lanjut",
+        "view_all": "Lihat semua",
+        "get_started": "Mula sekarang",
+        "back": "Kembali"
     },
-    "AIShowcase": {
-        "title": "Automasi Pintar untuk Pertumbuhan",
-        "subtitle": "Transformasikan penglibatan pelanggan anda dengan chatbot berkuasa AI. Direka untuk penjanaan petunjuk yang lancar, sokongan 24/7, dan penyegerakan CRM segera.",
-        "feature_1_title": "Penjanaan Petunjuk Segera",
-        "feature_1_desc": "Tangkap dan kelayakan petunjuk secara automatik, walaupun semasa anda tidur.",
-        "feature_2_title": "Sokongan Pelanggan 24/7",
-        "feature_2_desc": "Selesaikan pertanyaan biasa dengan serta-merta dengan AI yang memahami konteks.",
-        "feature_3_title": "Penyegerakan CRM Tanpa Masalah",
-        "feature_3_desc": "Tolak petunjuk yang berkelayakan secara automatik ke alat CRM kegemaran anda.",
-        "chatbot_name": "Pembantu Infanina",
-        "status": "Dalam Talian",
-        "msg_hello": "Halo! Bagaimana saya boleh membantu mengautomasikan perniagaan anda hari ini?",
-        "msg_user": "Saya mencari chatbot untuk kedai e-dagang saya.",
-        "msg_response": "Pilihan yang sangat baik! Chatbot AI kami boleh mengendalikan pertanyaan produk, penjejakan pesanan, dan juga pembayaran. Adakah anda ingin melihat demo?",
-        "input_placeholder": "Taip mesej..."
+    "Meta": {
+        "Home": {
+            "title": "Infanina — Produk AI yang dihantar",
+            "description": "Infanina ialah studio produk AI yang berpangkalan di Singapura. Kami mereka, membina dan menyokong produk AI tersuai, ejen dan integrasi untuk PKS dan perniagaan yang sedang berkembang."
+        },
+        "Services": {
+            "title": "Perkhidmatan Pembangunan AI di Singapura",
+            "description": "Strategi AI, produk AI tersuai, integrasi dan sokongan berterusan. Model penglibatan untuk PKS yang perlu menghantar — bukan sekadar perintis."
+        },
+        "Products": {
+            "title": "Produk AI untuk Perniagaan Berkembang",
+            "description": "Tawaran AI berproduk: pembantu, pek automasi, kepintaran dokumen dan analitik — dipasang dalam minggu, bukan suku tahun."
+        },
+        "Work": {
+            "title": "Kerja Terpilih · Kajian Kes AI",
+            "description": "Bagaimana Infanina menghantar AI: penglibatan sebenar, hasil sebenar."
+        },
+        "About": {
+            "title": "Tentang Infanina · Studio AI Singapura",
+            "description": "Studio produk AI berpangkalan di Singapura. Kami mereka, membina dan menyokong produk AI yang menambah nilai perniagaan sebenar."
+        },
+        "Contact": {
+            "title": "Hubungi Infanina · Mulakan Projek AI",
+            "description": "Beritahu kami tentang projek AI anda. Kami membalas dalam satu hari bekerja."
+        },
+        "Privacy": {
+            "title": "Dasar Privasi",
+            "description": "Bagaimana Infanina mengumpul, memproses dan melindungi data peribadi."
+        },
+        "Terms": {
+            "title": "Terma & Syarat",
+            "description": "Terma yang mengawal penggunaan perkhidmatan dan laman web Infanina."
+        }
     },
-    "TechGrid": {
-        "title": "Penyelesaian Digital Komprehensif",
-        "subtitle": "Selain AI, kami membina infrastruktur digital asas yang diperlukan perniagaan anda untuk berkembang maju.",
-        "service_1_title": "Pembangunan Aplikasi Mudah Alih",
-        "service_1_desc": "Aplikasi mudah alih asli dan merentas platform yang melibatkan pelanggan anda semasa dalam perjalanan.",
-        "service_2_title": "Sistem POS Moden",
-        "service_2_desc": "Permudahkan operasi runcit anda dengan penyelesaian Point of Sale berasaskan awan kami.",
-        "service_3_title": "Penyelesaian E-Dagang",
-        "service_3_desc": "Kedai dalam talian berskala yang disepadukan dengan gerbang pembayaran dan logistik tempatan."
+    "Home": {
+        "hero": {
+            "eyebrow": "Studio produk AI · Singapura",
+            "title_1": "Produk AI",
+            "title_2": "yang dihantar.",
+            "title_3": "Dibina untuk perniagaan yang membina segala yang lain.",
+            "subtitle": "Kami mereka, membina dan menyokong produk AI tersuai, ejen dan integrasi untuk PKS dan pasukan yang sedang berkembang.",
+            "cta_primary": "Mulakan projek",
+            "cta_secondary": "Lihat kerja kami",
+            "trusted_by": "Bekerjasama dengan pasukan dalam"
+        },
+        "values": {
+            "eyebrow": "Cara kami bekerja",
+            "title": "Kurang gembar-gembur. Lebih banyak penghantaran.",
+            "subtitle": "Tiga komitmen yang membentuk setiap penglibatan.",
+            "items": {
+                "build": { "title": "Bina", "desc": "Produk AI tersuai, ejen dan alat dalaman — direka untuk pengeluaran, bukan demo." },
+                "integrate": { "title": "Integrasi", "desc": "Sambungkan AI ke sistem yang sudah dijalankan oleh perniagaan anda: CRM, ERP, e-dagang, sokongan." },
+                "support": { "title": "Sokong", "desc": "Kekal di sisi pasukan anda dengan lelaran berterusan, pemantauan dan penyelenggaraan model." }
+            }
+        },
+        "services": {
+            "eyebrow": "Perkhidmatan",
+            "title": "Empat cara kami bekerjasama dengan anda.",
+            "subtitle": "Setiap satu adalah penglibatan fokus dengan hasil yang jelas.",
+            "cta": "Terokai perkhidmatan"
+        },
+        "showcase": {
+            "eyebrow": "Demo langsung",
+            "title": "AI yang anda boleh berbual.",
+            "subtitle": "Lihat satu corak produk: pembantu yang menangkap petunjuk, menjawab soalan produk dan menyerahkan yang berkelayakan kepada pasukan anda.",
+            "feature_1_title": "Tangkap petunjuk berkelayakan, 24/7",
+            "feature_1_desc": "Perbualan menyesuaikan diri dengan niat. Petunjuk berkelayakan ditolak terus ke CRM anda.",
+            "feature_2_title": "Berasaskan pengetahuan anda",
+            "feature_2_desc": "Pengambilan-bertambah ke atas dokumen, FAQ dan katalog produk anda. Tiada spesifikasi dihalusinasi.",
+            "feature_3_title": "Pelbagai bahasa secara lalai",
+            "feature_3_desc": "Bahasa Inggeris, Bahasa Melayu, 中文, தமிழ், العربية. Pembantu yang sama, setiap pelanggan.",
+            "chatbot_name": "Pembantu Infanina",
+            "status": "Dalam talian",
+            "msg_hello": "Hai! Beritahu saya tentang perniagaan anda — saya akan cadangkan di mana AI boleh memberi kesan.",
+            "msg_user": "Kami menjalankan rangkaian F&B 30 kedai. Pasukan kami terlebak dengan pesanan WhatsApp.",
+            "msg_response": "Faham. Pembantu yang mengambil pesanan di WhatsApp, mengesahkan menu + stok, dan menolak ke POS akan mengurangkan pengendalian sebanyak ~70%. Mahu skop perintis 2 minggu?",
+            "input_placeholder": "Taip mesej…"
+        },
+        "stats": {
+            "eyebrow": "Mengikut nombor",
+            "title": "Pasukan kecil, hasil tajam.",
+            "items": {
+                "shipped": { "value": "40+", "label": "Produk AI dihantar" },
+                "integrations": { "value": "120+", "label": "Sistem disepadukan" },
+                "languages": { "value": "5", "label": "Bahasa disokong" },
+                "uptime": { "value": "99.95%", "label": "Purata masa operasi" }
+            }
+        },
+        "work": {
+            "eyebrow": "Kerja terpilih",
+            "title": "Penglibatan sebenar. Hasil sebenar.",
+            "subtitle": "Beberapa pelancaran pelanggan kami baru-baru ini.",
+            "cta": "Lihat semua kerja"
+        },
+        "cta": {
+            "eyebrow": "Sedia bila anda sedia",
+            "title": "Mari hantar sesuatu yang AI lakukan dengan baik.",
+            "subtitle": "Beritahu kami tentang perniagaan anda. Kami akan kembali dalam satu hari bekerja dengan bentuk, belanjawan dan rancangan.",
+            "primary": "Mulakan projek",
+            "secondary": "E-mel kami terus"
+        }
+    },
+    "Services": {
+        "hero": {
+            "eyebrow": "Perkhidmatan",
+            "title": "Penglibatan dibina untuk dihantar.",
+            "subtitle": "Empat cara untuk membawa AI ke perniagaan anda — setiap satu dengan skop, hasil dan titik keluar yang jelas."
+        },
+        "items": {
+            "strategy": {
+                "title": "Strategi & peta jalan AI",
+                "summary": "Pecutan dua minggu untuk mencari pertaruhan AI bernilai tertinggi dan mengurangkan risiko mereka.",
+                "deliverables": ["Peta peluang merentasi operasi, pelanggan dan data", "Peta jalan diutamakan dengan anggaran ROI", "Cadangan seni bina dan vendor", "Skop go/no-go untuk binaan pertama"]
+            },
+            "build": {
+                "title": "Produk AI tersuai",
+                "summary": "Reka bentuk dan jurutera produk AI pengeluaran — pembantu, ejen, kepintaran dokumen, analitik.",
+                "deliverables": ["Reka bentuk produk dan aliran UX", "Aplikasi yang direka dan digunakan", "Kerangka penilaian dan pagar penjaga", "Dokumentasi serahan dan latihan"]
+            },
+            "integrate": {
+                "title": "Integrasi AI",
+                "summary": "Sambungkan LLM dan perkhidmatan AI ke alat yang pasukan anda sudah gunakan.",
+                "deliverables": ["Cangkuk CRM, ERP, sokongan dan e-dagang", "Pengesahan, kadar terhad, kebolehperhatian", "Kawalan kos dan penghalaan model", "Laluan failover dan degradasi yang lancar"]
+            },
+            "support": {
+                "title": "Sokongan berterusan",
+                "summary": "Kekal tajam selepas pelancaran — pemantauan, penyelenggaraan model, lelaran.",
+                "deliverables": ["Pemantauan disokong SLA dan tindak balas insiden", "Semakan model dan gesaan suku tahunan", "Penghantaran ciri berulang", "Penalaan kos dan kualiti"]
+            }
+        },
+        "process": {
+            "eyebrow": "Proses",
+            "title": "Bagaimana projek dijalankan.",
+            "steps": {
+                "discover": { "title": "Temui", "desc": "Kami mendengar, mengaudit tindanan anda, dan memetakan pertaruhan AI dengan leverage tertinggi." },
+                "design": { "title": "Reka", "desc": "Skop tepat, kriteria kejayaan, seni bina dan garis masa." },
+                "build": { "title": "Bina", "desc": "Gelung maklum balas ketat. Anda lihat demo mingguan dan memiliki repo." },
+                "ship": { "title": "Hantar & sokong", "desc": "Lancar, perhati, ulang. Kami kekal hanya selama anda mahu." }
+            }
+        }
+    },
+    "Products": {
+        "hero": {
+            "eyebrow": "Produk",
+            "title": "AI berproduk, dipasang dalam minggu.",
+            "subtitle": "Corak teruji yang kami hantar cukup banyak kali untuk dibungkus. Disesuaikan dengan data, alat dan nada anda."
+        },
+        "items": {
+            "assistant": {
+                "title": "Pembantu pelanggan",
+                "summary": "Pembantu pelbagai bahasa yang menangkap petunjuk, menjawab soalan produk dan menghala yang berkelayakan kepada pasukan anda.",
+                "highlights": ["Pelbagai bahasa", "Selaras CRM", "Web + WhatsApp"]
+            },
+            "automation": {
+                "title": "Pek automasi operasi",
+                "summary": "Ambil kerja pejabat belakang berulang dan biarkan ejen mengendalikan pas pertama.",
+                "highlights": ["Manusia-dalam-gelung", "Jejak audit", "Had kos"]
+            },
+            "documents": {
+                "title": "Kepintaran dokumen",
+                "summary": "Ekstrak data berstruktur daripada kontrak, invois, tuntutan dan e-mel — pada skala.",
+                "highlights": ["OCR + LLM", "Skor keyakinan", "Eksport ke ERP"]
+            },
+            "analytics": {
+                "title": "Analitik perbualan",
+                "summary": "Tanya soalan dalam bahasa biasa. Dapatkan jawapan berasaskan gudang data anda.",
+                "highlights": ["Baca-sahaja", "Sedar RBAC", "BYO gudang"]
+            }
+        },
+        "cta": {
+            "title": "Tidak nampak bentuk anda?",
+            "subtitle": "Kebanyakan penglibatan bermula sebagai perbualan. Beritahu kami aliran kerja yang anda mahu AI hilangkan dari pinggan anda.",
+            "primary": "Mulakan projek"
+        }
+    },
+    "Work": {
+        "hero": {
+            "eyebrow": "Kerja terpilih",
+            "title": "Penglibatan sebenar. Hasil sebenar.",
+            "subtitle": "Segelintir pelancaran pelanggan kami baru-baru ini merentasi F&B, runcit, kewangan dan sektor awam."
+        },
+        "cases": {
+            "fb_chain": {
+                "client": "Rangkaian F&B serantau",
+                "title": "Pembantu pesanan WhatsApp untuk 30 kedai",
+                "summary": "Pesanan suara + teks di WhatsApp, disahkan terhadap stok POS. Mengurangkan masa pengendalian sebanyak 68% dan menaikkan hasil hari biasa 14%.",
+                "tags": ["Pembantu pelanggan", "WhatsApp", "POS"]
+            },
+            "fintech": {
+                "client": "Fintech Siri B",
+                "title": "Kepintaran dokumen untuk semakan KYC",
+                "summary": "Menggantikan semakan KYC manual enam peringkat dengan saluran yang dibantu LLM. Masa untuk meluluskan turun dari 4 hari ke 6 jam.",
+                "tags": ["Kepintaran dokumen", "Pematuhan", "OCR"]
+            },
+            "retail": {
+                "client": "Peruncit pelbagai jenama",
+                "title": "Analitik perbualan untuk pengurus kedai",
+                "summary": "Pertanyaan bahasa biasa ke atas gudang, diskop mengikut peranan. 200+ pengurus kedai melayan diri pandangan.",
+                "tags": ["Analitik", "RAG", "RBAC"]
+            }
+        },
+        "cta": {
+            "title": "Mahukan peningkatan serupa?",
+            "subtitle": "Kami akan kembali dalam sehari dengan bentuk dan belanjawan kasar.",
+            "primary": "Mulakan projek"
+        }
+    },
+    "About": {
+        "hero": {
+            "eyebrow": "Tentang",
+            "title": "Kami membina AI untuk perniagaan yang membina segala yang lain.",
+            "subtitle": "Infanina adalah studio kecil jurutera, pereka dan pengamal ML yang berpangkalan di Singapura."
+        },
+        "story": {
+            "eyebrow": "Mengapa kami bermula",
+            "title": "Kebanyakan AI tidak pernah sampai ke pengeluaran.",
+            "body_1": "Kami melihat corak yang sama: syarikat teruja dengan demo AI, enam bulan kemudian duduk di atas prototaip yang tidak pernah sampai kepada pelanggan. Jurang itu jarang tentang model — ia tentang kejuruteraan, integrasi, dan kerja yang tidak menarik untuk menjalankan perkara dalam pengeluaran.",
+            "body_2": "Jadi kami membina Infanina untuk fokus pada jurang itu. Kami memilih projek di mana AI jelas memberi kesan, mereka bentuk dengan jujur, dan menghantar dengan jagaan yang sama yang akan diberikan oleh pasukan serius kepada mana-mana perisian kritikal perniagaan."
+        },
+        "principles": {
+            "eyebrow": "Prinsip",
+            "title": "Tiga perkara kami tidak berkompromi.",
+            "items": {
+                "honest": { "title": "Skop yang jujur", "desc": "Jika projek tidak memerlukan AI, kami akan katakan begitu." },
+                "owned": { "title": "Anda memiliki segala-galanya", "desc": "Kod, data, gesaan, eval — milik anda." },
+                "production": { "title": "Pengeluaran-dahulu", "desc": "Setiap sistem dihantar dengan pemantauan, eval dan siling kos pada hari pertama." }
+            }
+        }
+    },
+    "Contact": {
+        "hero": {
+            "eyebrow": "Mulakan projek",
+            "title": "Beritahu kami tentang perniagaan anda.",
+            "subtitle": "Tinggalkan beberapa baris tentang pasukan anda dan aliran kerja yang anda mahu AI ambil alih. Kami membalas dalam satu hari bekerja."
+        },
+        "form": {
+            "name_label": "Nama anda",
+            "name_placeholder": "Jane Tan",
+            "email_label": "E-mel kerja",
+            "email_placeholder": "jane@company.com",
+            "company_label": "Syarikat",
+            "company_placeholder": "Syarikat Sdn Bhd",
+            "topic_label": "Tentang apa ini?",
+            "topic_options": {
+                "build": "Bina produk AI tersuai",
+                "integrate": "Integrasi AI ke alat sedia ada",
+                "strategy": "Strategi & peta jalan AI",
+                "other": "Sesuatu yang lain"
+            },
+            "message_label": "Beritahu kami sedikit lagi",
+            "message_placeholder": "Aliran kerja apa yang anda mahu AI ambil dari pinggan anda?",
+            "submit": "Hantar mesej",
+            "submitting": "Menghantar…",
+            "success_title": "Terima kasih — mesej diterima.",
+            "success_body": "Kami akan kembali kepada anda dalam satu hari bekerja.",
+            "error_title": "Sesuatu tidak kena.",
+            "error_body": "Sila cuba lagi, atau e-mel kami terus di hello@infanina.com.",
+            "fallback_hint": "Lebih suka e-mel? Tulis kepada "
+        },
+        "side": {
+            "email_title": "E-mel",
+            "address_title": "Pejabat",
+            "address_value": "Singapura",
+            "hours_title": "Masa balas",
+            "hours_value": "Dalam satu hari bekerja, Isn–Jum"
+        }
     },
     "Footer": {
-        "company_desc": "Memperkasakan PKS Singapura dengan penyelesaian digital pintar.",
+        "company_desc": "Kami mereka, membina dan menyokong produk AI untuk PKS dan pasukan yang sedang berkembang di seluruh Asia Tenggara.",
+        "explore_title": "Terokai",
         "contact_title": "Hubungi",
-        "links_title": "Pautan",
-        "copyright": "© {year} Infanina Pte Ltd. Hak cipta terpelihara.",
-        "reg_no": "No. Pendaftaran Syarikat 202612345X",
-        "privacy_link": "Dasar Privasi",
-        "terms_link": "Terma & Syarat"
+        "address": "Singapura",
+        "copyright": "© {year} Infanina Pte Ltd",
+        "reg_no": "No. Daftar Syarikat 202612345X",
+        "privacy_link": "Privasi",
+        "terms_link": "Terma"
+    },
+    "Legal": {
+        "Privacy": {
+            "title": "Dasar Privasi",
+            "updated": "Kemas kini terakhir: 2026-01-01",
+            "intro": "Dasar ini menjelaskan bagaimana Infanina Pte Ltd mengumpul, menggunakan dan melindungi data peribadi.",
+            "sections": {
+                "collection_title": "Data yang kami kumpul",
+                "collection_body": "Apabila anda menghubungi kami, kami mengumpul maklumat yang anda berikan — biasanya nama, e-mel, syarikat dan penerangan projek anda.",
+                "use_title": "Bagaimana kami menggunakannya",
+                "use_body": "Kami menggunakan maklumat anda untuk menjawab pertanyaan anda dan menyediakan perkhidmatan. Kami tidak menjual data peribadi.",
+                "retention_title": "Pengekalan",
+                "retention_body": "Kami menyimpan data pertanyaan sehingga 24 bulan melainkan anda meminta kami memadamkannya.",
+                "rights_title": "Hak anda",
+                "rights_body": "Anda boleh meminta akses, pembetulan atau pemadaman data dengan menulis kepada hello@infanina.com.",
+                "contact_title": "Soalan",
+                "contact_body": "E-mel hello@infanina.com jika apa-apa di sini tidak jelas."
+            }
+        },
+        "Terms": {
+            "title": "Terma & Syarat",
+            "updated": "Kemas kini terakhir: 2026-01-01",
+            "intro": "Terma ini mengawal penggunaan laman web Infanina dan sebarang penglibatan dengan Infanina Pte Ltd.",
+            "sections": {
+                "use_title": "Penggunaan laman",
+                "use_body": "Anda boleh menggunakan laman web ini untuk tujuan yang sah. Terma penglibatan khusus dipersetujui secara bertulis.",
+                "ip_title": "Harta intelek",
+                "ip_body": "Nama Infanina, logo dan kandungan asal adalah hak milik Infanina Pte Ltd.",
+                "liability_title": "Liabiliti",
+                "liability_body": "Liabiliti agregat maksimum kami terhad kepada yuran yang dibayar untuk penglibatan yang berkaitan.",
+                "law_title": "Undang-undang",
+                "law_body": "Terma ini ditadbir oleh undang-undang Singapura."
+            }
+        }
     }
 }

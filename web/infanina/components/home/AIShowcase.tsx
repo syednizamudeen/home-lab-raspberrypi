@@ -1,136 +1,128 @@
-import { MessageSquare, Zap, Users, ArrowRight } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
+import { CheckCircle2, Send, Sparkles, Globe2, Database } from "lucide-react";
+import { Section } from "../ui/Section";
+import { Eyebrow } from "../ui/Eyebrow";
 
-const AIShowcase = () => {
-    const t = useTranslations('AIShowcase');
+export default function AIShowcase() {
+    const t = useTranslations("Home.showcase");
+
+    const features = [
+        { key: "feature_1", icon: Sparkles },
+        { key: "feature_2", icon: Database },
+        { key: "feature_3", icon: Globe2 },
+    ] as const;
 
     return (
-        <section id="ai-products" className="py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <Section id="showcase" tone="default">
+            <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+                <div className="lg:col-span-5">
+                    <Eyebrow>{t("eyebrow")}</Eyebrow>
+                    <h2 className="mt-4 font-display text-[36px] font-bold leading-[1.05] tracking-[-0.02em] text-[var(--color-text-primary)] sm:text-[44px] lg:text-[52px]">
+                        {t("title")}
+                    </h2>
+                    <p className="mt-5 text-base leading-relaxed text-[var(--color-text-secondary)] sm:text-lg">
+                        {t("subtitle")}
+                    </p>
 
-                    {/* Content Left */}
-                    <div className="lg:w-1/2">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-6">
-                            {t('title')}
-                        </h2>
-                        <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                            {t('subtitle')}
-                        </p>
+                    <ul className="mt-8 space-y-5">
+                        {features.map(({ key, icon: Icon }) => (
+                            <li key={key} className="flex gap-4">
+                                <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[var(--color-brand-subtle-bg)] text-[var(--color-brand)]">
+                                    <Icon className="h-4 w-4" />
+                                </span>
+                                <div>
+                                    <h3 className="font-semibold text-[var(--color-text-primary)]">
+                                        {t(`${key}_title`)}
+                                    </h3>
+                                    <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                                        {t(`${key}_desc`)}
+                                    </p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-                        <div className="space-y-6">
-                            <div className="flex items-start">
-                                <div className="flex-shrink-0 rounded-lg bg-blue-100 dark:bg-blue-900/40 p-3 text-blue-600 dark:text-blue-400">
-                                    <Zap className="h-6 w-6" />
-                                </div>
-                                <div className="ml-4 rtl:mr-4 rtl:ml-0">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t('feature_1_title')}</h3>
-                                    <p className="text-gray-600 dark:text-gray-400">{t('feature_1_desc')}</p>
-                                </div>
-                            </div>
+                <div className="lg:col-span-7">
+                    <div className="relative">
+                        <div
+                            aria-hidden
+                            className="absolute -inset-6 -z-10 rounded-[32px] blur-2xl"
+                            style={{
+                                background:
+                                    "linear-gradient(135deg, var(--color-brand-subtle-bg), transparent 60%, rgba(255,163,175,0.15))",
+                            }}
+                        />
 
-                            <div className="flex items-start">
-                                <div className="flex-shrink-0 rounded-lg bg-blue-100 dark:bg-blue-900/40 p-3 text-blue-600 dark:text-blue-400">
-                                    <MessageSquare className="h-6 w-6" />
-                                </div>
-                                <div className="ml-4 rtl:mr-4 rtl:ml-0">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t('feature_2_title')}</h3>
-                                    <p className="text-gray-600 dark:text-gray-400">{t('feature_2_desc')}</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start">
-                                <div className="flex-shrink-0 rounded-lg bg-blue-100 dark:bg-blue-900/40 p-3 text-blue-600 dark:text-blue-400">
-                                    <Users className="h-6 w-6" />
-                                </div>
-                                <div className="ml-4 rtl:mr-4 rtl:ml-0">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t('feature_3_title')}</h3>
-                                    <p className="text-gray-600 dark:text-gray-400">{t('feature_3_desc')}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Chatbot Interface Mockup Right */}
-                    <div className="lg:w-1/2 w-full">
-                        <div className="relative mx-auto rounded-3xl border border-gray-200 dark:border-gray-700 bg-white/40 dark:bg-gray-800/40 shadow-2xl backdrop-blur-xl p-4 lg:p-6 glass-card" dir="ltr">
-                            {/* Chat Header */}
-                            <div className="flex items-center justify-between border-b border-gray-200/50 dark:border-gray-700/50 pb-4">
+                        <div className="overflow-hidden rounded-[20px] border border-[var(--color-border-default)] bg-[var(--color-surface-1)] shadow-[var(--shadow-md)]" dir="ltr">
+                            <div className="flex items-center justify-between gap-3 border-b border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-5 py-3">
                                 <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
-                                        <MessageSquare size={20} />
-                                    </div>
+                                    <span className="relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-brand)] text-white font-display text-sm font-bold">
+                                        Ai
+                                    </span>
                                     <div>
-                                        <h4 className="font-semibold text-gray-900 dark:text-white">{t('chatbot_name')}</h4>
-                                        <p className="text-xs text-green-500 font-medium flex items-center gap-1">
-                                            <span className="block h-2 w-2 rounded-full bg-green-500"></span>
-                                            {t('status')}
+                                        <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                                            {t("chatbot_name")}
+                                        </p>
+                                        <p className="flex items-center gap-1.5 text-[11px] font-medium text-[var(--color-success)]">
+                                            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-success)]" />
+                                            {t("status")}
                                         </p>
                                     </div>
                                 </div>
+                                <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-[var(--color-brand-subtle-bg)] px-2.5 py-1 text-[11px] font-semibold text-[var(--color-brand)]">
+                                    <CheckCircle2 className="h-3 w-3" /> Live
+                                </span>
                             </div>
 
-                            {/* Chat Body */}
-                            <div className="space-y-4 py-6">
-                                <div className="flex items-start gap-3">
-                                    <div className="h-8 w-8 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white text-xs">AI</div>
-                                    <div className="rounded-2xl rounded-tl-none bg-blue-50 dark:bg-gray-700/50 px-4 py-2 text-sm text-gray-800 dark:text-gray-200">
-                                        {t('msg_hello')}
+                            <div className="space-y-4 p-5 sm:p-6">
+                                <div className="flex max-w-[85%] gap-3">
+                                    <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--color-brand)] text-[10px] font-semibold text-white">
+                                        Ai
+                                    </span>
+                                    <div className="rounded-[14px] rounded-tl-sm bg-[var(--color-surface-2)] px-4 py-3 text-sm leading-relaxed text-[var(--color-text-primary)]">
+                                        {t("msg_hello")}
                                     </div>
                                 </div>
 
-                                <div className="flex items-start gap-3 flex-row-reverse">
-                                    <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-600 flex-shrink-0"></div>
-                                    <div className="rounded-2xl rounded-tr-none bg-blue-600 px-4 py-2 text-sm text-white">
-                                        {t('msg_user')}
+                                <div className="flex max-w-[85%] ml-auto justify-end">
+                                    <div className="rounded-[14px] rounded-tr-sm bg-[var(--color-brand)] px-4 py-3 text-sm leading-relaxed text-white shadow-[var(--shadow-sm)]">
+                                        {t("msg_user")}
                                     </div>
                                 </div>
 
-                                <div className="flex items-start gap-3">
-                                    <div className="h-8 w-8 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white text-xs">AI</div>
-                                    <div className="rounded-2xl rounded-tl-none bg-blue-50 dark:bg-gray-700/50 px-4 py-2 text-sm text-gray-800 dark:text-gray-200">
-                                        {t('msg_response')}
-                                    </div>
-                                </div>
-
-                                {/* Typing indicator */}
-                                <div className="flex items-start gap-3 opacity-50">
-                                    <div className="h-8 w-8 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-white text-xs">AI</div>
-                                    <div className="rounded-2xl rounded-tl-none bg-blue-50 dark:bg-gray-700/50 px-4 py-2 text-sm text-gray-800 dark:text-gray-200 flex gap-1 items-center">
-                                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></span>
-                                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-100"></span>
-                                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-200"></span>
+                                <div className="flex max-w-[85%] gap-3">
+                                    <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--color-brand)] text-[10px] font-semibold text-white">
+                                        Ai
+                                    </span>
+                                    <div className="rounded-[14px] rounded-tl-sm bg-[var(--color-surface-2)] px-4 py-3 text-sm leading-relaxed text-[var(--color-text-primary)]">
+                                        {t("msg_response")}
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Chat Input */}
-                            <div className="mt-4">
-                                <div className="relative">
+                            <div className="border-t border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-3">
+                                <div className="flex items-center gap-2 rounded-[12px] border border-[var(--color-border-default)] bg-[var(--color-surface-1)] pl-4 pr-1.5 py-1.5">
                                     <input
                                         type="text"
-                                        placeholder={t('input_placeholder')}
-                                        className="w-full rounded-full border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 px-4 py-3 pr-12 text-sm outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 dark:text-white"
-                                        disabled
+                                        readOnly
+                                        placeholder={t("input_placeholder")}
+                                        className="flex-1 bg-transparent text-sm text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)]"
+                                        aria-label={t("input_placeholder")}
                                     />
-                                    <button className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-blue-600 p-2 text-white hover:bg-blue-700">
-                                        <ArrowRight size={16} />
+                                    <button
+                                        type="button"
+                                        aria-label="Send"
+                                        className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-[var(--color-brand)] text-white"
+                                    >
+                                        <Send className="h-4 w-4" />
                                     </button>
                                 </div>
                             </div>
-
-                            {/* Glass reflection effect */}
-                            <div className="absolute -top-10 -left-10 h-32 w-32 rounded-full bg-white/10 blur-xl"></div>
-                            <div className="absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-blue-400/10 blur-xl"></div>
                         </div>
-
-                        {/* Background elements for depth */}
-                        <div className="absolute top-1/2 left-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-200/30 blur-3xl"></div>
                     </div>
                 </div>
             </div>
-        </section>
+        </Section>
     );
-};
-
-export default AIShowcase;
+}

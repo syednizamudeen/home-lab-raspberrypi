@@ -2,53 +2,364 @@
     "Navigation": {
         "home": "Home",
         "services": "Services",
-        "products": "AI Products",
+        "products": "Products",
+        "work": "Work",
         "about": "About",
         "contact": "Contact"
     },
-    "HomePage": {
-        "title_prefix": "Infanina: Your Partner in",
-        "title_suffix": "AI & Custom Software",
-        "subtitle": "Empowering Singapore SMEs with intelligent Chatbot automation, custom SaaS solutions, and seamless digital experiences.",
-        "cta_primary": "Get Started / View AI Solutions",
-        "cta_secondary": "Book a Consultation",
-        "ready_title": "Ready to Transform Your Business?",
-        "ready_subtitle": "Let's discuss how we can tailor our solutions to your unique needs.",
-        "ready_cta": "Get in Touch"
+    "Common": {
+        "learn_more": "Learn more",
+        "view_all": "View all",
+        "get_started": "Get started",
+        "back": "Back"
     },
-    "AIShowcase": {
-        "title": "Intelligent Automation for Growth",
-        "subtitle": "Transform your customer engagement with our AI-powered chatbots. Designed for seamless lead generation, 24/7 support, and instant CRM synchronization.",
-        "feature_1_title": "Instant Lead Generation",
-        "feature_1_desc": "Capture and qualify leads automatically, even when you sleep.",
-        "feature_2_title": "24/7 Customer Support",
-        "feature_2_desc": "Resolve common queries instantly with AI that understands context.",
-        "feature_3_title": "Seamless CRM Sync",
-        "feature_3_desc": "Automatically push qualified leads to your favorite CRM tools.",
-        "chatbot_name": "Infanina Assistant",
-        "status": "Online",
-        "msg_hello": "Hello! How can I help you automate your business today?",
-        "msg_user": "I'm looking for a chatbot for my e-commerce store.",
-        "msg_response": "Excellent choice! Our AI chatbots can handle product inquiries, order tracking, and even checkout. Would you like to see a demo?",
-        "input_placeholder": "Type a message..."
+    "Meta": {
+        "Home": {
+            "title": "Infanina — AI products that ship",
+            "description": "Infanina is a Singapore-based AI product studio. We design, build and support custom AI products, agents and integrations for SMEs and growing businesses."
+        },
+        "Services": {
+            "title": "AI Development Services in Singapore",
+            "description": "AI strategy, custom AI products, integrations and ongoing support. Engagement models built for SMEs that need to ship — not pilot."
+        },
+        "Products": {
+            "title": "AI Products for Growing Businesses",
+            "description": "Productized AI offerings: assistants, automation packs, document intelligence and analytics — installed in weeks, not quarters."
+        },
+        "Work": {
+            "title": "Selected Work · AI Case Studies",
+            "description": "How Infanina ships AI: real engagements, real outcomes. Selected case studies from chatbots, agents and document intelligence."
+        },
+        "About": {
+            "title": "About Infanina · Singapore AI Studio",
+            "description": "We are an AI product studio based in Singapore. Our team designs, builds and supports AI products that compound real business value."
+        },
+        "Contact": {
+            "title": "Contact Infanina · Start an AI Project",
+            "description": "Tell us about your AI project. We respond within one business day. Based in Singapore, working with teams across the region."
+        },
+        "Privacy": {
+            "title": "Privacy Policy",
+            "description": "How Infanina collects, processes and protects personal data."
+        },
+        "Terms": {
+            "title": "Terms & Conditions",
+            "description": "Terms governing the use of Infanina services and website."
+        }
     },
-    "TechGrid": {
-        "title": "Comprehensive Digital Solutions",
-        "subtitle": "Beyond AI, we build the fundamental digital infrastructure your business needs to thrive.",
-        "service_1_title": "Mobile App Development",
-        "service_1_desc": "Native and cross-platform mobile apps that engage your customers on the go.",
-        "service_2_title": "Modern POS Systems",
-        "service_2_desc": "Streamline your retail operations with our cloud-based Point of Sale solutions.",
-        "service_3_title": "E-Commerce Solutions",
-        "service_3_desc": "Scalable online stores integrated with local payment gateways and logistics."
+    "Home": {
+        "hero": {
+            "eyebrow": "AI product studio · Singapore",
+            "title_1": "AI products",
+            "title_2": "that ship.",
+            "title_3": "Built for the businesses that build everything else.",
+            "subtitle": "We design, build and support custom AI products, agents and integrations for SMEs and growing teams. Pragmatic engineering, real outcomes.",
+            "cta_primary": "Start a project",
+            "cta_secondary": "See our work",
+            "trusted_by": "Working with teams in"
+        },
+        "values": {
+            "eyebrow": "How we work",
+            "title": "Less hype. More shipping.",
+            "subtitle": "Three commitments shape every engagement.",
+            "items": {
+                "build": {
+                    "title": "Build",
+                    "desc": "Custom AI products, agents and internal tools — engineered for production, not demos."
+                },
+                "integrate": {
+                    "title": "Integrate",
+                    "desc": "Wire AI into the systems your business already runs: CRM, ERP, e-commerce, support."
+                },
+                "support": {
+                    "title": "Support",
+                    "desc": "Stay alongside your team with ongoing iteration, monitoring and model upkeep."
+                }
+            }
+        },
+        "services": {
+            "eyebrow": "Services",
+            "title": "Four ways we partner with you.",
+            "subtitle": "Each one a focused engagement with a clear deliverable.",
+            "cta": "Explore services"
+        },
+        "showcase": {
+            "eyebrow": "Live demo",
+            "title": "AI you can talk to.",
+            "subtitle": "A glimpse at one product pattern: an assistant that captures leads, answers product questions and hands the qualified ones to your team.",
+            "feature_1_title": "Captures qualified leads, 24/7",
+            "feature_1_desc": "Conversations adapt to intent. Qualified leads are pushed straight to your CRM.",
+            "feature_2_title": "Grounded in your knowledge",
+            "feature_2_desc": "Retrieval-augmented over your docs, FAQs and product catalogue. No hallucinated specs.",
+            "feature_3_title": "Multilingual by default",
+            "feature_3_desc": "English, Bahasa Melayu, 中文, தமிழ், العربية. The same assistant, every customer.",
+            "chatbot_name": "Infanina Assistant",
+            "status": "Online",
+            "msg_hello": "Hi! Tell me about your business — I'll suggest where AI could move the needle.",
+            "msg_user": "We run a 30-store F&B chain. Our team is drowning in WhatsApp orders.",
+            "msg_response": "Got it. An assistant that takes orders on WhatsApp, validates against menu + stock, and pushes to your POS would cut handling by ~70%. Want a 2-week pilot scope?",
+            "input_placeholder": "Type a message…"
+        },
+        "stats": {
+            "eyebrow": "By the numbers",
+            "title": "Small team, sharp output.",
+            "items": {
+                "shipped": { "value": "40+", "label": "AI products shipped" },
+                "integrations": { "value": "120+", "label": "Systems integrated" },
+                "languages": { "value": "5", "label": "Supported languages" },
+                "uptime": { "value": "99.95%", "label": "Avg. service uptime" }
+            }
+        },
+        "work": {
+            "eyebrow": "Selected work",
+            "title": "Real engagements. Real outcomes.",
+            "subtitle": "A few of our recent client launches.",
+            "cta": "See all work"
+        },
+        "cta": {
+            "eyebrow": "Ready when you are",
+            "title": "Let's ship something AI does well.",
+            "subtitle": "Tell us about your business. We'll come back within one working day with a shape, a budget and a plan.",
+            "primary": "Start a project",
+            "secondary": "Email us directly"
+        }
+    },
+    "Services": {
+        "hero": {
+            "eyebrow": "Services",
+            "title": "Engagements built to ship.",
+            "subtitle": "Four ways to bring AI into your business — each with a clear scope, deliverable and exit point. No retainers you can't leave."
+        },
+        "items": {
+            "strategy": {
+                "title": "AI strategy & roadmap",
+                "summary": "Two-week sprint to find the highest-value AI bets and de-risk them.",
+                "deliverables": [
+                    "Opportunity map across operations, customer-facing and data",
+                    "Prioritized roadmap with ROI estimates",
+                    "Architecture and vendor recommendations",
+                    "Go/no-go scoping for the first build"
+                ]
+            },
+            "build": {
+                "title": "Custom AI products",
+                "summary": "Design and engineer a production AI product — assistant, agent, document intelligence, analytics.",
+                "deliverables": [
+                    "Product design and UX flows",
+                    "Engineered, deployed application",
+                    "Evaluation harness and guardrails",
+                    "Hand-off documentation and training"
+                ]
+            },
+            "integrate": {
+                "title": "AI integrations",
+                "summary": "Wire LLMs and AI services into the tools your team already lives in.",
+                "deliverables": [
+                    "CRM, ERP, support and e-commerce hooks",
+                    "Authentication, rate-limiting, observability",
+                    "Cost controls and model routing",
+                    "Failover and graceful-degradation paths"
+                ]
+            },
+            "support": {
+                "title": "Ongoing support",
+                "summary": "Stay sharp after launch — monitoring, model upkeep, iteration.",
+                "deliverables": [
+                    "SLA-backed monitoring and incident response",
+                    "Quarterly model and prompt review",
+                    "Iterative feature shipping",
+                    "Cost and quality tuning"
+                ]
+            }
+        },
+        "process": {
+            "eyebrow": "Process",
+            "title": "How a project runs.",
+            "steps": {
+                "discover": { "title": "Discover", "desc": "We listen, audit your stack, and map the highest-leverage AI bets." },
+                "design": { "title": "Design", "desc": "Crisp scope, success criteria, architecture and a deliverable timeline." },
+                "build": { "title": "Build", "desc": "Tight feedback loops. You see weekly demos and own the repo." },
+                "ship": { "title": "Ship & support", "desc": "Launch, observe, iterate. We stay only as long as you want us to." }
+            }
+        }
+    },
+    "Products": {
+        "hero": {
+            "eyebrow": "Products",
+            "title": "Productized AI, installed in weeks.",
+            "subtitle": "Battle-tested patterns we've shipped enough times to package. Adapted to your data, your tools and your tone."
+        },
+        "items": {
+            "assistant": {
+                "title": "Customer assistant",
+                "summary": "A multilingual assistant that captures leads, answers product questions and routes the qualified ones to your team.",
+                "highlights": ["Multilingual", "CRM sync", "Web + WhatsApp"]
+            },
+            "automation": {
+                "title": "Operations automation pack",
+                "summary": "Take repetitive back-office work — invoicing triage, document review, support routing — and let an agent handle the first pass.",
+                "highlights": ["Human-in-the-loop", "Audit trail", "Cost-capped"]
+            },
+            "documents": {
+                "title": "Document intelligence",
+                "summary": "Extract structured data from contracts, invoices, claims and emails — at scale, with confidence scores you can trust.",
+                "highlights": ["OCR + LLM", "Confidence scoring", "Export to ERP"]
+            },
+            "analytics": {
+                "title": "Conversational analytics",
+                "summary": "Ask questions in plain English. Get answers grounded in your data warehouse — with the SQL shown for the curious.",
+                "highlights": ["Read-only", "RBAC aware", "BYO warehouse"]
+            }
+        },
+        "cta": {
+            "title": "Don't see your shape?",
+            "subtitle": "Most engagements start as a conversation. Tell us the workflow you'd like AI to take off your plate.",
+            "primary": "Start a project"
+        }
+    },
+    "Work": {
+        "hero": {
+            "eyebrow": "Selected work",
+            "title": "Real engagements. Real outcomes.",
+            "subtitle": "A handful of our recent client launches across F&B, retail, finance and the public sector."
+        },
+        "cases": {
+            "fb_chain": {
+                "client": "Regional F&B chain",
+                "title": "WhatsApp ordering assistant for 30 stores",
+                "summary": "Voice + text ordering on WhatsApp, validated against POS stock. Cut handling time by 68% and lifted weekday revenue 14%.",
+                "tags": ["Customer assistant", "WhatsApp", "POS"]
+            },
+            "fintech": {
+                "client": "Series B fintech",
+                "title": "Document intelligence for KYC review",
+                "summary": "Replaced six-stage manual KYC review with an LLM-assisted pipeline. Time-to-approve dropped from 4 days to 6 hours.",
+                "tags": ["Document intelligence", "Compliance", "OCR"]
+            },
+            "retail": {
+                "client": "Multi-brand retailer",
+                "title": "Conversational analytics for store managers",
+                "summary": "Plain-English queries over the warehouse, scoped per role. 200+ store managers self-serve insights they used to email for.",
+                "tags": ["Analytics", "RAG", "RBAC"]
+            }
+        },
+        "cta": {
+            "title": "Want a similar lift?",
+            "subtitle": "We'll come back within a day with a shape and a rough budget.",
+            "primary": "Start a project"
+        }
+    },
+    "About": {
+        "hero": {
+            "eyebrow": "About",
+            "title": "We build AI for the businesses that build everything else.",
+            "subtitle": "Infanina is a small studio of engineers, designers and ML practitioners based in Singapore. We work alongside SMEs and growing teams across South-East Asia."
+        },
+        "story": {
+            "eyebrow": "Why we started",
+            "title": "Most AI never makes it to production.",
+            "body_1": "We kept seeing the same pattern: companies excited by AI demos, six months later sitting on prototypes that never reached a customer. The gap was rarely about the model — it was about engineering, integration, and the unglamorous work of running things in production.",
+            "body_2": "So we built Infanina to focus on that gap. We pick projects where AI clearly moves the needle, design honestly, and ship with the same care a serious team would give any other piece of business-critical software."
+        },
+        "principles": {
+            "eyebrow": "Principles",
+            "title": "Three things we don't compromise on.",
+            "items": {
+                "honest": {
+                    "title": "Honest scoping",
+                    "desc": "If a project doesn't need AI, we'll say so. If it does, we'll be specific about what changes and what doesn't."
+                },
+                "owned": {
+                    "title": "You own everything",
+                    "desc": "Code, data, prompts, evals — yours. No black-box platforms you can't leave."
+                },
+                "production": {
+                    "title": "Production-first",
+                    "desc": "Every system ships with monitoring, evals and a clear cost ceiling on day one."
+                }
+            }
+        }
+    },
+    "Contact": {
+        "hero": {
+            "eyebrow": "Start a project",
+            "title": "Tell us about your business.",
+            "subtitle": "Drop us a few lines about your team, the workflow you'd like AI to take on, and the shape of your timeline. We respond within one working day."
+        },
+        "form": {
+            "name_label": "Your name",
+            "name_placeholder": "Jane Tan",
+            "email_label": "Work email",
+            "email_placeholder": "jane@company.com",
+            "company_label": "Company",
+            "company_placeholder": "Company Pte Ltd",
+            "topic_label": "What's this about?",
+            "topic_options": {
+                "build": "Build a custom AI product",
+                "integrate": "Integrate AI into an existing tool",
+                "strategy": "AI strategy & roadmap",
+                "other": "Something else"
+            },
+            "message_label": "Tell us a bit more",
+            "message_placeholder": "What workflow would you like AI to take off your plate?",
+            "submit": "Send message",
+            "submitting": "Sending…",
+            "success_title": "Thanks — message received.",
+            "success_body": "We'll come back to you within one working day.",
+            "error_title": "Something went wrong.",
+            "error_body": "Please try again, or email us directly at hello@infanina.com.",
+            "fallback_hint": "Prefer email? Write to "
+        },
+        "side": {
+            "email_title": "Email",
+            "address_title": "Office",
+            "address_value": "Singapore",
+            "hours_title": "Response time",
+            "hours_value": "Within one working day, Mon–Fri"
+        }
     },
     "Footer": {
-        "company_desc": "Empowering Singapore SMEs with intelligent digital solutions.",
+        "company_desc": "We design, build and support AI products for SMEs and growing teams across South-East Asia.",
+        "explore_title": "Explore",
         "contact_title": "Contact",
-        "links_title": "Links",
-        "copyright": "© {year} Infanina Pte Ltd. All rights reserved.",
+        "address": "Singapore",
+        "copyright": "© {year} Infanina Pte Ltd",
         "reg_no": "Co. Reg. No. 202612345X",
-        "privacy_link": "Privacy Policy",
-        "terms_link": "Terms & Conditions"
+        "privacy_link": "Privacy",
+        "terms_link": "Terms"
+    },
+    "Legal": {
+        "Privacy": {
+            "title": "Privacy Policy",
+            "updated": "Last updated: 2026-01-01",
+            "intro": "This policy explains how Infanina Pte Ltd (\"Infanina\", \"we\") collects, uses and protects personal data when you visit our website or engage our services.",
+            "sections": {
+                "collection_title": "Data we collect",
+                "collection_body": "When you contact us, we collect the information you provide — typically name, email, company and the description of your project. We do not use third-party advertising trackers on this site.",
+                "use_title": "How we use it",
+                "use_body": "We use your information solely to respond to your enquiry and to provide services you've engaged us for. We do not sell or share personal data with third parties for marketing.",
+                "retention_title": "Retention",
+                "retention_body": "We retain enquiry data for up to 24 months unless you ask us to delete it sooner.",
+                "rights_title": "Your rights",
+                "rights_body": "You can request access to, correction of, or deletion of personal data we hold about you by writing to hello@infanina.com.",
+                "contact_title": "Questions",
+                "contact_body": "Email hello@infanina.com if anything here is unclear."
+            }
+        },
+        "Terms": {
+            "title": "Terms & Conditions",
+            "updated": "Last updated: 2026-01-01",
+            "intro": "These terms govern your use of the Infanina website and any engagement you enter into with Infanina Pte Ltd.",
+            "sections": {
+                "use_title": "Use of the site",
+                "use_body": "You may use this website for lawful purposes only. The content is provided for informational use; specific engagement terms are agreed in writing.",
+                "ip_title": "Intellectual property",
+                "ip_body": "The Infanina name, logo and original content are the property of Infanina Pte Ltd. Engagement deliverables are governed by the contract signed for each project.",
+                "liability_title": "Liability",
+                "liability_body": "We make no warranty that the website will be error-free or uninterrupted. Our maximum aggregate liability is limited to the fees paid for the relevant engagement.",
+                "law_title": "Governing law",
+                "law_body": "These terms are governed by the laws of Singapore."
+            }
+        }
     }
 }

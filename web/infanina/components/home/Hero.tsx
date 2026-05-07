@@ -1,44 +1,76 @@
-import { Link } from '@/i18n/routing';
-import { ArrowRight, Calendar } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Container } from "../ui/Container";
+import { Button } from "../ui/Button";
+import { Eyebrow } from "../ui/Eyebrow";
+import { MeshBackdrop } from "../ui/MeshBackdrop";
 
-const Hero = () => {
-    const t = useTranslations('HomePage');
+const TRUSTED = ["F&B", "RETAIL", "FINTECH", "GOV", "EDU", "LOGISTICS"];
+
+export default function Hero() {
+    const t = useTranslations("Home.hero");
 
     return (
-        <section className="relative overflow-hidden pt-32 pb-16 lg:pt-48 lg:pb-32 dark:bg-gray-950">
-            <div className="container mx-auto px-4 text-center">
-                <h1 className="mx-auto max-w-4xl text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl mb-6">
-                    <span className="block">{t('title_prefix')}</span>
-                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
-                        {t('title_suffix')}
-                    </span>
-                </h1>
-                <p className="mx-auto max-w-2xl text-xl text-gray-600 dark:text-gray-300 mb-10">
-                    {t('subtitle')}
-                </p>
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <Link
-                        href="/#ai-products"
-                        className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition-all hover:-translate-y-0.5"
-                    >
-                        {t('cta_primary')}
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                    <Link
-                        href="/#contact"
-                        className="inline-flex items-center justify-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-6 py-3 text-base font-semibold text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all hover:-translate-y-0.5"
-                    >
-                        <Calendar className="mr-2 h-5 w-5" />
-                        {t('cta_secondary')}
-                    </Link>
-                </div>
-            </div>
+        <section className="relative isolate overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-44 lg:pb-32">
+            <MeshBackdrop />
 
-            {/* Background decoration */}
-            <div className="absolute top-0 left-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-blue-50/50 dark:bg-blue-900/20 blur-3xl filter" />
+            <Container className="relative">
+                <div className="hero-stagger flex flex-col items-center text-center">
+                    <Eyebrow>{t("eyebrow")}</Eyebrow>
+
+                    <h1 className="mt-6 max-w-4xl font-display text-[44px] font-bold leading-[1.02] tracking-[-0.03em] text-[var(--color-text-primary)] sm:text-6xl lg:text-[88px] lg:leading-[0.96]">
+                        <span className="block">{t("title_1")}</span>
+                        <span className="block">
+                            <span className="brand-mark">{t("title_2")}</span>
+                        </span>
+                        <span className="mt-3 block text-[20px] font-medium leading-snug tracking-normal text-[var(--color-text-secondary)] sm:text-2xl lg:text-3xl">
+                            {t("title_3")}
+                        </span>
+                    </h1>
+
+                    <p className="mt-7 max-w-2xl text-base leading-relaxed text-[var(--color-text-secondary)] sm:text-lg">
+                        {t("subtitle")}
+                    </p>
+
+                    <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
+                        <Button href="/contact" size="lg" variant="primary">
+                            {t("cta_primary")}
+                            <ArrowRight className="h-4 w-4" />
+                        </Button>
+                        <Button href="/work" size="lg" variant="secondary">
+                            {t("cta_secondary")}
+                        </Button>
+                    </div>
+
+                    <div className="mt-16 w-full">
+                        <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+                            {t("trusted_by")}
+                        </div>
+                        <div className="relative mt-5 overflow-hidden">
+                            <div
+                                aria-hidden
+                                className="pointer-events-none absolute inset-y-0 start-0 w-20 bg-gradient-to-e from-[var(--color-surface-0)] to-transparent z-10"
+                                style={{ background: "linear-gradient(to right, var(--color-surface-0), transparent)" }}
+                            />
+                            <div
+                                aria-hidden
+                                className="pointer-events-none absolute inset-y-0 end-0 w-20 z-10"
+                                style={{ background: "linear-gradient(to left, var(--color-surface-0), transparent)" }}
+                            />
+                            <div className="marquee">
+                                {[...TRUSTED, ...TRUSTED].map((label, i) => (
+                                    <span
+                                        key={`${label}-${i}`}
+                                        className="font-display text-[15px] font-semibold tracking-[0.18em] text-[var(--color-text-muted)]"
+                                    >
+                                        {label}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Container>
         </section>
     );
-};
-
-export default Hero;
+}

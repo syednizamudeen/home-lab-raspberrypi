@@ -1,61 +1,87 @@
-import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
+import { Mail, MapPin, Linkedin, Github } from "lucide-react";
+import { Container } from "../ui/Container";
+import { Logo } from "../ui/Logo";
+import { SITE } from "@/lib/site";
 
-const Footer = () => {
-    const t = useTranslations('Footer');
-    const tNav = useTranslations('Navigation');
+export default function Footer() {
+    const t = useTranslations("Footer");
+    const tNav = useTranslations("Navigation");
+    const year = new Date().getFullYear().toString();
 
     return (
-        <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 py-8">
-            <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div>
-                        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Infanina Pte Ltd</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            {t('company_desc')}
+        <footer className="relative mt-20 border-t border-[var(--color-border-subtle)] bg-[var(--color-surface-1)]">
+            <Container className="py-16">
+                <div className="grid gap-12 lg:grid-cols-12">
+                    <div className="lg:col-span-5">
+                        <Logo />
+                        <p className="mt-5 max-w-sm text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                            {t("company_desc")}
                         </p>
-                    </div>
-                    <div>
-                        <h4 className="text-sm font-semibold mb-4 text-gray-900 dark:text-white uppercase tracking-wider">{t('contact_title')}</h4>
-                        <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                            <li>Email: <a href="mailto:hello@infanina.com" className="hover:text-blue-600 dark:hover:text-blue-400">hello@infanina.com</a></li>
-                            <li>Phone: +65 0000 0000</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="text-sm font-semibold mb-4 text-gray-900 dark:text-white uppercase tracking-wider">{t('links_title')}</h4>
-                        <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                            <li><Link href="/#services" className="hover:text-blue-600 dark:hover:text-blue-400">{tNav('services')}</Link></li>
-                            <li><Link href="/#ai-products" className="hover:text-blue-600 dark:hover:text-blue-400">{tNav('products')}</Link></li>
-                            <li><Link href="/#about" className="hover:text-blue-600 dark:hover:text-blue-400">{tNav('about')}</Link></li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-gray-500 dark:text-gray-400">
-                    <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 order-2 md:order-1 text-center md:text-left">
-                        <p>
-                            {t('reg_no')}
-                        </p>
-                        <span className="hidden md:inline text-gray-300 dark:text-gray-700">|</span>
-                        <p>
-                            {t('copyright', {
-                                year: new Date().getFullYear().toString()
-                            })}
-                        </p>
+                        <div className="mt-6 flex items-center gap-3">
+                            <a
+                                href={SITE.socials.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="LinkedIn"
+                                data-focus-ring
+                                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:text-[var(--color-brand)] hover:border-[var(--color-brand)] transition-colors"
+                            >
+                                <Linkedin className="h-4 w-4" />
+                            </a>
+                            <a
+                                href={SITE.socials.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="GitHub"
+                                data-focus-ring
+                                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:text-[var(--color-brand)] hover:border-[var(--color-brand)] transition-colors"
+                            >
+                                <Github className="h-4 w-4" />
+                            </a>
+                        </div>
                     </div>
 
-                    <div className="flex items-center gap-6 order-1 md:order-2">
-                        <Link href="/privacy" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            {t('privacy_link')}
-                        </Link>
-                        <Link href="/terms" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            {t('terms_link')}
-                        </Link>
+                    <div className="lg:col-span-3">
+                        <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                            {t("explore_title")}
+                        </h4>
+                        <ul className="mt-5 space-y-3 text-sm">
+                            <li><Link href="/services" className="text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">{tNav("services")}</Link></li>
+                            <li><Link href="/products" className="text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">{tNav("products")}</Link></li>
+                            <li><Link href="/work" className="text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">{tNav("work")}</Link></li>
+                            <li><Link href="/about" className="text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">{tNav("about")}</Link></li>
+                        </ul>
+                    </div>
+
+                    <div className="lg:col-span-4">
+                        <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                            {t("contact_title")}
+                        </h4>
+                        <ul className="mt-5 space-y-3 text-sm text-[var(--color-text-secondary)]">
+                            <li className="flex items-start gap-3">
+                                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-brand)]" />
+                                <a href={`mailto:${SITE.email}`} className="hover:text-[var(--color-brand)]">{SITE.email}</a>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-brand)]" />
+                                <span>{t("address")}</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
+
+                <div className="mt-14 flex flex-col gap-4 border-t border-[var(--color-border-subtle)] pt-6 text-xs text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
+                    <p>
+                        {t("copyright", { year })} · {t("reg_no")}
+                    </p>
+                    <div className="flex items-center gap-6">
+                        <Link href="/privacy" className="hover:text-[var(--color-brand)]">{t("privacy_link")}</Link>
+                        <Link href="/terms" className="hover:text-[var(--color-brand)]">{t("terms_link")}</Link>
+                    </div>
+                </div>
+            </Container>
         </footer>
     );
-};
-
-export default Footer;
+}

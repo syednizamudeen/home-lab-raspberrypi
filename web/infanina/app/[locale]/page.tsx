@@ -1,30 +1,48 @@
+import { setRequestLocale } from "next-intl/server";
+import { hasLocale } from "next-intl";
 import Hero from "@/components/home/Hero";
+import ValueProps from "@/components/home/ValueProps";
+import ServicesOverview from "@/components/home/ServicesOverview";
 import AIShowcase from "@/components/home/AIShowcase";
-import TechGrid from "@/components/home/TechGrid";
-import { useTranslations } from 'next-intl';
+import Stats from "@/components/home/Stats";
+import SelectedWork from "@/components/home/SelectedWork";
+import CTABand from "@/components/home/CTABand";
+import { JsonLd } from "@/components/page/JsonLd";
+import { routing } from "@/i18n/routing";
+import { breadcrumbJsonLd } from "@/lib/seo";
+import type { Locale } from "@/lib/site";
 
-export default function Home() {
-  const t = useTranslations('HomePage');
+export default async function HomePage({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) {
+    const { locale } = await params;
+    const safe = (hasLocale(routing.locales, locale) ? locale : routing.defaultLocale) as Locale;
+    setRequestLocale(safe);
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Hero />
-      <AIShowcase />
-      <TechGrid />
-      <section id="contact" className="py-24 bg-blue-600 text-white text-center">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-6">{t('ready_title')}</h2>
-          <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-            {t('ready_subtitle')}
-          </p>
-          <a
-            href="mailto:hello@infanina.com"
-            className="inline-flex items-center justify-center rounded-lg bg-white px-8 py-4 text-lg font-bold text-blue-600 hover:bg-gray-100 transition-colors shadow-lg"
-          >
-            {t('ready_cta')}
-          </a>
-        </div>
-      </section>
-    </div>
-  );
+    return (
+        <>
+            <Hero />
+            <ValueProps />
+            <ServicesOverview />
+            <AIShowcase />
+            <Stats />
+            <SelectedWork />
+            <CTABand />
+
+            <JsonLd
+                data={[
+                    breadcrumbJsonLd(safe, [{ name: "Home", path: "/" }]),
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "WebSite",
+                        url: `https://infanina.com/${safe}`,
+                        name: "Infanina",
+                        inLanguage: safe,
+                    },
+                ]}
+            />
+        </>
+    );
 }
