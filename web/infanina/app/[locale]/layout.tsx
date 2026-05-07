@@ -9,7 +9,7 @@ import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { routing } from "@/i18n/routing";
 import { buildMetadata, organizationJsonLd } from "@/lib/seo";
-import { SITE, type Locale } from "@/lib/site";
+import type { Locale } from "@/lib/site";
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -102,8 +102,6 @@ export default async function LocaleLayout({
                     suppressHydrationWarning
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
                 />
-                {/* Author / publisher fallback */}
-                <meta name="author" content={SITE.legalName} />
             </body>
         </html>
     );

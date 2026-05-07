@@ -47,6 +47,8 @@ export function buildMetadata({
         title: fullTitle,
         description,
         keywords,
+        authors: [{ name: SITE.legalName, url: SITE.url }],
+        publisher: SITE.legalName,
         alternates: {
             canonical,
             languages: {
