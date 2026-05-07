@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { CheckCircle2, Send, Sparkles, Globe2, Database } from "lucide-react";
 import { Section } from "../ui/Section";
 import { Eyebrow } from "../ui/Eyebrow";
+import { Reveal } from "../ui/Reveal";
 
 export default function AIShowcase() {
     const t = useTranslations("Home.showcase");
@@ -15,7 +16,7 @@ export default function AIShowcase() {
     return (
         <Section id="showcase" tone="default">
             <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
-                <div className="lg:col-span-5">
+                <Reveal className="lg:col-span-5">
                     <Eyebrow>{t("eyebrow")}</Eyebrow>
                     <h2 className="mt-4 font-display text-[36px] font-bold leading-[1.05] tracking-[-0.02em] text-[var(--color-text-primary)] sm:text-[44px] lg:text-[52px]">
                         {t("title")}
@@ -25,8 +26,8 @@ export default function AIShowcase() {
                     </p>
 
                     <ul className="mt-8 space-y-5">
-                        {features.map(({ key, icon: Icon }) => (
-                            <li key={key} className="flex gap-4">
+                        {features.map(({ key, icon: Icon }, i) => (
+                            <Reveal key={key} as="li" delay={120 + i * 80} className="flex gap-4">
                                 <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[var(--color-brand-subtle-bg)] text-[var(--color-brand)]">
                                     <Icon className="h-4 w-4" />
                                 </span>
@@ -38,12 +39,12 @@ export default function AIShowcase() {
                                         {t(`${key}_desc`)}
                                     </p>
                                 </div>
-                            </li>
+                            </Reveal>
                         ))}
                     </ul>
-                </div>
+                </Reveal>
 
-                <div className="lg:col-span-7">
+                <Reveal className="lg:col-span-7" delay={120}>
                     <div className="relative">
                         <div
                             aria-hidden
@@ -121,7 +122,7 @@ export default function AIShowcase() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Reveal>
             </div>
         </Section>
     );

@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Hammer, Plug, LifeBuoy } from "lucide-react";
 import { Section } from "../ui/Section";
 import { Eyebrow } from "../ui/Eyebrow";
+import { Reveal } from "../ui/Reveal";
 
 const ITEMS = [
     { key: "build", icon: Hammer },
@@ -15,7 +16,7 @@ export default function ValueProps() {
     return (
         <Section id="how" tone="default">
             <div className="grid gap-16 lg:grid-cols-12 lg:gap-10">
-                <div className="lg:col-span-5">
+                <Reveal className="lg:col-span-5">
                     <Eyebrow>{t("eyebrow")}</Eyebrow>
                     <h2 className="mt-4 font-display text-[36px] font-bold leading-[1.05] tracking-[-0.02em] text-[var(--color-text-primary)] sm:text-[44px] lg:text-[52px]">
                         {t("title")}
@@ -23,12 +24,14 @@ export default function ValueProps() {
                     <p className="mt-5 max-w-md text-base leading-relaxed text-[var(--color-text-secondary)] sm:text-lg">
                         {t("subtitle")}
                     </p>
-                </div>
+                </Reveal>
 
                 <ul className="lg:col-span-7 grid gap-px overflow-hidden rounded-[20px] border border-[var(--color-border-subtle)] bg-[var(--color-border-subtle)]">
-                    {ITEMS.map(({ key, icon: Icon }) => (
-                        <li
+                    {ITEMS.map(({ key, icon: Icon }, i) => (
+                        <Reveal
                             key={key}
+                            as="li"
+                            delay={i * 100}
                             className="group relative flex flex-col gap-3 bg-[var(--color-surface-1)] p-7 transition-colors hover:bg-[var(--color-surface-2)]"
                         >
                             <div className="flex items-center gap-4">
@@ -42,7 +45,7 @@ export default function ValueProps() {
                             <p className="ms-[60px] text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
                                 {t(`items.${key}.desc`)}
                             </p>
-                        </li>
+                        </Reveal>
                     ))}
                 </ul>
             </div>
