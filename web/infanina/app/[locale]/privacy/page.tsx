@@ -2,13 +2,11 @@ import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { PageHero } from "@/components/page/PageHero";
-import { Breadcrumbs } from "@/components/page/Breadcrumbs";
-import { Section } from "@/components/ui/Section";
+import { JsonLd } from "@/components/page/JsonLd";
+import { LegalDoc, type LegalSection } from "@/components/page/LegalDoc";
 import { routing } from "@/i18n/routing";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import type { Locale } from "@/lib/site";
-
-const SECTIONS = ["collection", "use", "retention", "rights", "contact"] as const;
 
 export async function generateMetadata({
     params,
@@ -34,30 +32,31 @@ export default async function PrivacyPage({
     const { locale } = await params;
     const safe = (hasLocale(routing.locales, locale) ? locale : routing.defaultLocale) as Locale;
     setRequestLocale(safe);
-
-    const t = await getTranslations("Legal.Privacy");
-    const tNav = await getTranslations("Navigation");
-    const tFooter = await getTranslations("Footer");
+    const t = await getTranslations("Privacy");
+    const nav = await getTranslations("Navigation");
+    const sections = t.raw("sections") as LegalSection[];
 
     return (
         <>
-            <Breadcrumbs items={[{ name: tNav("home"), href: "/" }, { name: tFooter("privacy_link") }]} />
-            <PageHero eyebrow={t("updated")} title={t("title")} subtitle={t("intro")} />
-
-            <Section tone="default" className="pt-0">
-                <div className="mx-auto max-w-3xl space-y-10">
-                    {SECTIONS.map((key) => (
-                        <section key={key}>
-                            <h2 className="font-display text-2xl font-semibold tracking-tight text-[var(--color-text-primary)]">
-                                {t(`sections.${key}_title`)}
-                            </h2>
-                            <p className="mt-3 text-[17px] leading-relaxed text-[var(--color-text-secondary)]">
-                                {t(`sections.${key}_body`)}
-                            </p>
-                        </section>
-                    ))}
-                </div>
-            </Section>
+            <PageHero
+                breadcrumb={[{ label: nav("home"), href: "/" }, { label: nav("privacy") }]}
+                title={t("title")}
+                lead={t("lead")}
+            />
+            <LegalDoc
+                sections={sections}
+                updated={t("updated")}
+                updatedLabel={t("updated_label")}
+                indexLabel={t("index_label")}
+            />
+            <JsonLd
+                data={[
+                    breadcrumbJsonLd(safe, [
+                        { name: "Home", path: "/" },
+                        { name: "Privacy", path: "/privacy" },
+                    ]),
+                ]}
+            />
         </>
     );
 }

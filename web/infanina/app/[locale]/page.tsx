@@ -1,12 +1,12 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import Hero from "@/components/home/Hero";
-import ValueProps from "@/components/home/ValueProps";
-import ServicesOverview from "@/components/home/ServicesOverview";
-import AIShowcase from "@/components/home/AIShowcase";
-import Stats from "@/components/home/Stats";
-import SelectedWork from "@/components/home/SelectedWork";
-import CTABand from "@/components/home/CTABand";
+import About from "@/components/home/About";
+import Capabilities from "@/components/home/Capabilities";
+import WorkIndex from "@/components/home/WorkIndex";
+import Automation from "@/components/home/Automation";
+import Connect from "@/components/home/Connect";
+import { WorldCut } from "@/components/ui/WorldCut";
 import { JsonLd } from "@/components/page/JsonLd";
 import { routing } from "@/i18n/routing";
 import { breadcrumbJsonLd } from "@/lib/seo";
@@ -20,16 +20,20 @@ export default async function HomePage({
     const { locale } = await params;
     const safe = (hasLocale(routing.locales, locale) ? locale : routing.defaultLocale) as Locale;
     setRequestLocale(safe);
+    const t = await getTranslations("Home");
 
     return (
         <>
+            {/* Paper: who we are. */}
             <Hero />
-            <ValueProps />
-            <ServicesOverview />
-            <AIShowcase />
-            <Stats />
-            <SelectedWork />
-            <CTABand />
+            <About />
+            <Capabilities />
+
+            {/* Void: what we ship. */}
+            <WorldCut label={t("cut_label")} />
+            <WorkIndex />
+            <Automation />
+            <Connect />
 
             <JsonLd
                 data={[

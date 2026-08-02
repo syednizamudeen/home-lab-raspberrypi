@@ -1,76 +1,84 @@
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Container } from "../ui/Container";
-import { Button } from "../ui/Button";
-import { Eyebrow } from "../ui/Eyebrow";
-import { MeshBackdrop } from "../ui/MeshBackdrop";
+import { ButtonLink } from "../ui/Button";
+import { Reveal, RevealLine } from "../ui/Reveal";
 
-const TRUSTED = ["F&B", "RETAIL", "FINTECH", "GOV", "EDU", "LOGISTICS"];
-
+/**
+ * Section 01.
+ *
+ * Headline on the left, then one wide photograph of the Singapore CBD as a
+ * full-bleed band. The photo is the "we are here" signal; the facts that used
+ * to sit beside the headline (UEN, direct line, response time) now live in the
+ * footer, where a visitor looks for them anyway.
+ *
+ * Photo: Skyline of Singapore Central Business District, Wikimedia Commons,
+ * released CC0. https://commons.wikimedia.org/wiki/File:Skyline_of_Singapore_Central_Business_District_20250903.jpg
+ * To swap it, drop a replacement at public/singapore-cbd.jpg at 2560×1028 or
+ * wider, keeping roughly a 2.5:1 crop.
+ */
 export default function Hero() {
-    const t = useTranslations("Home.hero");
+    const t = useTranslations("Hero");
 
     return (
-        <section className="relative isolate overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-44 lg:pb-32">
-            <MeshBackdrop />
+        <section className="world-paper relative pt-14 sm:pt-20 lg:pt-24">
+            <div className="shell">
+                <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+                    <div className="lg:col-span-8">
+                        <Reveal className="t-meta text-[var(--on-surface-3)]">{t("eyebrow")}</Reveal>
 
-            <Container className="relative">
-                <div className="hero-stagger flex flex-col items-center text-center">
-                    <Eyebrow>{t("eyebrow")}</Eyebrow>
-
-                    <h1 className="mt-6 max-w-4xl font-display text-[44px] font-bold leading-[1.02] tracking-[-0.03em] text-[var(--color-text-primary)] sm:text-6xl lg:text-[88px] lg:leading-[0.96]">
-                        <span className="block">{t("title_1")}</span>
-                        <span className="block">
-                            <span className="brand-mark">{t("title_2")}</span>
-                        </span>
-                        <span className="mt-3 block text-[20px] font-medium leading-snug tracking-normal text-[var(--color-text-secondary)] sm:text-2xl lg:text-3xl">
-                            {t("title_3")}
-                        </span>
-                    </h1>
-
-                    <p className="mt-7 max-w-2xl text-base leading-relaxed text-[var(--color-text-secondary)] sm:text-lg">
-                        {t("subtitle")}
-                    </p>
-
-                    <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
-                        <Button href="/contact" size="lg" variant="primary">
-                            {t("cta_primary")}
-                            <ArrowRight className="h-4 w-4" />
-                        </Button>
-                        <Button href="/work" size="lg" variant="secondary">
-                            {t("cta_secondary")}
-                        </Button>
-                    </div>
-
-                    <div className="mt-16 w-full">
-                        <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
-                            {t("trusted_by")}
-                        </div>
-                        <div className="relative mt-5 overflow-hidden">
-                            <div
-                                aria-hidden
-                                className="pointer-events-none absolute inset-y-0 start-0 w-20 bg-gradient-to-e from-[var(--color-surface-0)] to-transparent z-10"
-                                style={{ background: "linear-gradient(to right, var(--color-surface-0), transparent)" }}
-                            />
-                            <div
-                                aria-hidden
-                                className="pointer-events-none absolute inset-y-0 end-0 w-20 z-10"
-                                style={{ background: "linear-gradient(to left, var(--color-surface-0), transparent)" }}
-                            />
-                            <div className="marquee">
-                                {[...TRUSTED, ...TRUSTED].map((label, i) => (
+                        <h1 className="t-display-xl mt-8">
+                            <RevealLine index={1}>{t("line_1")}</RevealLine>
+                            <RevealLine index={2}>
+                                <span className="relative inline-block">
+                                    {t("line_2")}
                                     <span
-                                        key={`${label}-${i}`}
-                                        className="font-display text-[15px] font-semibold tracking-[0.18em] text-[var(--color-text-muted)]"
-                                    >
-                                        {label}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
+                                        aria-hidden
+                                        className="absolute inset-x-0 -bottom-1 h-[0.09em] bg-acid sm:-bottom-2"
+                                    />
+                                </span>
+                            </RevealLine>
+                        </h1>
                     </div>
+
+                    <Reveal index={3} className="lg:col-span-4 lg:pt-6">
+                        <p className="t-lead text-[var(--on-surface-2)]">{t("lead")}</p>
+                        <div className="mt-8 flex flex-wrap items-center gap-3">
+                            <ButtonLink href="/contact" size="lg">
+                                {t("cta_primary")}
+                            </ButtonLink>
+                            <ButtonLink href="/work" variant="outline" size="lg" arrow={false}>
+                                {t("cta_secondary")}
+                            </ButtonLink>
+                        </div>
+                    </Reveal>
                 </div>
-            </Container>
+            </div>
+
+            {/* Full-bleed band. Taller crop on phones so the towers still read. */}
+            <Reveal index={4} className="mt-14 sm:mt-20">
+                <figure className="relative m-0 h-[min(52vh,340px)] w-full overflow-hidden sm:h-[min(48vh,420px)] lg:h-[min(56vh,520px)]">
+                    <Image
+                        src="/singapore-cbd.jpg"
+                        alt={t("image_alt")}
+                        fill
+                        priority
+                        sizes="100vw"
+                        /* Bias the crop down: in a tall phone box, centring
+                           this 2.5:1 frame fills it with sky. */
+                        className="object-cover object-[center_68%] sm:object-[center_60%]"
+                    />
+                    {/* A warm paper wash top and bottom so the photo joins the
+                        page instead of sitting on it like a pasted rectangle. */}
+                    <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                            background:
+                                "linear-gradient(to bottom, var(--paper) 0%, transparent 18%, transparent 82%, var(--paper) 100%)",
+                        }}
+                    />
+                </figure>
+            </Reveal>
         </section>
     );
 }

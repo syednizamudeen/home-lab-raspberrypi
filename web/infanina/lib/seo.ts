@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE, type Locale } from "./site";
+import { SITE, activeSocials, isPlaceholder, type Locale } from "./site";
 
 const OG_LOCALE_MAP: Record<Locale, string> = {
     en: "en_US",
@@ -47,8 +47,8 @@ export function buildMetadata({
         title: fullTitle,
         description,
         keywords,
-        authors: [{ name: SITE.legalName, url: SITE.url }],
-        publisher: SITE.legalName,
+        authors: [{ name: SITE.name, url: SITE.url }],
+        publisher: SITE.name,
         alternates: {
             canonical,
             languages: {
@@ -92,7 +92,7 @@ export function organizationJsonLd() {
     return {
         "@context": "https://schema.org",
         "@type": "Organization",
-        name: SITE.legalName,
+        name: isPlaceholder(SITE.legalName) ? SITE.name : SITE.legalName,
         alternateName: SITE.name,
         url: SITE.url,
         logo: `${SITE.url}/logo.png`,
@@ -103,7 +103,11 @@ export function organizationJsonLd() {
             addressLocality: SITE.address.locality,
             addressCountry: SITE.address.country,
         },
-        sameAs: Object.values(SITE.socials),
+        /* Only publish identifiers that have been confirmed. A placeholder in
+           structured data is worse than an omission. */
+        ...(isPlaceholder(SITE.uen) ? {} : { identifier: SITE.uen }),
+        ...(isPlaceholder(SITE.phone) ? {} : { telephone: SITE.phone }),
+        sameAs: activeSocials().map((s) => s.href),
     };
 }
 
@@ -121,5 +125,45 @@ export function breadcrumbJsonLd(locale: Locale, items: Array<{ name: string; pa
             name: item.name,
             item: `${SITE.url}/${locale}${item.path === "/" ? "" : item.path}`,
         })),
+    };
+}
+
+export interface CaseStudyJsonLdInput {
+    locale: Locale;
+    slug: string;
+    title: string;
+    summary: string;
+    client: string;
+    publishedAt: string;
+}
+
+export function caseStudyJsonLd({
+    locale,
+    slug,
+    title,
+    summary,
+    client,
+    publishedAt,
+}: CaseStudyJsonLdInput) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        url: `${SITE.url}/${locale}/work/${slug}`,
+        name: title,
+        headline: title,
+        description: summary,
+        author: {
+            "@type": "Organization",
+            name: SITE.name,
+            url: SITE.url,
+        },
+        publisher: {
+            "@type": "Organization",
+            name: SITE.name,
+            url: SITE.url,
+        },
+        about: client,
+        inLanguage: locale,
+        datePublished: publishedAt,
     };
 }

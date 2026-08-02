@@ -1,75 +1,82 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type ElementType, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 
-interface RevealProps {
+type Props = {
     children: ReactNode;
-    className?: string;
-    /** Stagger delay in ms. */
-    delay?: number;
-    /** Translate-from distance in px. Default 12. */
-    distance?: number;
-    /** Override the rendered element. Default `div`. */
+    /** Stagger position within its group. Each step adds 60ms. */
+    index?: number;
+    /** Display lines travel further and slower than blocks. */
+    variant?: "block" | "line";
     as?: ElementType;
-    /** Forward style on the rendered element. */
-    style?: CSSProperties;
-}
+    className?: string;
+};
 
 /**
- * Fade-and-rise reveal triggered the first time the element enters the viewport.
- * SSR-safe (initial render is the hidden state on both server and client; IO upgrades it).
- * Honors prefers-reduced-motion: appears immediately without animation.
+ * One-shot entrance. Fires once at 20% intersection and then stops observing:
+ * nothing on this site re-animates when you scroll back up.
  */
-export function Reveal({
-    children,
-    className,
-    delay = 0,
-    distance = 12,
-    as,
-    style,
-}: RevealProps) {
+export function Reveal({ children, index = 0, variant = "block", as, className = "" }: Props) {
     const Tag = (as ?? "div") as ElementType;
-    const ref = useRef<HTMLElement | null>(null);
-    const [visible, setVisible] = useState(false);
+    const ref = useRef<HTMLElement>(null);
+    const [shown, setShown] = useState(false);
 
     useEffect(() => {
-        const node = ref.current;
-        if (!node) return;
+        const el = ref.current;
+        if (!el) return;
 
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            const id = requestAnimationFrame(() => setVisible(true));
-            return () => cancelAnimationFrame(id);
+        if (typeof IntersectionObserver === "undefined") {
+            // No observer support: show everything on the next frame.
+            const raf = requestAnimationFrame(() => setShown(true));
+            return () => cancelAnimationFrame(raf);
         }
 
         const io = new IntersectionObserver(
             (entries) => {
                 for (const entry of entries) {
                     if (entry.isIntersecting) {
-                        setVisible(true);
+                        setShown(true);
                         io.disconnect();
-                        break;
                     }
                 }
             },
-            { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+            { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
         );
-        io.observe(node);
+
+        io.observe(el);
         return () => io.disconnect();
     }, []);
 
-    const motionStyle: CSSProperties = {
-        transition:
-            "opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1)",
-        transitionDelay: `${delay}ms`,
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translate3d(0,0,0)" : `translate3d(0,${distance}px,0)`,
-        willChange: visible ? "auto" : "opacity, transform",
-        ...style,
-    };
-
     return (
-        <Tag ref={ref} className={className} style={motionStyle}>
+        <Tag
+            ref={ref}
+            data-reveal={variant}
+            className={`${shown ? "is-in" : ""} ${className}`.trim()}
+            style={{ "--reveal-delay": `${index * 60}ms` } as React.CSSProperties}
+        >
             {children}
         </Tag>
+    );
+}
+
+/**
+ * A display line that rises out of its own mask. Used for hero and section
+ * openers, where a plain fade would read as too soft.
+ */
+export function RevealLine({
+    children,
+    index = 0,
+    className = "",
+}: {
+    children: ReactNode;
+    index?: number;
+    className?: string;
+}) {
+    return (
+        <Reveal variant="line" index={index} className={className}>
+            <span className="line-mask">
+                <span>{children}</span>
+            </span>
+        </Reveal>
     );
 }

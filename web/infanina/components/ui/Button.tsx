@@ -1,79 +1,104 @@
-import { ReactNode, AnchorHTMLAttributes, ButtonHTMLAttributes, forwardRef } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { Link } from "@/i18n/routing";
 
-type Variant = "primary" | "secondary" | "ghost" | "on-brand";
+type Variant = "primary" | "outline" | "ghost";
 type Size = "md" | "lg";
 
-const VARIANT: Record<Variant, string> = {
-    primary:
-        "bg-[var(--color-brand)] text-white shadow-[var(--shadow-brand)] hover:bg-[var(--color-brand-hover)] active:bg-[var(--color-brand-active)]",
-    secondary:
-        "bg-[var(--color-surface-1)] text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]",
-    ghost: "text-[var(--color-text-primary)] hover:bg-[var(--color-surface-2)]",
-    "on-brand":
-        "bg-white text-[var(--color-brand)] hover:bg-white/90 shadow-[0_8px_24px_rgba(0,0,0,0.18)]",
+const base =
+    "group relative inline-flex items-center justify-center gap-3 rounded-pill font-sans font-semibold " +
+    "transition-[background-color,color,border-color,transform] duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] " +
+    "active:translate-y-px disabled:pointer-events-none disabled:opacity-50";
+
+const sizes: Record<Size, string> = {
+    md: "min-h-11 ps-5 pe-2 py-2 text-[0.9375rem]",
+    lg: "min-h-14 ps-7 pe-3 py-3 text-base",
 };
 
-const SIZE: Record<Size, string> = {
-    md: "h-11 px-5 text-sm",
-    lg: "h-12 px-6 text-base",
+const variants: Record<Variant, string> = {
+    /* Acid pill, ink type. Identical in both worlds: the accent is the constant. */
+    primary: "bg-acid text-ink hover:bg-[oklch(92%_0.2_125)]",
+    outline:
+        "border border-[var(--hairline)] text-[var(--on-surface)] hover:border-[var(--on-surface)] " +
+        "hover:bg-[var(--surface-raised)]",
+    ghost: "px-0! text-[var(--on-surface)] hover:text-[var(--accent-text)]",
 };
 
-const BASE =
-    "inline-flex items-center justify-center gap-2 rounded-[12px] font-semibold whitespace-nowrap transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--color-brand-subtle-bg)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none";
-
-interface CommonProps {
-    variant?: Variant;
-    size?: Size;
-    children: ReactNode;
-    className?: string;
+function Chevron() {
+    return (
+        <span
+            aria-hidden
+            className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_oklab,currentColor_14%,transparent)] transition-transform duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 rtl:rotate-180"
+        >
+            <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.75">
+                <path d="M2 8h11M9 4l4 4-4 4" strokeLinecap="square" />
+            </svg>
+        </span>
+    );
 }
 
-type ButtonAsButton = CommonProps &
-    Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof CommonProps> & {
-        href?: undefined;
-    };
+type CommonProps = {
+    children: ReactNode;
+    variant?: Variant;
+    size?: Size;
+    /** Trailing circular arrow. On by default for primary. */
+    arrow?: boolean;
+    className?: string;
+};
 
-type ButtonAsLink = CommonProps &
-    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof CommonProps | "href"> & {
-        href: string;
-        external?: boolean;
-    };
+export function Button({
+    children,
+    variant = "primary",
+    size = "md",
+    arrow,
+    className = "",
+    ...rest
+}: CommonProps & Omit<ComponentProps<"button">, "children" | "className">) {
+    const showArrow = arrow ?? variant === "primary";
+    return (
+        <button
+            className={`${base} ${sizes[size]} ${variants[variant]} ${showArrow ? "" : "pe-5"} ${className}`}
+            {...rest}
+        >
+            <span>{children}</span>
+            {showArrow && <Chevron />}
+        </button>
+    );
+}
 
-type ButtonProps = ButtonAsButton | ButtonAsLink;
+export function ButtonLink({
+    children,
+    href,
+    variant = "primary",
+    size = "md",
+    arrow,
+    external = false,
+    className = "",
+    ...rest
+}: CommonProps & {
+    href: string;
+    external?: boolean;
+} & Omit<ComponentProps<"a">, "children" | "href" | "className">) {
+    const showArrow = arrow ?? variant === "primary";
+    const cls = `${base} ${sizes[size]} ${variants[variant]} ${showArrow ? "" : "pe-5"} ${className}`;
+    const inner = (
+        <>
+            <span>{children}</span>
+            {showArrow && <Chevron />}
+        </>
+    );
 
-export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
-    { variant = "primary", size = "md", className = "", children, ...rest },
-    ref,
-) {
-    const cls = `${BASE} ${VARIANT[variant]} ${SIZE[size]} ${className}`;
-
-    if ("href" in rest && rest.href !== undefined) {
-        const { href, external, ...anchorRest } = rest as ButtonAsLink;
-        if (external || /^https?:\/\//.test(href) || href.startsWith("mailto:") || href.startsWith("tel:")) {
-            return (
-                <a
-                    ref={ref as React.Ref<HTMLAnchorElement>}
-                    href={href}
-                    className={cls}
-                    rel={external ? "noopener noreferrer" : undefined}
-                    target={external ? "_blank" : undefined}
-                    {...anchorRest}
-                >
-                    {children}
-                </a>
-            );
-        }
+    if (external) {
         return (
-            <Link href={href} className={cls} {...anchorRest}>
-                {children}
-            </Link>
+            <a href={href} className={cls} rel="noreferrer noopener" target="_blank" {...rest}>
+                {inner}
+            </a>
         );
     }
 
     return (
-        <button ref={ref as React.Ref<HTMLButtonElement>} className={cls} {...(rest as ButtonAsButton)}>
-            {children}
-        </button>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        <Link href={href as any} className={cls} {...rest}>
+            {inner}
+        </Link>
     );
-});
+}

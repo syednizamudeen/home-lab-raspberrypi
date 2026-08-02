@@ -2,11 +2,10 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Archivo, Public_Sans, Martian_Mono } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { routing } from "@/i18n/routing";
 import { buildMetadata, organizationJsonLd } from "@/lib/seo";
 import type { Locale } from "@/lib/site";
@@ -15,25 +14,31 @@ export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
 }
 
-const spaceGrotesk = Space_Grotesk({
-    variable: "--font-space-grotesk",
+/* Display + wordmark. The wdth axis carries the industrial-grotesque widening
+   used on the hero line and the footer wordmark. */
+const archivo = Archivo({
+    variable: "--font-archivo",
     subsets: ["latin"],
     display: "swap",
-    weight: ["500", "600", "700"],
+    axes: ["wdth"],
 });
 
-const inter = Inter({
-    variable: "--font-inter",
+const publicSans = Public_Sans({
+    variable: "--font-public-sans",
     subsets: ["latin"],
     display: "swap",
-    weight: ["400", "500", "600", "700"],
+});
+
+const martianMono = Martian_Mono({
+    variable: "--font-martian-mono",
+    subsets: ["latin"],
+    display: "swap",
+    weight: ["400", "500", "600"],
 });
 
 export const viewport: Viewport = {
-    themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
-        { media: "(prefers-color-scheme: dark)", color: "#0A1220" },
-    ],
+    /* Fixed art direction: the page opens on paper regardless of system theme. */
+    themeColor: "#F5F2EB",
 };
 
 export async function generateMetadata({
@@ -78,24 +83,21 @@ export default async function LocaleLayout({
         <html
             lang={locale}
             dir={locale === "ar" ? "rtl" : "ltr"}
-            suppressHydrationWarning
-            className={`${spaceGrotesk.variable} ${inter.variable}`}
+            className={`${archivo.variable} ${publicSans.variable} ${martianMono.variable}`}
         >
-            <body className="antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+            <body className="flex min-h-screen flex-col bg-paper text-ink antialiased">
                 <a
                     href="#main"
-                    className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[100] focus:px-3 focus:py-2 focus:rounded-md focus:bg-[var(--color-brand)] focus:text-white"
+                    className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-100 focus:rounded-[6px] focus:bg-acid focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:tracking-[0.08em] focus:text-ink focus:uppercase"
                 >
                     Skip to content
                 </a>
                 <NextIntlClientProvider messages={messages}>
-                    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                        <Header />
-                        <main id="main" className="flex-grow">
-                            {children}
-                        </main>
-                        <Footer />
-                    </ThemeProvider>
+                    <Header />
+                    <main id="main" className="flex-grow">
+                        {children}
+                    </main>
+                    <Footer />
                 </NextIntlClientProvider>
                 <script
                     type="application/ld+json"

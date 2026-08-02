@@ -19,6 +19,7 @@ export async function submitContactForm(
     const name = String(formData.get("name") ?? "").trim();
     const email = String(formData.get("email") ?? "").trim();
     const company = String(formData.get("company") ?? "").trim();
+    const phone = String(formData.get("phone") ?? "").trim();
     const topic = String(formData.get("topic") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
 
@@ -38,6 +39,7 @@ export async function submitContactForm(
             name,
             email,
             company,
+            phone,
             topic,
             message,
         });
@@ -52,6 +54,7 @@ export async function submitContactForm(
                 name,
                 email,
                 company,
+                phone,
                 topic,
                 message,
                 source: SITE.url,

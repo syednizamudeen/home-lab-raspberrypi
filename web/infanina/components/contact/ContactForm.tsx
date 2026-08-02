@@ -1,14 +1,12 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useId, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useTranslations } from "next-intl";
-import { Send, Check, AlertTriangle } from "lucide-react";
 import { submitContactForm, type ContactFormState } from "@/app/[locale]/contact/actions";
 
 const INITIAL: ContactFormState = { status: "idle" };
-
-const TOPIC_KEYS = ["build", "integrate", "strategy", "other"] as const;
+const TOPIC_KEYS = ["build", "automate", "advise", "other"] as const;
 
 function SubmitButton({ idle, busy }: { idle: string; busy: string }) {
     const { pending } = useFormStatus();
@@ -16,95 +14,164 @@ function SubmitButton({ idle, busy }: { idle: string; busy: string }) {
         <button
             type="submit"
             disabled={pending}
-            data-focus-ring
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-[12px] bg-[var(--color-brand)] px-6 text-sm font-semibold text-white shadow-[var(--shadow-brand)] transition-all hover:-translate-y-0.5 hover:bg-[var(--color-brand-hover)] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+            className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-pill bg-acid ps-7 pe-3 py-3 font-sans text-base font-semibold text-ink transition-[background-color,transform] duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[oklch(92%_0.2_125)] active:translate-y-px disabled:pointer-events-none disabled:opacity-60"
         >
-            <Send className="h-4 w-4" />
-            {pending ? busy : idle}
+            <span>{pending ? busy : idle}</span>
+            <span
+                aria-hidden
+                className="inline-flex size-8 items-center justify-center rounded-full bg-[color-mix(in_oklab,currentColor_14%,transparent)] transition-transform duration-[180ms] group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+            >
+                <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.75">
+                    <path d="M2 8h11M9 4l4 4-4 4" strokeLinecap="square" />
+                </svg>
+            </span>
         </button>
+    );
+}
+
+type FieldErrors = Record<string, string | undefined>;
+
+function FieldError({ id, message }: { id: string; message?: string }) {
+    if (!message) return null;
+    return (
+        /* Sentence case, not the mono caps used for labels: an error should
+           correct you, not shout at you. */
+        <p id={id} className="mt-2 text-[0.875rem] text-[var(--danger-void)]">
+            {message}
+        </p>
     );
 }
 
 export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
     const t = useTranslations("Contact.form");
     const [state, formAction] = useActionState(submitContactForm, INITIAL);
+    const [errors, setErrors] = useState<FieldErrors>({});
+    const uid = useId();
 
-    const labelCls = "text-sm font-medium text-[var(--color-text-primary)]";
-    const inputCls =
-        "block w-full rounded-[10px] border border-[var(--color-border-default)] bg-[var(--color-surface-1)] px-4 text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition-colors focus:border-[var(--color-brand)] focus:ring-[3px] focus:ring-[var(--color-brand-subtle-bg)]";
+    const label = "t-meta block text-[var(--on-surface-3)]";
+    const field =
+        "mt-2 block w-full rounded-[6px] border border-[var(--hairline)] bg-[var(--surface-raised)] px-4 py-3 " +
+        "text-base text-[var(--on-surface)] placeholder:text-[var(--on-surface-3)] outline-none " +
+        "transition-colors duration-[180ms] focus:border-[var(--on-surface-2)]";
+    const invalid = "border-[var(--danger-void)]!";
+
+    /** Validate on blur, never on keystroke: nobody wants to be corrected mid-word. */
+    function validate(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        const el = e.currentTarget;
+        let msg: string | undefined;
+
+        if (el.required && !el.value.trim()) msg = t("error_required");
+        else if (el.type === "email" && el.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value))
+            msg = t("error_email");
+
+        setErrors((prev) => ({ ...prev, [el.name]: msg }));
+    }
 
     if (state.status === "success") {
         return (
-            <div
-                role="status"
-                className="flex flex-col items-start gap-3 rounded-[16px] border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 p-7"
-            >
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-success)] text-white">
-                    <Check className="h-5 w-5" />
-                </span>
-                <h3 className="font-display text-xl font-semibold tracking-tight text-[var(--color-text-primary)]">
-                    {t("success_title")}
-                </h3>
-                <p className="text-[var(--color-text-secondary)]">{t("success_body")}</p>
+            <div role="status" className="border-t-2 border-acid pt-8">
+                <p className="t-h2">{t("success_title")}</p>
+                <p className="t-body mt-4 text-[var(--on-surface-2)]">{t("success_body")}</p>
             </div>
         );
     }
 
+    function aria(name: string) {
+        return {
+            "aria-invalid": errors[name] ? true : undefined,
+            "aria-describedby": errors[name] ? `${uid}-${name}-error` : undefined,
+            onBlur: validate,
+            className: `${field} ${errors[name] ? invalid : ""}`,
+        };
+    }
+
     return (
-        <form action={formAction} className="space-y-5" noValidate>
-            {/* Honeypot */}
+        <form action={formAction} noValidate className="space-y-7">
+            {/* Honeypot. */}
             <div aria-hidden className="sr-only">
-                <label htmlFor="website">Website</label>
-                <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                <label htmlFor={`${uid}-website`}>Website</label>
+                <input id={`${uid}-website`} name="website" tabIndex={-1} autoComplete="off" />
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className={labelCls}>{t("name_label")}</label>
-                    <input id="name" name="name" required autoComplete="name" placeholder={t("name_placeholder")} className={`${inputCls} h-11`} />
+            <div className="grid gap-7 sm:grid-cols-2">
+                <div>
+                    <label htmlFor={`${uid}-name`} className={label}>
+                        {t("name_label")}
+                    </label>
+                    <input id={`${uid}-name`} name="name" required autoComplete="name" placeholder={t("name_placeholder")} {...aria("name")} />
+                    <FieldError id={`${uid}-name-error`} message={errors.name} />
                 </div>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className={labelCls}>{t("email_label")}</label>
-                    <input id="email" name="email" type="email" required autoComplete="email" placeholder={t("email_placeholder")} className={`${inputCls} h-11`} />
+
+                <div>
+                    <label htmlFor={`${uid}-email`} className={label}>
+                        {t("email_label")}
+                    </label>
+                    <input id={`${uid}-email`} name="email" type="email" required autoComplete="email" placeholder={t("email_placeholder")} {...aria("email")} />
+                    <FieldError id={`${uid}-email-error`} message={errors.email} />
+                </div>
+
+                <div>
+                    <label htmlFor={`${uid}-company`} className={label}>
+                        {t("company_label")}
+                    </label>
+                    <input id={`${uid}-company`} name="company" autoComplete="organization" placeholder={t("company_placeholder")} {...aria("company")} />
+                </div>
+
+                <div>
+                    <label htmlFor={`${uid}-phone`} className={label}>
+                        {t("phone_label")}
+                    </label>
+                    <input id={`${uid}-phone`} name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder={t("phone_placeholder")} {...aria("phone")} dir="ltr" />
                 </div>
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="company" className={labelCls}>{t("company_label")}</label>
-                    <input id="company" name="company" autoComplete="organization" placeholder={t("company_placeholder")} className={`${inputCls} h-11`} />
+            <fieldset>
+                <legend className={label}>{t("topic_label")}</legend>
+                <div className="mt-3 flex flex-wrap gap-2">
+                    {TOPIC_KEYS.map((k, i) => (
+                        <label
+                            key={k}
+                            className="cursor-pointer rounded-pill border border-[var(--hairline)] px-4 py-2.5 text-[0.9375rem] text-[var(--on-surface-2)] transition-colors duration-[180ms] hover:border-[var(--on-surface-2)] has-checked:border-acid has-checked:bg-acid has-checked:text-ink"
+                        >
+                            <input
+                                type="radio"
+                                name="topic"
+                                value={k}
+                                defaultChecked={i === 0}
+                                className="sr-only"
+                            />
+                            {t(`topic_options.${k}`)}
+                        </label>
+                    ))}
                 </div>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="topic" className={labelCls}>{t("topic_label")}</label>
-                    <select id="topic" name="topic" defaultValue="build" className={`${inputCls} h-11 appearance-none pe-10 bg-[length:16px] bg-no-repeat`} style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7588' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>\")", backgroundPosition: "right 12px center" }}>
-                        {TOPIC_KEYS.map((k) => (
-                            <option key={k} value={k}>{t(`topic_options.${k}`)}</option>
-                        ))}
-                    </select>
-                </div>
+            </fieldset>
+
+            <div>
+                <label htmlFor={`${uid}-message`} className={label}>
+                    {t("message_label")}
+                </label>
+                <textarea id={`${uid}-message`} name="message" required rows={5} placeholder={t("message_placeholder")} {...aria("message")} />
+                <FieldError id={`${uid}-message-error`} message={errors.message} />
             </div>
 
-            <div className="flex flex-col gap-2">
-                <label htmlFor="message" className={labelCls}>{t("message_label")}</label>
-                <textarea id="message" name="message" required rows={5} placeholder={t("message_placeholder")} className={`${inputCls} py-3 resize-y min-h-[140px]`} />
-            </div>
-
-            {state.status === "error" && (
-                <div role="alert" className="flex items-start gap-3 rounded-[10px] border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-3.5 text-sm text-[var(--color-text-primary)]">
-                    <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-danger)]" />
-                    <div>
-                        <p className="font-semibold">{t("error_title")}</p>
-                        <p className="text-[var(--color-text-secondary)]">
-                            {state.message ?? t("error_body")}
-                        </p>
+            <div aria-live="polite">
+                {state.status === "error" && (
+                    <div role="alert" className="border-s-0 border-t-2 border-[var(--danger-void)] pt-4">
+                        <p className="font-semibold text-[var(--on-surface)]">{t("error_title")}</p>
+                        <p className="t-body mt-1 text-[var(--on-surface-2)]">{state.message ?? t("error_body")}</p>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
 
-            <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm text-[var(--color-text-muted)]">
-                    {t("fallback_hint")}
-                    <a className="text-[var(--color-brand)] underline-offset-2 hover:underline" href={`mailto:${fallbackEmail}`}>{fallbackEmail}</a>.
+            <div className="flex flex-col-reverse items-start gap-5 pt-2 sm:flex-row sm:items-center sm:justify-between">
+                <p className="t-body text-[0.875rem] text-[var(--on-surface-3)]">
+                    {t("fallback_hint")}{" "}
+                    <a
+                        className="text-[var(--on-surface)] underline decoration-[var(--hairline)] underline-offset-4 hover:decoration-acid"
+                        href={`mailto:${fallbackEmail}`}
+                    >
+                        {fallbackEmail}
+                    </a>
                 </p>
                 <SubmitButton idle={t("submit")} busy={t("submitting")} />
             </div>

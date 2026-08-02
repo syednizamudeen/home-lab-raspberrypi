@@ -1,279 +1,321 @@
 @import "tailwindcss";
 
-@variant dark (&:where(.dark, .dark *));
-
 /* =============================================================
-   Ocean Design System tokens
-   Brand: Ocean Blue #007CBE (lifted to #1F95D5 in dark mode)
-   Display: Space Grotesk · Body: Inter
+   INFANINA — "Two Worlds"
+   Paper (who we are) → hard cut → Void (what we ship)
+   One accent: acid. See DESIGN.md.
    ============================================================= */
 
 :root {
-    /* Brand */
-    --color-brand: #007CBE;
-    --color-brand-hover: #0069A1;
-    --color-brand-active: #005B8C;
-    --color-brand-subtle-bg: rgba(0, 124, 190, 0.12);
-    --color-brand-on: #FFFFFF;
+    /* ---- Paper world ---- */
+    --paper: oklch(96.5% 0.008 95);
+    --paper-raised: oklch(98.6% 0.006 95);
+    --paper-sunk: oklch(93% 0.01 95);
+    --ink: oklch(24% 0.02 300);
+    --ink-2: oklch(46% 0.015 300);
+    --ink-3: oklch(51% 0.014 300);
+    --rule: oklch(87% 0.01 95);
 
-    /* Semantic */
-    --color-success: #00AF54;
-    --color-warning: #FFD639;
-    --color-attention: #FBAF00;
-    --color-coral: #FFA3AF;
-    --color-danger: #E5484D;
+    /* ---- Void world ---- */
+    --void: oklch(16% 0.03 305);
+    --void-raised: oklch(21% 0.035 305);
+    --glow: oklch(26% 0.04 305);
+    --void-ink: oklch(95% 0.008 95);
+    --void-ink-2: oklch(72% 0.015 305);
+    --void-ink-3: oklch(63% 0.02 305);
+    --void-rule: oklch(30% 0.03 305);
 
-    /* Surfaces (light) */
-    --color-surface-0: #F7FAFC;
-    --color-surface-1: #FFFFFF;
-    --color-surface-2: #F2F6FA;
-    --color-surface-3: #E6EEF6;
+    /* ---- The one accent ---- */
+    --acid: oklch(88% 0.215 125);
+    --acid-deep: oklch(51% 0.13 132);
+    --acid-wash: oklch(88% 0.215 125 / 0.14);
 
-    /* Text (light) */
-    --color-text-primary: #0E1726;
-    --color-text-secondary: #3A475C;
-    --color-text-muted: #6B7588;
-    --color-text-on-brand: #FFFFFF;
+    /* ---- State ---- */
+    --danger: oklch(50% 0.19 25);
+    --danger-void: oklch(72% 0.17 25);
 
-    /* Borders (light) */
-    --color-border-subtle: #EDF1F6;
-    --color-border-default: #DCE3EC;
-    --color-border-strong: #C5CFDB;
+    /* ---- Surface aliases. Sections flip these; everything reads them. ---- */
+    --surface: var(--paper);
+    --surface-raised: var(--paper-raised);
+    --on-surface: var(--ink);
+    --on-surface-2: var(--ink-2);
+    --on-surface-3: var(--ink-3);
+    --hairline: var(--rule);
+    --accent-text: var(--acid-deep);
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
-    --shadow-md: 0 4px 6px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08);
-    --shadow-lg: 0 12px 24px rgba(15, 23, 42, 0.10), 0 24px 48px rgba(15, 23, 42, 0.14);
-    --shadow-brand: 0 12px 30px rgba(0, 124, 190, 0.28);
+    /* ---- Elevation: exactly two ---- */
+    --e1: 0 1px 2px oklch(24% 0.02 300 / 0.06);
+    --e2: 0 12px 32px -12px oklch(24% 0.02 300 / 0.18);
 
-    /* Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    /* ---- Motion ---- */
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --t-micro: 180ms;
+    --t-enter: 420ms;
+    --t-display: 700ms;
 
-    /* Aliases used by Tailwind utilities */
-    --background: var(--color-surface-0);
-    --foreground: var(--color-text-primary);
+    /* ---- Radius ---- */
+    --r-hair: 2px;
+    --r-input: 6px;
+    --r-pill: 999px;
 }
 
-.dark {
-    --color-brand: #1F95D5;
-    --color-brand-hover: #36A8E5;
-    --color-brand-active: #5BBCEE;
-    --color-brand-subtle-bg: rgba(31, 149, 213, 0.18);
+/* Any element inside .world-void reads void tokens through the aliases. */
+.world-void {
+    --surface: var(--void);
+    --surface-raised: var(--void-raised);
+    --on-surface: var(--void-ink);
+    --on-surface-2: var(--void-ink-2);
+    --on-surface-3: var(--void-ink-3);
+    --hairline: var(--void-rule);
+    --accent-text: var(--acid);
 
-    --color-surface-0: #0A1220;
-    --color-surface-1: #0E1726;
-    --color-surface-2: #16203A;
-    --color-surface-3: #1F2A48;
+    background: var(--void);
+    color: var(--void-ink);
+}
 
-    --color-text-primary: #F4F7FB;
-    --color-text-secondary: #B6C2D6;
-    --color-text-muted: #7E8AA1;
+.world-paper {
+    --surface: var(--paper);
+    --surface-raised: var(--paper-raised);
+    --on-surface: var(--ink);
+    --on-surface-2: var(--ink-2);
+    --on-surface-3: var(--ink-3);
+    --hairline: var(--rule);
+    --accent-text: var(--acid-deep);
 
-    --color-border-subtle: #1B2638;
-    --color-border-default: #243049;
-    --color-border-strong: #344066;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40), 0 1px 3px rgba(0, 0, 0, 0.45);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.45);
-    --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.50), 0 24px 60px rgba(0, 0, 0, 0.55);
-    --shadow-brand: 0 12px 30px rgba(31, 149, 213, 0.35);
-
-    --background: var(--color-surface-0);
-    --foreground: var(--color-text-primary);
+    background: var(--paper);
+    color: var(--ink);
 }
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
+    --color-paper: var(--paper);
+    --color-paper-raised: var(--paper-raised);
+    --color-paper-sunk: var(--paper-sunk);
+    --color-ink: var(--ink);
+    --color-ink-2: var(--ink-2);
+    --color-ink-3: var(--ink-3);
+    --color-rule: var(--rule);
 
-    --color-brand: var(--color-brand);
-    --color-brand-hover: var(--color-brand-hover);
-    --color-brand-subtle: var(--color-brand-subtle-bg);
-    --color-success: var(--color-success);
-    --color-warning: var(--color-warning);
-    --color-attention: var(--color-attention);
-    --color-coral: var(--color-coral);
-    --color-danger: var(--color-danger);
+    --color-void: var(--void);
+    --color-void-raised: var(--void-raised);
+    --color-void-ink: var(--void-ink);
+    --color-void-ink-2: var(--void-ink-2);
+    --color-void-ink-3: var(--void-ink-3);
+    --color-void-rule: var(--void-rule);
 
-    --color-surface-0: var(--color-surface-0);
-    --color-surface-1: var(--color-surface-1);
-    --color-surface-2: var(--color-surface-2);
-    --color-surface-3: var(--color-surface-3);
+    --color-acid: var(--acid);
+    --color-acid-deep: var(--acid-deep);
 
-    --color-text-primary: var(--color-text-primary);
-    --color-text-secondary: var(--color-text-secondary);
-    --color-text-muted: var(--color-text-muted);
+    /* Alias colors — resolve to whichever world the element sits in. */
+    --color-surface: var(--surface);
+    --color-surface-raised: var(--surface-raised);
+    --color-on-surface: var(--on-surface);
+    --color-on-surface-2: var(--on-surface-2);
+    --color-on-surface-3: var(--on-surface-3);
+    --color-hairline: var(--hairline);
 
-    --color-border-subtle: var(--color-border-subtle);
-    --color-border-default: var(--color-border-default);
-    --color-border-strong: var(--color-border-strong);
+    --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-martian-mono), ui-monospace, "SF Mono", monospace;
 
-    --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-
-    --radius-sm: var(--radius-sm);
-    --radius-md: var(--radius-md);
-    --radius-lg: var(--radius-lg);
+    --radius-input: var(--r-input);
+    --radius-pill: var(--r-pill);
 }
 
 html {
-    scroll-behavior: smooth;
-    background: var(--background);
-    color: var(--foreground);
+    background: var(--void);
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-    font-feature-settings: "ss01", "cv11";
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-public-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
 
 ::selection {
-    background: var(--color-brand-subtle-bg);
-    color: var(--color-text-primary);
-}
-
-/* Display headings adopt Space Grotesk by default; override per-element when needed */
-.font-display {
-    font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-    letter-spacing: -0.02em;
+    background: var(--acid);
+    color: var(--ink);
 }
 
 /* =============================================================
-   Mesh + grain backdrop — the signature flourish.
-   Used in <MeshBackdrop /> behind the hero.
+   Type scale
    ============================================================= */
 
-.mesh-backdrop {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
+.t-display-xl {
+    font-family: var(--font-archivo), ui-sans-serif, sans-serif;
+    /* Sized against the 8-of-12 column it lives in, not the viewport width,
+       so the longest word ("Singapore.") never runs past the column edge. */
+    font-size: clamp(2.75rem, 7.6vw, 7.5rem);
+    font-weight: 800;
+    line-height: 1.03;
+    letter-spacing: -0.035em;
+    font-stretch: 108%;
 }
 
-.mesh-backdrop::before {
-    content: "";
-    position: absolute;
-    inset: -20%;
-    background:
-        radial-gradient(60% 50% at 18% 20%, rgba(0, 124, 190, 0.28), transparent 70%),
-        radial-gradient(45% 40% at 82% 18%, rgba(255, 163, 175, 0.32), transparent 70%),
-        radial-gradient(55% 50% at 50% 95%, rgba(251, 175, 0, 0.18), transparent 70%);
-    filter: blur(40px);
-    animation: mesh-drift 22s ease-in-out infinite alternate;
+.t-display-l {
+    font-family: var(--font-archivo), ui-sans-serif, sans-serif;
+    font-size: clamp(2.125rem, 5vw, 4.25rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
 }
 
-.dark .mesh-backdrop::before {
-    background:
-        radial-gradient(60% 50% at 18% 20%, rgba(31, 149, 213, 0.32), transparent 70%),
-        radial-gradient(45% 40% at 82% 18%, rgba(255, 163, 175, 0.18), transparent 70%),
-        radial-gradient(55% 50% at 50% 95%, rgba(251, 175, 0, 0.14), transparent 70%);
+.t-h2 {
+    font-family: var(--font-archivo), ui-sans-serif, sans-serif;
+    font-size: clamp(1.625rem, 3vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.022em;
 }
 
-.mesh-backdrop::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.42 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    opacity: 0.18;
-    mix-blend-mode: overlay;
+.t-h3 {
+    font-family: var(--font-archivo), ui-sans-serif, sans-serif;
+    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
 }
 
-@keyframes mesh-drift {
-    0%   { transform: translate3d(-2%, -1%, 0) scale(1.02); }
-    100% { transform: translate3d(2%,  1%, 0) scale(1.05); }
+.t-lead {
+    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+    line-height: 1.55;
+    max-width: 46ch;
 }
 
-/* Decorative dotted grid for section dividers */
-.grid-dots {
-    background-image: radial-gradient(circle at 1px 1px, var(--color-border-default) 1px, transparent 0);
-    background-size: 24px 24px;
-    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+.t-body {
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 68ch;
 }
 
-/* Marquee for trusted-by strip */
-.marquee {
-    display: flex;
-    gap: 4rem;
-    animation: marquee 38s linear infinite;
-    width: max-content;
-}
-@keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+.t-meta {
+    font-family: var(--font-martian-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
 }
 
-/* Reveal-on-scroll utility (used via IntersectionObserver in client code or CSS-only stagger) */
-.reveal {
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 700ms ease, transform 700ms ease;
-}
-.reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+/* Light type on dark needs more air. */
+.world-void .t-body,
+.world-void .t-lead {
+    line-height: 1.7;
 }
 
-/* Hero entrance: staggered children */
-.hero-stagger > * {
+/* Per-script corrections for the locale port. */
+html[lang="ta"] .t-display-xl { font-size: clamp(2.25rem, 7vw, 6rem); line-height: 1.25; }
+html[lang="ta"] .t-display-l { font-size: clamp(1.75rem, 4.2vw, 3.5rem); line-height: 1.3; }
+html[lang="ar"] .t-display-xl { font-size: clamp(2.75rem, 9vw, 8rem); line-height: 1.3; letter-spacing: 0; }
+html[lang="ar"] .t-display-l { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.35; letter-spacing: 0; }
+html[lang="ar"] .t-h2,
+html[lang="ar"] .t-h3 { letter-spacing: 0; }
+html[lang="zh"] .t-display-xl,
+html[lang="zh"] .t-display-l { letter-spacing: -0.01em; }
+
+/* =============================================================
+   Focus — visible in both worlds
+   ============================================================= */
+
+/* Focus uses the accent alias, so the ring is acid-deep on paper and full acid
+   in the void. Bright acid on paper would fall under the 3:1 non-text minimum. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+    border-radius: var(--r-input);
+}
+
+/* =============================================================
+   Motion — one entrance per section, never looping
+   ============================================================= */
+
+[data-reveal] {
     opacity: 0;
     transform: translateY(14px);
-    animation: hero-rise 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-.hero-stagger > *:nth-child(1) { animation-delay: 80ms; }
-.hero-stagger > *:nth-child(2) { animation-delay: 200ms; }
-.hero-stagger > *:nth-child(3) { animation-delay: 320ms; }
-.hero-stagger > *:nth-child(4) { animation-delay: 440ms; }
-.hero-stagger > *:nth-child(5) { animation-delay: 560ms; }
-
-@keyframes hero-rise {
-    to { opacity: 1; transform: translateY(0); }
+    transition:
+        opacity var(--t-enter) var(--ease),
+        transform var(--t-enter) var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
 }
 
-/* Ambient pulse used for live indicators */
-@keyframes pulse-soft {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 175, 84, 0.45); }
-    50%      { box-shadow: 0 0 0 8px rgba(0, 175, 84, 0); }
-}
-.pulse-dot {
-    animation: pulse-soft 1.8s ease-out infinite;
+[data-reveal="line"] {
+    transform: translateY(24px);
+    transition-duration: var(--t-display);
 }
 
-/* Wordmark accent (used on Logo) */
-.brand-mark {
-    background: linear-gradient(120deg, var(--color-brand) 0%, var(--color-brand) 60%, var(--color-coral) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+[data-reveal].is-in {
+    opacity: 1;
+    transform: none;
 }
 
-/* Focus ring — applied to any [data-focus-ring] interactive element */
-[data-focus-ring]:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--color-brand-subtle-bg);
-    border-radius: var(--radius-md);
+/* The mask-reveal used on the hero display lines. */
+.line-mask {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.04em;
 }
 
-/* Reduced motion */
+.line-mask > span {
+    display: block;
+    transform: translateY(110%);
+    transition: transform var(--t-display) var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
+}
+
+.is-in .line-mask > span,
+.line-mask.is-in > span {
+    transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-        animation-duration: 0.001ms !important;
+        animation-duration: 1ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
+        transition-duration: 1ms !important;
         scroll-behavior: auto !important;
     }
-    .mesh-backdrop::before { animation: none; }
-    .marquee { animation: none; }
+
+    [data-reveal] {
+        opacity: 1;
+        transform: none;
+    }
+
+    .line-mask > span {
+        transform: none;
+    }
 }
 
-/* RTL adjustments — most layout uses logical properties already. */
-html[dir="rtl"] .marquee { animation-direction: reverse; }
+/* =============================================================
+   Structure
+   ============================================================= */
+
+.shell {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* The signature: a hard edge between worlds, carrying one acid hairline. */
+.world-cut {
+    height: 2px;
+    background: var(--acid);
+    border: 0;
+    margin: 0;
+}
+
+/* Hairline row list — the work index and proof blocks. */
+.rule-list > * + * {
+    border-block-start: 1px solid var(--hairline);
+}
+
+/* Mono numerals line up in columns. */
+.tnum {
+    font-variant-numeric: tabular-nums;
+}

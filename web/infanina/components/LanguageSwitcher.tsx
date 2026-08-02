@@ -1,9 +1,9 @@
 "use client";
 
 import { useLocale } from "next-intl";
+import { useParams } from "next/navigation";
 import { useRouter, usePathname } from "@/i18n/routing";
 import { useState, useRef, useEffect, useTransition } from "react";
-import { Globe, ChevronDown, Check } from "lucide-react";
 
 const LANGUAGES = [
     { code: "en", name: "English", label: "EN" },
@@ -17,6 +17,7 @@ export default function LanguageSwitcher() {
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
     const pathname = usePathname();
+    const params = useParams();
     const locale = useLocale();
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -40,7 +41,10 @@ export default function LanguageSwitcher() {
 
     const change = (next: string) => {
         startTransition(() => {
-            router.replace(pathname, { locale: next });
+            // next-intl typed routing: for dynamic segments, pass `{ pathname, params }` so
+            // the route pattern (e.g. "/work/[slug]") is rehydrated with the current slug.
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            router.replace({ pathname, params: params as any } as any, { locale: next });
             setOpen(false);
         });
     };
@@ -49,24 +53,26 @@ export default function LanguageSwitcher() {
         <div className="relative" ref={ref}>
             <button
                 type="button"
-                data-focus-ring
                 onClick={() => setOpen((o) => !o)}
                 aria-haspopup="listbox"
                 aria-expanded={open}
-                className="inline-flex h-9 items-center gap-1.5 rounded-full border border-[var(--color-border-default)] bg-[var(--color-surface-1)] px-3 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-brand)] hover:border-[var(--color-brand)] transition-colors"
+                aria-label={`Language: ${current.name}`}
+                className="t-meta inline-flex h-9 items-center gap-1.5 rounded-pill px-3 text-[var(--on-surface-2)] transition-colors duration-[180ms] hover:text-[var(--on-surface)]"
             >
-                <Globe className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">{current.name}</span>
-                <span className="sm:hidden">{current.label}</span>
-                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+                {current.label}
+                <svg viewBox="0 0 10 6" aria-hidden className={`w-2.5 transition-transform duration-[180ms] ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M1 1l4 4 4-4" strokeLinecap="square" />
+                </svg>
             </button>
 
             <div
                 role="listbox"
-                className={`absolute end-0 mt-2 w-52 rounded-[12px] border border-[var(--color-border-default)] bg-[var(--color-surface-1)] shadow-[var(--shadow-md)] overflow-hidden ltr:origin-top-right rtl:origin-top-left transition-all duration-200 z-50
-                    ${open ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-1 pointer-events-none"}`}
+                aria-label="Language"
+                className={`absolute end-0 z-50 mt-3 w-48 overflow-hidden rounded-[10px] border border-[var(--hairline)] bg-[var(--surface-raised)] shadow-[var(--e2)] transition-[opacity,transform] duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] ltr:origin-top-right rtl:origin-top-left ${
+                    open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
+                }`}
             >
-                <ul className="p-1.5">
+                <ul className="rule-list">
                     {LANGUAGES.map((lang) => {
                         const active = locale === lang.code;
                         return (
@@ -77,14 +83,14 @@ export default function LanguageSwitcher() {
                                     aria-selected={active}
                                     disabled={isPending}
                                     onClick={() => change(lang.code)}
-                                    className={`flex w-full items-center justify-between rounded-[8px] px-3 py-2 text-sm transition-colors ${
+                                    className={`flex w-full items-center justify-between px-4 py-3 text-start text-sm transition-colors duration-[180ms] ${
                                         active
-                                            ? "bg-[var(--color-brand-subtle-bg)] text-[var(--color-brand)] font-semibold"
-                                            : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-2)]"
+                                            ? "font-semibold text-[var(--on-surface)]"
+                                            : "text-[var(--on-surface-2)] hover:bg-[var(--surface)]"
                                     }`}
                                 >
                                     <span>{lang.name}</span>
-                                    {active && <Check className="h-4 w-4" />}
+                                    {active && <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-acid" />}
                                 </button>
                             </li>
                         );

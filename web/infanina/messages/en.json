@@ -1,365 +1,494 @@
 {
-    "Navigation": {
-        "home": "Home",
-        "services": "Services",
-        "products": "Products",
-        "work": "Work",
-        "about": "About",
-        "contact": "Contact"
+  "Navigation": {
+    "home": "home",
+    "services": "services",
+    "work": "work",
+    "about": "about",
+    "contact": "book an hour",
+    "privacy": "privacy",
+    "terms": "terms"
+  },
+  "Home": {
+    "cut_label": "What we ship"
+  },
+  "Hero": {
+    "eyebrow": "Singapore software studio",
+    "line_1": "Your next build",
+    "line_2": "starts here.",
+    "lead": "Web platforms, mobile apps, and AI automation, built in Singapore by the people you will actually be talking to.",
+    "cta_primary": "Book a free hour",
+    "cta_secondary": "See what we build",
+    "image_alt": "The Singapore Central Business District seen across Marina Bay on a clear morning."
+  },
+  "About": {
+    "label": "The studio",
+    "title": "A small team, on purpose.",
+    "body_1": "Infanina is a Singapore-registered software company. We work with businesses that have outgrown spreadsheets and shared inboxes, and want something built properly instead of patched again.",
+    "body_2": "Every project runs with senior engineers on the keyboard. No layer of account managers between you and the build, no offshore handoff after the pitch, and no dependency on us once the work is done: the code, the accounts, and the deployment are yours from day one.",
+    "facts": {
+      "ownership": {
+        "term": "Ownership",
+        "value": "Singapore registered, Singapore owned. Your code and cloud accounts stay in your name."
+      },
+      "team": {
+        "term": "Who builds it",
+        "value": "The engineers you meet in the first call are the ones who write the code."
+      },
+      "engagement": {
+        "term": "How we work",
+        "value": "Fixed scope, weekly demos, and a working deployment from the first week."
+      },
+      "stack": {
+        "term": "What we use",
+        "value": "Boring, well-supported technology, chosen so another team could pick it up."
+      }
+    }
+  },
+  "Capabilities": {
+    "label": "What we do",
+    "title": "Three things, done properly.",
+    "lead": "Most engagements are one of these. If yours is a mix, that is normal, and the first hour is where we work out the shape of it.",
+    "items": {
+      "web": {
+        "title": "Web platforms",
+        "body": "Customer portals, booking systems, internal tools, and the admin nobody wants to build. Fast, accessible, and structured so the second year of changes costs less than the first."
+      },
+      "mobile": {
+        "title": "Mobile apps",
+        "body": "iOS and Android from one codebase where that fits, native where it does not. We handle store submission, release management, and the parts that break offline."
+      },
+      "ai": {
+        "title": "AI automation",
+        "body": "The daily manual work: reading documents, answering the same customer questions, moving data between systems that were never designed to talk. Built with a human in the loop for the decisions that matter."
+      }
+    }
+  },
+  "Work": {
+    "label": "Selected work",
+    "title": "What a build looks like.",
+    "lead": "Four shapes of project we take on, described by scope and method rather than by numbers we cannot show you.",
+    "reserved": "Reserved for a client project",
+    "reserved_note": "Published once the client signs off",
+    "disclosure": "We publish a case study only after the client has reviewed it and agreed to the numbers in it. Until one clears that bar, these pages describe what we build and how we build it. Ask in the first call and we will walk you through work in progress directly.",
+    "template_notice": "This page describes a build we take on, not a delivered engagement. No client is named and no results are claimed.",
+    "meta": {
+      "discipline": "Discipline",
+      "timeline": "Typical timeline",
+      "status": "Status",
+      "status_live": "Client engagement",
+      "status_shape": "Build definition"
     },
-    "Common": {
-        "learn_more": "Learn more",
-        "view_all": "View all",
-        "get_started": "Get started",
-        "back": "Back"
+    "sections": {
+      "problem": "The problem",
+      "approach": "How we build it",
+      "scope": "What is included",
+      "stack": "Stack"
     },
-    "Meta": {
-        "Home": {
-            "title": "Infanina — AI products that ship",
-            "description": "Infanina is a Singapore-based AI product studio. We design, build and support custom AI products, agents and integrations for SMEs and growing businesses."
-        },
-        "Services": {
-            "title": "AI Development Services in Singapore",
-            "description": "AI strategy, custom AI products, integrations and ongoing support. Engagement models built for SMEs that need to ship — not pilot."
-        },
-        "Products": {
-            "title": "AI Products for Growing Businesses",
-            "description": "Productized AI offerings: assistants, automation packs, document intelligence and analytics — installed in weeks, not quarters."
-        },
-        "Work": {
-            "title": "Selected Work · AI Case Studies",
-            "description": "How Infanina ships AI: real engagements, real outcomes. Selected case studies from chatbots, agents and document intelligence."
-        },
-        "About": {
-            "title": "About Infanina · Singapore AI Studio",
-            "description": "We are an AI product studio based in Singapore. Our team designs, builds and supports AI products that compound real business value."
-        },
-        "Contact": {
-            "title": "Contact Infanina · Start an AI Project",
-            "description": "Tell us about your AI project. We respond within one business day. Based in Singapore, working with teams across the region."
-        },
-        "Privacy": {
-            "title": "Privacy Policy",
-            "description": "How Infanina collects, processes and protects personal data."
-        },
-        "Terms": {
-            "title": "Terms & Conditions",
-            "description": "Terms governing the use of Infanina services and website."
-        }
+    "detail_cta_title": "Tell us where the work is piling up.",
+    "detail_cta": "Book a free hour",
+    "related": "Other builds",
+    "projects": {
+      "operations_platform": {
+        "title": "Internal operations platform",
+        "summary": "One place for the work currently spread across spreadsheets, WhatsApp groups, and one person's inbox.",
+        "problem": "Operations run on files that get copied, renamed, and emailed. Nobody is certain which version is current, approvals happen verbally, and reporting means someone rebuilding the same sheet every month.",
+        "approach": "We map the actual process first, including the shortcuts people take, then build the smallest system that replaces it without a training programme. Roles and permissions come early, because that is what makes a shared tool safe to use.",
+        "scope": [
+          "Process mapping with the people who do the work",
+          "Web application with role-based access and an audit trail",
+          "Data migration from the current spreadsheets",
+          "Handover: source code, cloud accounts, and a written runbook"
+        ]
+      },
+      "customer_mobile_app": {
+        "title": "Customer-facing mobile app",
+        "summary": "An app your customers keep on the first screen, released to both stores and maintainable after launch.",
+        "problem": "A mobile presence that is a wrapped website satisfies nobody. It is slow, it forgets you, and it stops working the moment the signal drops in a lift or a basement carpark.",
+        "approach": "We design for the moments the app is actually used, build offline-first so it survives bad signal, and set up releases so a fix reaches users in days rather than at the next big version.",
+        "scope": [
+          "Product design covering the core journeys, not every screen",
+          "iOS and Android build with offline-first data sync",
+          "Push notifications and a release pipeline",
+          "Store submission for the App Store and Google Play"
+        ]
+      },
+      "document_automation": {
+        "title": "Document processing automation",
+        "summary": "Invoices, forms, and claims read and filed automatically, with a person reviewing only what the system is unsure about.",
+        "problem": "Someone opens a PDF, types the numbers into another system, and files it. Repeat all day. It is slow, it introduces typos, and it is the first thing to fall behind when the team is busy.",
+        "approach": "We extract structure from the documents, attach a confidence score to every field, and route anything below your threshold to a review queue. The automation earns more responsibility as the numbers prove out, not on day one.",
+        "scope": [
+          "Extraction pipeline for your document types",
+          "Confidence thresholds set with your team",
+          "Human review queue for anything uncertain",
+          "Integration into the system that already holds the data"
+        ]
+      },
+      "messaging_assistant": {
+        "title": "Customer messaging assistant",
+        "summary": "An assistant on WhatsApp that answers the routine questions and hands the rest to a person quickly.",
+        "problem": "The same twenty questions arrive every day: opening hours, stock, order status, delivery. They arrive after hours too, and every one of them interrupts someone.",
+        "approach": "The assistant answers only what it can answer from your real data, and escalates everything else with the full conversation attached. Escalation rules and tone are agreed before launch, and every conversation stays reviewable.",
+        "scope": [
+          "WhatsApp Business API setup and verification",
+          "Answers grounded in your product and order data",
+          "Escalation to a human with the conversation attached",
+          "Conversation log and a weekly review of what it got wrong"
+        ]
+      }
+    }
+  },
+  "Automation": {
+    "label": "AI automation",
+    "title": "Same process. Fewer hands on it.",
+    "lead": "We do not automate a department. We take one repeated process, remove the mechanical steps, and leave the judgement with your team.",
+    "before_title": "How it runs today",
+    "after_title": "How it runs after",
+    "steps": {
+      "b1": "A document or message arrives",
+      "b2": "Someone reads it and works out what it is",
+      "b3": "The details are retyped into another system",
+      "b4": "Someone checks it against a second source",
+      "b5": "A reply is written and sent",
+      "a1": "The document or message arrives and is classified",
+      "a2": "Details are extracted and checked against your data",
+      "a3": "Anything uncertain waits for your approval",
+      "a4": "The reply is drafted and sent on your rules"
     },
+    "note": "Every automated step is logged and reversible. If it cannot be reviewed, we do not automate it."
+  },
+  "Connect": {
+    "label": "Start here",
+    "title": "One free hour. No pitch deck.",
+    "lead": "Tell us what is slow, manual, or broken. We will tell you what we would build, roughly what it costs, and whether you need us at all.",
+    "hour_title": "What the hour covers",
+    "hour_points": {
+      "scope": "The actual problem, mapped out loud with you",
+      "estimate": "A cost range and a realistic timeline",
+      "plan": "The first thing worth building, and what can wait"
+    },
+    "hour_note": "If the honest answer is an off-the-shelf tool, we will say so. That happens more often than you would expect.",
+    "direct_title": "Or reach us directly",
+    "channels": {
+      "whatsapp": "WhatsApp",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "whatsapp_prefill": "Hi Infanina, I'd like to book the free consultation hour."
+  },
+  "Contact": {
+    "form": {
+      "name_label": "Your name",
+      "name_placeholder": "Jane Tan",
+      "email_label": "Work email",
+      "email_placeholder": "jane@company.com.sg",
+      "company_label": "Company",
+      "company_placeholder": "Optional",
+      "phone_label": "Phone or WhatsApp",
+      "phone_placeholder": "Optional",
+      "topic_label": "What is this about",
+      "topic_options": {
+        "build": "Build something new",
+        "automate": "Automate a process",
+        "advise": "Get a second opinion",
+        "other": "Something else"
+      },
+      "message_label": "What is slow, manual, or broken",
+      "message_placeholder": "A few lines is enough. What happens today, who does it, and how often.",
+      "submit": "Book the hour",
+      "submitting": "Sending",
+      "success_title": "Got it. We will be in touch.",
+      "success_body": "You will hear from a person, usually within one business day. If it is urgent, WhatsApp is faster.",
+      "error_title": "That did not send.",
+      "error_body": "Please try again in a moment, or email us directly.",
+      "error_required": "This one is needed",
+      "error_email": "That email address does not look right",
+      "fallback_hint": "Prefer email?"
+    }
+  },
+  "Footer": {
+    "pitch": "Software built by people you can call, in the same timezone as you.",
+    "reach_us": "Reach us",
+    "whatsapp": "Message on WhatsApp",
+    "company": "Company",
+    "registered_name": "Registered name",
+    "uen": "UEN",
+    "registered_address": "Registered address",
+    "jurisdiction": "Governing law"
+  },
+  "AboutPage": {
+    "title": "Built here, answerable here.",
+    "lead": "A Singapore software studio for businesses that want the people building their systems to be reachable.",
+    "facts": {
+      "registered": "UEN",
+      "since": "Operating since",
+      "based": "Based in"
+    },
+    "story_1": "Infanina exists because of a pattern we kept seeing. A business commissions software, the agency that pitched it hands the work to someone else, and eighteen months later nobody can change anything without going back to a vendor who no longer remembers how it works.",
+    "story_2": "So we built the studio around the opposite. Small team, senior engineers, one client conversation that runs from the first hour to the handover. We keep the number of active projects low enough that this stays true.",
+    "story_3": "We are not the cheapest option and we are not trying to be the biggest. We are trying to be the team you call again.",
+    "principles_title": "How we work",
+    "principles": {
+      "scope": {
+        "title": "Scope before contract",
+        "body": "We do not quote before we understand the process. The free hour exists so both sides know what is being bought."
+      },
+      "senior": {
+        "title": "Senior hands only",
+        "body": "The people in the first call write the code. No handoff to a team you have never met."
+      },
+      "handover": {
+        "title": "You own everything",
+        "body": "Repositories, cloud accounts, domains, and documentation are in your name from the start. Leaving us should be easy."
+      }
+    },
+    "how_label": "The engagement",
+    "how_title": "From first call to handover.",
+    "how": {
+      "week_zero": {
+        "title": "The free hour",
+        "body": "We map the process, agree what success looks like, and tell you the range. No slides, no obligation."
+      },
+      "weekly": {
+        "title": "Weekly demos",
+        "body": "Every week you see the real thing running, not a status report. Direction changes are cheapest here."
+      },
+      "handover_step": {
+        "title": "Handover",
+        "body": "Source code, accounts, deployment steps, and a written runbook, walked through with whoever will hold it."
+      },
+      "after": {
+        "title": "After launch",
+        "body": "Optional support with a defined response time. Plenty of clients take the code and run it themselves, which is fine."
+      }
+    },
+    "cta": "Book a free hour"
+  },
+  "ServicesPage": {
+    "title": "What we build, and how it is priced.",
+    "lead": "Three disciplines and three ways to engage. Most projects start with the smallest one.",
+    "engagements_title": "Three ways to work with us.",
+    "engagements": {
+      "sprint": {
+        "title": "Discovery sprint",
+        "shape": "1 to 2 weeks, fixed fee",
+        "body": "For when the problem is clear but the solution is not. We map the process, prototype the hard part, and produce a scope and estimate you can take to anyone, including another studio."
+      },
+      "build": {
+        "title": "Build",
+        "shape": "6 to 16 weeks, fixed scope",
+        "body": "Design and engineering through to a live deployment, with weekly demos and a fixed scope agreed up front. Changes are handled as explicit trades, not as invoices that appear later."
+      },
+      "care": {
+        "title": "Ongoing care",
+        "shape": "Monthly, cancel anytime",
+        "body": "Hosting, monitoring, security updates, and an agreed number of change hours each month. For teams without an in-house engineer. Cancel with a month's notice and keep everything."
+      }
+    },
+    "pricing_note": "We quote a range in the first hour and a fixed number after discovery. We do not bill by the hour for delivery work, because that prices you for our learning curve.",
+    "cta_title": "Start with the free hour.",
+    "cta": "Book a free hour"
+  },
+  "WorkPage": {
+    "title": "The work, described honestly.",
+    "lead": "Four build shapes we take on. Client case studies appear here as they are approved for publication.",
+    "cta_title": "Your project is not on this list.",
+    "cta_body": "It rarely is. The first hour is where we work out which parts of it we have built before and which parts are new.",
+    "cta": "Book a free hour"
+  },
+  "ContactPage": {
+    "title": "Let us hear the messy version.",
+    "lead": "You do not need a specification. Tell us what happens today and who it slows down.",
+    "local_time": "Singapore time",
+    "hours": "Office hours"
+  },
+  "Privacy": {
+    "title": "Privacy policy",
+    "lead": "How Infanina collects, uses, and protects personal data, in line with Singapore's Personal Data Protection Act.",
+    "updated_label": "Last updated",
+    "updated": "to be confirmed before launch",
+    "index_label": "Contents",
+    "sections": [
+      {
+        "title": "Who we are",
+        "body": [
+          "This policy applies to this website and to the services provided by Infanina, a company registered in Singapore. Our registered name, UEN, and address are printed in the footer of every page.",
+          "This policy is a template prepared for a Singapore-registered company. Have it reviewed by a qualified adviser, and confirm the details, before publishing."
+        ]
+      },
+      {
+        "title": "What we collect",
+        "body": [
+          "When you submit the contact form we collect the name, email address, company, phone number, and message you provide. Supplying a phone number is optional.",
+          "When you visit the site, our hosting provider records standard technical information such as IP address, browser type, and the pages requested. This is used for security and reliability, not for advertising profiles.",
+          "We do not use third-party advertising trackers, and we do not sell personal data."
+        ]
+      },
+      {
+        "title": "Why we use it",
+        "body": [
+          "To respond to your enquiry and arrange the consultation you asked for.",
+          "To provide, support, and improve services under a contract with you or your organisation.",
+          "To meet legal, accounting, and regulatory obligations that apply to a Singapore company."
+        ]
+      },
+      {
+        "title": "Consent and withdrawal",
+        "body": [
+          "By submitting the form you consent to us contacting you about your enquiry. You can withdraw that consent at any time by writing to the email address in the footer.",
+          "Withdrawing consent may mean we can no longer provide a service you have asked for. We will tell you clearly if that is the case."
+        ]
+      },
+      {
+        "title": "Disclosure to others",
+        "body": [
+          "We share personal data only with service providers who help us operate, such as hosting, email, and error monitoring, and only to the extent they need it.",
+          "We may disclose data where required by law, or by a regulator with authority to demand it.",
+          "Some providers process data outside Singapore. Where that happens we take steps intended to ensure a standard of protection comparable to the Personal Data Protection Act."
+        ]
+      },
+      {
+        "title": "How long we keep it",
+        "body": [
+          "Enquiries that do not become projects are deleted once they are no longer needed, and in any case within a reasonable period.",
+          "Records connected to a signed engagement are retained for as long as required by contract and by Singapore accounting and tax rules."
+        ]
+      },
+      {
+        "title": "Protection",
+        "body": [
+          "We apply access controls, encryption in transit, and least-privilege practices to the systems that hold personal data.",
+          "No system is perfectly secure. If a data breach affects you and meets the notification threshold, we will notify you and the Personal Data Protection Commission as required."
+        ]
+      },
+      {
+        "title": "Your rights",
+        "body": [
+          "You may request access to the personal data we hold about you, request correction of anything inaccurate, and ask how it has been used or disclosed.",
+          "Write to the email address in the footer. We will respond within the timeframe required by the Personal Data Protection Act."
+        ]
+      },
+      {
+        "title": "Cookies",
+        "body": [
+          "This site uses only what is necessary to serve pages and remember your language choice. It does not set advertising or cross-site tracking cookies.",
+          "If analytics are added later, this section will be updated before they are switched on."
+        ]
+      },
+      {
+        "title": "Contact and complaints",
+        "body": [
+          "Questions about this policy, or about how your data has been handled, go to the email address in the footer.",
+          "If you are not satisfied with our response, you may raise the matter with the Personal Data Protection Commission of Singapore."
+        ]
+      }
+    ]
+  },
+  "Terms": {
+    "title": "Terms of use",
+    "lead": "The terms that apply to this website. Project work is governed by a separate signed agreement.",
+    "updated_label": "Last updated",
+    "updated": "to be confirmed before launch",
+    "index_label": "Contents",
+    "sections": [
+      {
+        "title": "About these terms",
+        "body": [
+          "By using this website you accept these terms. If you do not accept them, please do not use the site.",
+          "This document is a template prepared for a Singapore-registered company. Have it reviewed by a qualified adviser, and confirm the details, before publishing."
+        ]
+      },
+      {
+        "title": "The website",
+        "body": [
+          "This site describes services offered by Infanina. Nothing on it is an offer capable of acceptance, a quotation, or professional advice.",
+          "Descriptions of typical timelines, scope, and technology are illustrative. What we would actually build for you is set out in a written proposal."
+        ]
+      },
+      {
+        "title": "Enquiries and consultations",
+        "body": [
+          "The free consultation is offered without obligation on either side, and does not create a contract or a retainer.",
+          "Anything you tell us in that conversation is treated as confidential. We are happy to sign a non-disclosure agreement before it if you prefer."
+        ]
+      },
+      {
+        "title": "Project work",
+        "body": [
+          "Paid work is governed by a separate written agreement covering scope, fees, timelines, intellectual property, warranties, and liability.",
+          "Where that agreement and these terms differ, the signed agreement takes precedence."
+        ]
+      },
+      {
+        "title": "Intellectual property",
+        "body": [
+          "The content, design, and code of this website belong to Infanina unless stated otherwise.",
+          "You may view and print pages for your own reference. You may not republish, sell, or systematically copy the site without written permission.",
+          "Ownership of deliverables produced during a paid engagement is set out in the engagement agreement. Our standard position is that the client owns the delivered work on full payment."
+        ]
+      },
+      {
+        "title": "Acceptable use",
+        "body": [
+          "Do not use this site to transmit unlawful material, attempt unauthorised access, interfere with its operation, or extract data by automated means at a scale that degrades service for others."
+        ]
+      },
+      {
+        "title": "Third-party links",
+        "body": [
+          "The site may link to services we do not control. We are not responsible for their content, availability, or privacy practices."
+        ]
+      },
+      {
+        "title": "Availability and accuracy",
+        "body": [
+          "We aim to keep the site accurate and available, but we do not guarantee that it is free of errors or uninterrupted.",
+          "We may change or remove content at any time without notice."
+        ]
+      },
+      {
+        "title": "Liability",
+        "body": [
+          "To the extent permitted by Singapore law, we are not liable for indirect or consequential loss arising from use of this website.",
+          "Nothing in these terms excludes liability that cannot lawfully be excluded, including liability for fraud, or for death or personal injury caused by negligence."
+        ]
+      },
+      {
+        "title": "Governing law",
+        "body": [
+          "These terms are governed by the laws of Singapore, and the courts of Singapore have exclusive jurisdiction over any dispute arising from them."
+        ]
+      }
+    ]
+  },
+  "Meta": {
     "Home": {
-        "hero": {
-            "eyebrow": "AI product studio · Singapore",
-            "title_1": "AI products",
-            "title_2": "that ship.",
-            "title_3": "Built for the businesses that build everything else.",
-            "subtitle": "We design, build and support custom AI products, agents and integrations for SMEs and growing teams. Pragmatic engineering, real outcomes.",
-            "cta_primary": "Start a project",
-            "cta_secondary": "See our work",
-            "trusted_by": "Working with teams in"
-        },
-        "values": {
-            "eyebrow": "How we work",
-            "title": "Less hype. More shipping.",
-            "subtitle": "Three commitments shape every engagement.",
-            "items": {
-                "build": {
-                    "title": "Build",
-                    "desc": "Custom AI products, agents and internal tools — engineered for production, not demos."
-                },
-                "integrate": {
-                    "title": "Integrate",
-                    "desc": "Wire AI into the systems your business already runs: CRM, ERP, e-commerce, support."
-                },
-                "support": {
-                    "title": "Support",
-                    "desc": "Stay alongside your team with ongoing iteration, monitoring and model upkeep."
-                }
-            }
-        },
-        "services": {
-            "eyebrow": "Services",
-            "title": "Four ways we partner with you.",
-            "subtitle": "Each one a focused engagement with a clear deliverable.",
-            "cta": "Explore services"
-        },
-        "showcase": {
-            "eyebrow": "Live demo",
-            "title": "AI you can talk to.",
-            "subtitle": "A glimpse at one product pattern: an assistant that captures leads, answers product questions and hands the qualified ones to your team.",
-            "feature_1_title": "Captures qualified leads, 24/7",
-            "feature_1_desc": "Conversations adapt to intent. Qualified leads are pushed straight to your CRM.",
-            "feature_2_title": "Grounded in your knowledge",
-            "feature_2_desc": "Retrieval-augmented over your docs, FAQs and product catalogue. No hallucinated specs.",
-            "feature_3_title": "Multilingual by default",
-            "feature_3_desc": "English, Bahasa Melayu, 中文, தமிழ், العربية. The same assistant, every customer.",
-            "chatbot_name": "Infanina Assistant",
-            "status": "Online",
-            "msg_hello": "Hi! Tell me about your business — I'll suggest where AI could move the needle.",
-            "msg_user": "We run a 30-store F&B chain. Our team is drowning in WhatsApp orders.",
-            "msg_response": "Got it. An assistant that takes orders on WhatsApp, validates against menu + stock, and pushes to your POS would cut handling by ~70%. Want a 2-week pilot scope?",
-            "input_placeholder": "Type a message…"
-        },
-        "stats": {
-            "eyebrow": "By the numbers",
-            "title": "Small team, sharp output.",
-            "items": {
-                "shipped": { "value": "40+", "label": "AI products shipped" },
-                "integrations": { "value": "120+", "label": "Systems integrated" },
-                "languages": { "value": "5", "label": "Supported languages" },
-                "uptime": { "value": "99.95%", "label": "Avg. service uptime" }
-            }
-        },
-        "work": {
-            "eyebrow": "Selected work",
-            "title": "Real engagements. Real outcomes.",
-            "subtitle": "A few of our recent client launches.",
-            "cta": "See all work"
-        },
-        "cta": {
-            "eyebrow": "Ready when you are",
-            "title": "Let's ship something AI does well.",
-            "subtitle": "Tell us about your business. We'll come back within one working day with a shape, a budget and a plan.",
-            "primary": "Start a project",
-            "secondary": "Email us directly"
-        }
-    },
-    "Services": {
-        "hero": {
-            "eyebrow": "Services",
-            "title": "Engagements built to ship.",
-            "subtitle": "Four ways to bring AI into your business — each with a clear scope, deliverable and exit point. No retainers you can't leave."
-        },
-        "items": {
-            "strategy": {
-                "title": "AI strategy & roadmap",
-                "summary": "Two-week sprint to find the highest-value AI bets and de-risk them.",
-                "deliverables": [
-                    "Opportunity map across operations, customer-facing and data",
-                    "Prioritized roadmap with ROI estimates",
-                    "Architecture and vendor recommendations",
-                    "Go/no-go scoping for the first build"
-                ]
-            },
-            "build": {
-                "title": "Custom AI products",
-                "summary": "Design and engineer a production AI product — assistant, agent, document intelligence, analytics.",
-                "deliverables": [
-                    "Product design and UX flows",
-                    "Engineered, deployed application",
-                    "Evaluation harness and guardrails",
-                    "Hand-off documentation and training"
-                ]
-            },
-            "integrate": {
-                "title": "AI integrations",
-                "summary": "Wire LLMs and AI services into the tools your team already lives in.",
-                "deliverables": [
-                    "CRM, ERP, support and e-commerce hooks",
-                    "Authentication, rate-limiting, observability",
-                    "Cost controls and model routing",
-                    "Failover and graceful-degradation paths"
-                ]
-            },
-            "support": {
-                "title": "Ongoing support",
-                "summary": "Stay sharp after launch — monitoring, model upkeep, iteration.",
-                "deliverables": [
-                    "SLA-backed monitoring and incident response",
-                    "Quarterly model and prompt review",
-                    "Iterative feature shipping",
-                    "Cost and quality tuning"
-                ]
-            }
-        },
-        "process": {
-            "eyebrow": "Process",
-            "title": "How a project runs.",
-            "steps": {
-                "discover": { "title": "Discover", "desc": "We listen, audit your stack, and map the highest-leverage AI bets." },
-                "design": { "title": "Design", "desc": "Crisp scope, success criteria, architecture and a deliverable timeline." },
-                "build": { "title": "Build", "desc": "Tight feedback loops. You see weekly demos and own the repo." },
-                "ship": { "title": "Ship & support", "desc": "Launch, observe, iterate. We stay only as long as you want us to." }
-            }
-        }
-    },
-    "Products": {
-        "hero": {
-            "eyebrow": "Products",
-            "title": "Productized AI, installed in weeks.",
-            "subtitle": "Battle-tested patterns we've shipped enough times to package. Adapted to your data, your tools and your tone."
-        },
-        "items": {
-            "assistant": {
-                "title": "Customer assistant",
-                "summary": "A multilingual assistant that captures leads, answers product questions and routes the qualified ones to your team.",
-                "highlights": ["Multilingual", "CRM sync", "Web + WhatsApp"]
-            },
-            "automation": {
-                "title": "Operations automation pack",
-                "summary": "Take repetitive back-office work — invoicing triage, document review, support routing — and let an agent handle the first pass.",
-                "highlights": ["Human-in-the-loop", "Audit trail", "Cost-capped"]
-            },
-            "documents": {
-                "title": "Document intelligence",
-                "summary": "Extract structured data from contracts, invoices, claims and emails — at scale, with confidence scores you can trust.",
-                "highlights": ["OCR + LLM", "Confidence scoring", "Export to ERP"]
-            },
-            "analytics": {
-                "title": "Conversational analytics",
-                "summary": "Ask questions in plain English. Get answers grounded in your data warehouse — with the SQL shown for the curious.",
-                "highlights": ["Read-only", "RBAC aware", "BYO warehouse"]
-            }
-        },
-        "cta": {
-            "title": "Don't see your shape?",
-            "subtitle": "Most engagements start as a conversation. Tell us the workflow you'd like AI to take off your plate.",
-            "primary": "Start a project"
-        }
-    },
-    "Work": {
-        "hero": {
-            "eyebrow": "Selected work",
-            "title": "Real engagements. Real outcomes.",
-            "subtitle": "A handful of our recent client launches across F&B, retail, finance and the public sector."
-        },
-        "cases": {
-            "fb_chain": {
-                "client": "Regional F&B chain",
-                "title": "WhatsApp ordering assistant for 30 stores",
-                "summary": "Voice + text ordering on WhatsApp, validated against POS stock. Cut handling time by 68% and lifted weekday revenue 14%.",
-                "tags": ["Customer assistant", "WhatsApp", "POS"]
-            },
-            "fintech": {
-                "client": "Series B fintech",
-                "title": "Document intelligence for KYC review",
-                "summary": "Replaced six-stage manual KYC review with an LLM-assisted pipeline. Time-to-approve dropped from 4 days to 6 hours.",
-                "tags": ["Document intelligence", "Compliance", "OCR"]
-            },
-            "retail": {
-                "client": "Multi-brand retailer",
-                "title": "Conversational analytics for store managers",
-                "summary": "Plain-English queries over the warehouse, scoped per role. 200+ store managers self-serve insights they used to email for.",
-                "tags": ["Analytics", "RAG", "RBAC"]
-            }
-        },
-        "cta": {
-            "title": "Want a similar lift?",
-            "subtitle": "We'll come back within a day with a shape and a rough budget.",
-            "primary": "Start a project"
-        }
+      "title": "Infanina · Software, built in Singapore",
+      "description": "Singapore-registered software studio building web platforms, mobile apps, and AI automation for business operations. Book a free consultation hour."
     },
     "About": {
-        "hero": {
-            "eyebrow": "About",
-            "title": "We build AI for the businesses that build everything else.",
-            "subtitle": "Infanina is a small studio of engineers, designers and ML practitioners based in Singapore. We work alongside SMEs and growing teams across South-East Asia."
-        },
-        "story": {
-            "eyebrow": "Why we started",
-            "title": "Most AI never makes it to production.",
-            "body_1": "We kept seeing the same pattern: companies excited by AI demos, six months later sitting on prototypes that never reached a customer. The gap was rarely about the model — it was about engineering, integration, and the unglamorous work of running things in production.",
-            "body_2": "So we built Infanina to focus on that gap. We pick projects where AI clearly moves the needle, design honestly, and ship with the same care a serious team would give any other piece of business-critical software."
-        },
-        "principles": {
-            "eyebrow": "Principles",
-            "title": "Three things we don't compromise on.",
-            "items": {
-                "honest": {
-                    "title": "Honest scoping",
-                    "desc": "If a project doesn't need AI, we'll say so. If it does, we'll be specific about what changes and what doesn't."
-                },
-                "owned": {
-                    "title": "You own everything",
-                    "desc": "Code, data, prompts, evals — yours. No black-box platforms you can't leave."
-                },
-                "production": {
-                    "title": "Production-first",
-                    "desc": "Every system ships with monitoring, evals and a clear cost ceiling on day one."
-                }
-            }
-        }
+      "title": "About Infanina",
+      "description": "A small Singapore software studio. Senior engineers, fixed scope, weekly demos, and full handover of code and accounts."
+    },
+    "Services": {
+      "title": "Services",
+      "description": "Web platforms, mobile apps, and AI automation. Discovery sprints, fixed-scope builds, and ongoing care for Singapore businesses."
+    },
+    "Work": {
+      "title": "Work",
+      "description": "The shapes of project Infanina takes on, described by scope and method. Client case studies are published only once approved."
     },
     "Contact": {
-        "hero": {
-            "eyebrow": "Start a project",
-            "title": "Tell us about your business.",
-            "subtitle": "Drop us a few lines about your team, the workflow you'd like AI to take on, and the shape of your timeline. We respond within one working day."
-        },
-        "form": {
-            "name_label": "Your name",
-            "name_placeholder": "Jane Tan",
-            "email_label": "Work email",
-            "email_placeholder": "jane@company.com",
-            "company_label": "Company",
-            "company_placeholder": "Company Pte Ltd",
-            "topic_label": "What's this about?",
-            "topic_options": {
-                "build": "Build a custom AI product",
-                "integrate": "Integrate AI into an existing tool",
-                "strategy": "AI strategy & roadmap",
-                "other": "Something else"
-            },
-            "message_label": "Tell us a bit more",
-            "message_placeholder": "What workflow would you like AI to take off your plate?",
-            "submit": "Send message",
-            "submitting": "Sending…",
-            "success_title": "Thanks — message received.",
-            "success_body": "We'll come back to you within one working day.",
-            "error_title": "Something went wrong.",
-            "error_body": "Please try again, or email us directly at hello@infanina.com.",
-            "fallback_hint": "Prefer email? Write to "
-        },
-        "side": {
-            "email_title": "Email",
-            "address_title": "Office",
-            "address_value": "Singapore",
-            "hours_title": "Response time",
-            "hours_value": "Within one working day, Mon–Fri"
-        }
+      "title": "Book a free hour",
+      "description": "Tell us what is slow, manual, or broken. One hour, no pitch deck, a cost range and a realistic timeline."
     },
-    "Footer": {
-        "company_desc": "We design, build and support AI products for SMEs and growing teams across South-East Asia.",
-        "explore_title": "Explore",
-        "contact_title": "Contact",
-        "address": "Singapore",
-        "copyright": "© {year} Infanina Pte Ltd",
-        "reg_no": "Co. Reg. No. 202612345X",
-        "privacy_link": "Privacy",
-        "terms_link": "Terms"
+    "Privacy": {
+      "title": "Privacy policy",
+      "description": "How Infanina collects, uses, and protects personal data under Singapore's Personal Data Protection Act."
     },
-    "Legal": {
-        "Privacy": {
-            "title": "Privacy Policy",
-            "updated": "Last updated: 2026-01-01",
-            "intro": "This policy explains how Infanina Pte Ltd (\"Infanina\", \"we\") collects, uses and protects personal data when you visit our website or engage our services.",
-            "sections": {
-                "collection_title": "Data we collect",
-                "collection_body": "When you contact us, we collect the information you provide — typically name, email, company and the description of your project. We do not use third-party advertising trackers on this site.",
-                "use_title": "How we use it",
-                "use_body": "We use your information solely to respond to your enquiry and to provide services you've engaged us for. We do not sell or share personal data with third parties for marketing.",
-                "retention_title": "Retention",
-                "retention_body": "We retain enquiry data for up to 24 months unless you ask us to delete it sooner.",
-                "rights_title": "Your rights",
-                "rights_body": "You can request access to, correction of, or deletion of personal data we hold about you by writing to hello@infanina.com.",
-                "contact_title": "Questions",
-                "contact_body": "Email hello@infanina.com if anything here is unclear."
-            }
-        },
-        "Terms": {
-            "title": "Terms & Conditions",
-            "updated": "Last updated: 2026-01-01",
-            "intro": "These terms govern your use of the Infanina website and any engagement you enter into with Infanina Pte Ltd.",
-            "sections": {
-                "use_title": "Use of the site",
-                "use_body": "You may use this website for lawful purposes only. The content is provided for informational use; specific engagement terms are agreed in writing.",
-                "ip_title": "Intellectual property",
-                "ip_body": "The Infanina name, logo and original content are the property of Infanina Pte Ltd. Engagement deliverables are governed by the contract signed for each project.",
-                "liability_title": "Liability",
-                "liability_body": "We make no warranty that the website will be error-free or uninterrupted. Our maximum aggregate liability is limited to the fees paid for the relevant engagement.",
-                "law_title": "Governing law",
-                "law_body": "These terms are governed by the laws of Singapore."
-            }
-        }
+    "Terms": {
+      "title": "Terms of use",
+      "description": "The terms that apply to the Infanina website. Project work is governed by a separate signed agreement."
     }
+  }
 }

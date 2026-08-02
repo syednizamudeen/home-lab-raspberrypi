@@ -1,87 +1,147 @@
-import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { Mail, MapPin, Linkedin, Github } from "lucide-react";
-import { Container } from "../ui/Container";
-import { Logo } from "../ui/Logo";
-import { SITE } from "@/lib/site";
+import { Link } from "@/i18n/routing";
+import { Wordmark } from "../ui/Wordmark";
+import { SITE, activeSocials, display, telLink, whatsappLink } from "@/lib/site";
+
+const LEGAL = [
+    { href: "/privacy", key: "privacy" },
+    { href: "/terms", key: "terms" },
+] as const;
 
 export default function Footer() {
     const t = useTranslations("Footer");
-    const tNav = useTranslations("Navigation");
-    const year = new Date().getFullYear().toString();
+    const nav = useTranslations("Navigation");
+    const socials = activeSocials();
+    const wa = whatsappLink("Hi Infanina, I'd like to book the free consultation hour.");
+    const tel = telLink();
+    const year = new Date().getFullYear();
+
+    const linkStyle =
+        "text-[var(--on-surface)] underline decoration-[var(--hairline)] decoration-1 underline-offset-4 transition-colors duration-[180ms] hover:decoration-acid";
 
     return (
-        <footer className="relative mt-20 border-t border-[var(--color-border-subtle)] bg-[var(--color-surface-1)]">
-            <Container className="py-16">
-                <div className="grid gap-12 lg:grid-cols-12">
-                    <div className="lg:col-span-5">
-                        <Logo />
-                        <p className="mt-5 max-w-sm text-sm leading-relaxed text-[var(--color-text-secondary)]">
-                            {t("company_desc")}
-                        </p>
-                        <div className="mt-6 flex items-center gap-3">
-                            <a
-                                href={SITE.socials.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="LinkedIn"
-                                data-focus-ring
-                                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:text-[var(--color-brand)] hover:border-[var(--color-brand)] transition-colors"
-                            >
-                                <Linkedin className="h-4 w-4" />
-                            </a>
-                            <a
-                                href={SITE.socials.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="GitHub"
-                                data-focus-ring
-                                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:text-[var(--color-brand)] hover:border-[var(--color-brand)] transition-colors"
-                            >
-                                <Github className="h-4 w-4" />
-                            </a>
+        <footer className="world-void overflow-hidden pt-24 sm:pt-32">
+            <div className="shell">
+                <div className="grid gap-12 border-b border-[var(--hairline)] pb-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+                    <div className="lg:col-span-2">
+                        <p className="t-h3 max-w-[20ch] text-[var(--on-surface)]">{t("pitch")}</p>
+                        <p className="t-meta mt-6 text-[var(--on-surface-3)]">{SITE.hours}</p>
+                        <p className="t-meta mt-1 text-[var(--on-surface-3)]">{SITE.responseWindow}</p>
+                    </div>
+
+                    <div>
+                        <h2 className="t-meta text-[var(--on-surface-3)]">{t("reach_us")}</h2>
+                        <ul className="mt-5 space-y-3 text-[0.9375rem]">
+                            <li>
+                                <a href={`mailto:${SITE.email}`} className={linkStyle}>
+                                    {SITE.email}
+                                </a>
+                            </li>
+                            <li>
+                                {tel ? (
+                                    <a href={tel} className={linkStyle}>
+                                        {SITE.phoneDisplay}
+                                    </a>
+                                ) : (
+                                    <span className="text-[var(--on-surface-3)]">{display(SITE.phoneDisplay)}</span>
+                                )}
+                            </li>
+                            <li>
+                                {wa ? (
+                                    <a href={wa} rel="noreferrer noopener" target="_blank" className={linkStyle}>
+                                        {t("whatsapp")}
+                                    </a>
+                                ) : (
+                                    <span className="text-[var(--on-surface-3)]">
+                                        {t("whatsapp")} · {display(SITE.whatsapp)}
+                                    </span>
+                                )}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 className="t-meta text-[var(--on-surface-3)]">{t("company")}</h2>
+                        <ul className="mt-5 space-y-3 text-[0.9375rem]">
+                            {(["services", "work", "about", "contact"] as const).map((key) => (
+                                <li key={key}>
+                                    <Link
+                                        href={key === "contact" ? "/contact" : `/${key}`}
+                                        className="text-[var(--on-surface-2)] transition-colors duration-[180ms] hover:text-[var(--on-surface)]"
+                                    >
+                                        {nav(key)}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+
+                        {socials.length > 0 && (
+                            <ul className="mt-8 space-y-3 text-[0.9375rem]">
+                                {socials.map((s) => (
+                                    <li key={s.key}>
+                                        <a
+                                            href={s.href}
+                                            rel="noreferrer noopener"
+                                            target="_blank"
+                                            className="inline-flex items-center gap-2 text-[var(--on-surface-2)] transition-colors duration-[180ms] hover:text-[var(--on-surface)]"
+                                        >
+                                            {s.label}
+                                            <span aria-hidden className="text-acid">
+                                                ↗
+                                            </span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                </div>
+
+                {/* Registration facts. A Singapore company prints these; here they double as proof. */}
+                <dl className="grid gap-x-8 gap-y-5 py-10 sm:grid-cols-2 lg:grid-cols-4">
+                    {[
+                        { term: t("registered_name"), value: display(SITE.legalName) },
+                        { term: t("uen"), value: display(SITE.uen) },
+                        {
+                            term: t("registered_address"),
+                            value: `${display(SITE.address.line1)}, Singapore ${display(SITE.address.postalCode)}`,
+                        },
+                        { term: t("jurisdiction"), value: "Singapore" },
+                    ].map((row) => (
+                        <div key={row.term}>
+                            <dt className="t-meta text-[var(--on-surface-3)]">{row.term}</dt>
+                            <dd className="tnum mt-2 font-mono text-[0.8125rem] leading-relaxed text-[var(--on-surface-2)]">
+                                {row.value}
+                            </dd>
                         </div>
-                    </div>
+                    ))}
+                </dl>
 
-                    <div className="lg:col-span-3">
-                        <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-                            {t("explore_title")}
-                        </h4>
-                        <ul className="mt-5 space-y-3 text-sm">
-                            <li><Link href="/services" className="text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">{tNav("services")}</Link></li>
-                            <li><Link href="/products" className="text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">{tNav("products")}</Link></li>
-                            <li><Link href="/work" className="text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">{tNav("work")}</Link></li>
-                            <li><Link href="/about" className="text-[var(--color-text-secondary)] hover:text-[var(--color-brand)]">{tNav("about")}</Link></li>
-                        </ul>
-                    </div>
-
-                    <div className="lg:col-span-4">
-                        <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-                            {t("contact_title")}
-                        </h4>
-                        <ul className="mt-5 space-y-3 text-sm text-[var(--color-text-secondary)]">
-                            <li className="flex items-start gap-3">
-                                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-brand)]" />
-                                <a href={`mailto:${SITE.email}`} className="hover:text-[var(--color-brand)]">{SITE.email}</a>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-brand)]" />
-                                <span>{t("address")}</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className="mt-14 flex flex-col gap-4 border-t border-[var(--color-border-subtle)] pt-6 text-xs text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
-                    <p>
-                        {t("copyright", { year })} · {t("reg_no")}
+                <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[var(--hairline)] py-6">
+                    <p className="t-meta text-[var(--on-surface-3)]">
+                        © {year} {display(SITE.legalName)}
                     </p>
-                    <div className="flex items-center gap-6">
-                        <Link href="/privacy" className="hover:text-[var(--color-brand)]">{t("privacy_link")}</Link>
-                        <Link href="/terms" className="hover:text-[var(--color-brand)]">{t("terms_link")}</Link>
-                    </div>
+                    <ul className="flex items-center gap-6">
+                        {LEGAL.map((item) => (
+                            <li key={item.href}>
+                                <Link
+                                    href={item.href}
+                                    className="t-meta text-[var(--on-surface-3)] transition-colors duration-[180ms] hover:text-[var(--on-surface)]"
+                                >
+                                    {nav(item.key)}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-            </Container>
+            </div>
+
+            {/* The mark, at the size it deserves, bleeding past both edges. */}
+            <div aria-hidden className="select-none overflow-hidden px-[clamp(1.25rem,4vw,3rem)] pt-4">
+                <span className="block whitespace-nowrap text-[var(--on-surface)]">
+                    <Wordmark size="xl" className="block" />
+                </span>
+            </div>
         </footer>
     );
 }
