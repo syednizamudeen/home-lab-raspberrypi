@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { Wordmark } from "../ui/Wordmark";
-import { SITE, activeSocials, display, telLink, whatsappLink } from "@/lib/site";
+import { SITE, activeSocials, display, isPlaceholder, telLink, whatsappLink } from "@/lib/site";
 
 const LEGAL = [
     { href: "/privacy", key: "privacy" },
@@ -37,26 +37,23 @@ export default function Footer() {
                                     {SITE.email}
                                 </a>
                             </li>
-                            <li>
-                                {tel ? (
+                            {/* Unconfigured channels are omitted, not printed as
+                                blanks: an absent row costs nothing, a
+                                "[ to be confirmed ]" row costs the claim. */}
+                            {tel && (
+                                <li>
                                     <a href={tel} className={linkStyle}>
                                         {SITE.phoneDisplay}
                                     </a>
-                                ) : (
-                                    <span className="text-[var(--on-surface-3)]">{display(SITE.phoneDisplay)}</span>
-                                )}
-                            </li>
-                            <li>
-                                {wa ? (
+                                </li>
+                            )}
+                            {wa && (
+                                <li>
                                     <a href={wa} rel="noreferrer noopener" target="_blank" className={linkStyle}>
                                         {t("whatsapp")}
                                     </a>
-                                ) : (
-                                    <span className="text-[var(--on-surface-3)]">
-                                        {t("whatsapp")} · {display(SITE.whatsapp)}
-                                    </span>
-                                )}
-                            </li>
+                                </li>
+                            )}
                         </ul>
                     </div>
 
@@ -97,17 +94,19 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Registration facts. A Singapore company prints these; here they double as proof. */}
-                <dl className="grid gap-x-8 gap-y-5 py-10 sm:grid-cols-2 lg:grid-cols-4">
+                {/* The registration block appears once the details exist. Printing
+                    four labelled blanks reads as a company that is not real yet,
+                    which is the opposite of what this block is for. */}
+                <dl className="grid gap-x-8 gap-y-5 py-10 sm:grid-cols-2 lg:grid-cols-4 empty:hidden">
                     {[
-                        { term: t("registered_name"), value: display(SITE.legalName) },
-                        { term: t("uen"), value: display(SITE.uen) },
-                        {
+                        !isPlaceholder(SITE.legalName) && { term: t("registered_name"), value: SITE.legalName },
+                        !isPlaceholder(SITE.uen) && { term: t("uen"), value: SITE.uen },
+                        !isPlaceholder(SITE.address.line1) && {
                             term: t("registered_address"),
-                            value: `${display(SITE.address.line1)}, Singapore ${display(SITE.address.postalCode)}`,
+                            value: `${SITE.address.line1}, Singapore ${display(SITE.address.postalCode)}`,
                         },
                         { term: t("jurisdiction"), value: "Singapore" },
-                    ].map((row) => (
+                    ].filter((row): row is { term: string; value: string } => Boolean(row)).map((row) => (
                         <div key={row.term}>
                             <dt className="t-meta text-[var(--on-surface-3)]">{row.term}</dt>
                             <dd className="tnum mt-2 font-mono text-[0.8125rem] leading-relaxed text-[var(--on-surface-2)]">
@@ -119,7 +118,7 @@ export default function Footer() {
 
                 <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[var(--hairline)] py-6">
                     <p className="t-meta text-[var(--on-surface-3)]">
-                        © {year} {display(SITE.legalName)}
+                        © {year} {isPlaceholder(SITE.legalName) ? SITE.name : SITE.legalName}
                     </p>
                     <ul className="flex items-center gap-6">
                         {LEGAL.map((item) => (

@@ -2,6 +2,38 @@
 
 import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 
+/**
+ * One shared IntersectionObserver for every entrance on the page.
+ *
+ * The home page mounts around forty of these. An observer per element means
+ * forty separate observers each doing their own intersection bookkeeping; one
+ * observer with a callback registry does the same work once. Targets are
+ * unobserved as they fire, so the registry drains to empty.
+ */
+const callbacks = new WeakMap<Element, () => void>();
+let observer: IntersectionObserver | null = null;
+
+function sharedObserver(): IntersectionObserver | null {
+    if (typeof IntersectionObserver === "undefined") return null;
+    if (observer) return observer;
+
+    observer = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                const fire = callbacks.get(entry.target);
+                if (fire) {
+                    fire();
+                    callbacks.delete(entry.target);
+                }
+                observer?.unobserve(entry.target);
+            }
+        },
+        { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+    );
+    return observer;
+}
+
 type Props = {
     children: ReactNode;
     /** Stagger position within its group. Each step adds 60ms. */
@@ -13,7 +45,7 @@ type Props = {
 };
 
 /**
- * One-shot entrance. Fires once at 20% intersection and then stops observing:
+ * One-shot entrance. Fires once at 20% intersection and then stops watching:
  * nothing on this site re-animates when you scroll back up.
  */
 export function Reveal({ children, index = 0, variant = "block", as, className = "" }: Props) {
@@ -25,26 +57,20 @@ export function Reveal({ children, index = 0, variant = "block", as, className =
         const el = ref.current;
         if (!el) return;
 
-        if (typeof IntersectionObserver === "undefined") {
+        const io = sharedObserver();
+        if (!io) {
             // No observer support: show everything on the next frame.
             const raf = requestAnimationFrame(() => setShown(true));
             return () => cancelAnimationFrame(raf);
         }
 
-        const io = new IntersectionObserver(
-            (entries) => {
-                for (const entry of entries) {
-                    if (entry.isIntersecting) {
-                        setShown(true);
-                        io.disconnect();
-                    }
-                }
-            },
-            { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
-        );
-
+        callbacks.set(el, () => setShown(true));
         io.observe(el);
-        return () => io.disconnect();
+
+        return () => {
+            callbacks.delete(el);
+            io.unobserve(el);
+        };
     }, []);
 
     return (

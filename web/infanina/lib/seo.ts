@@ -72,15 +72,13 @@ export function buildMetadata({
             description,
             images: [ogImage],
         },
+        /* No explicit index/follow: that is already the default, and stating it
+           collides with the automatic `noindex` Next emits on the not-found
+           boundary, leaving two contradictory robots tags on every 404. Only the
+           directives that actually change behaviour are declared. */
         robots: {
-            index: true,
-            follow: true,
-            googleBot: {
-                index: true,
-                follow: true,
-                "max-image-preview": "large",
-                "max-snippet": -1,
-            },
+            "max-image-preview": "large",
+            "max-snippet": -1,
         },
     };
 }

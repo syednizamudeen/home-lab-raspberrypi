@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useId, useState } from "react";
+import { useActionState, useEffect, useId, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useTranslations } from "next-intl";
 import { submitContactForm, type ContactFormState } from "@/app/[locale]/contact/actions";
@@ -14,7 +14,7 @@ function SubmitButton({ idle, busy }: { idle: string; busy: string }) {
         <button
             type="submit"
             disabled={pending}
-            className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-pill bg-acid ps-7 pe-3 py-3 font-sans text-base font-semibold text-ink transition-[background-color,transform] duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[oklch(92%_0.2_125)] active:translate-y-px disabled:pointer-events-none disabled:opacity-60"
+            className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-pill bg-acid ps-7 pe-3 py-3 font-sans text-base font-semibold text-ink transition-[background-color,transform] duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-acid-hover active:translate-y-px disabled:pointer-events-none disabled:opacity-60"
         >
             <span>{pending ? busy : idle}</span>
             <span
@@ -47,6 +47,18 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
     const [state, formAction] = useActionState(submitContactForm, INITIAL);
     const [errors, setErrors] = useState<FieldErrors>({});
     const uid = useId();
+    const alertRef = useRef<HTMLDivElement>(null);
+
+    /* A rejected submission must not silently blank the page. Moving focus to
+       the alert both announces it and scrolls it into view, which matters most
+       on a phone where the message sits below a five-row textarea. */
+    useEffect(() => {
+        if (state.status === "error") alertRef.current?.focus();
+    }, [state]);
+
+    /* The action echoes the submitted values back on failure, so nothing typed
+       is lost. These are uncontrolled inputs; the defaults re-seed on re-render. */
+    const sent = state.values;
 
     const label = "t-meta block text-[var(--on-surface-3)]";
     const field =
@@ -98,7 +110,7 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
                     <label htmlFor={`${uid}-name`} className={label}>
                         {t("name_label")}
                     </label>
-                    <input id={`${uid}-name`} name="name" required autoComplete="name" placeholder={t("name_placeholder")} {...aria("name")} />
+                    <input id={`${uid}-name`} name="name" defaultValue={sent?.name ?? ""} required autoComplete="name" placeholder={t("name_placeholder")} {...aria("name")} />
                     <FieldError id={`${uid}-name-error`} message={errors.name} />
                 </div>
 
@@ -106,7 +118,7 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
                     <label htmlFor={`${uid}-email`} className={label}>
                         {t("email_label")}
                     </label>
-                    <input id={`${uid}-email`} name="email" type="email" required autoComplete="email" placeholder={t("email_placeholder")} {...aria("email")} />
+                    <input id={`${uid}-email`} name="email" defaultValue={sent?.email ?? ""} type="email" required autoComplete="email" placeholder={t("email_placeholder")} {...aria("email")} />
                     <FieldError id={`${uid}-email-error`} message={errors.email} />
                 </div>
 
@@ -114,14 +126,14 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
                     <label htmlFor={`${uid}-company`} className={label}>
                         {t("company_label")}
                     </label>
-                    <input id={`${uid}-company`} name="company" autoComplete="organization" placeholder={t("company_placeholder")} {...aria("company")} />
+                    <input id={`${uid}-company`} name="company" defaultValue={sent?.company ?? ""} autoComplete="organization" placeholder={t("company_placeholder")} {...aria("company")} />
                 </div>
 
                 <div>
                     <label htmlFor={`${uid}-phone`} className={label}>
                         {t("phone_label")}
                     </label>
-                    <input id={`${uid}-phone`} name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder={t("phone_placeholder")} {...aria("phone")} dir="ltr" />
+                    <input id={`${uid}-phone`} name="phone" defaultValue={sent?.phone ?? ""} type="tel" inputMode="tel" autoComplete="tel" placeholder={t("phone_placeholder")} {...aria("phone")} dir="ltr" />
                 </div>
             </div>
 
@@ -131,13 +143,13 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
                     {TOPIC_KEYS.map((k, i) => (
                         <label
                             key={k}
-                            className="cursor-pointer rounded-pill border border-[var(--hairline)] px-4 py-2.5 text-[0.9375rem] text-[var(--on-surface-2)] transition-colors duration-[180ms] hover:border-[var(--on-surface-2)] has-checked:border-acid has-checked:bg-acid has-checked:text-ink"
+                            className="cursor-pointer rounded-pill border border-[var(--hairline)] px-4 py-2.5 text-[0.9375rem] text-[var(--on-surface-2)] transition-colors duration-[180ms] hover:border-[var(--on-surface-2)] has-checked:border-acid has-checked:bg-acid has-checked:text-ink has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-[var(--accent-text)]"
                         >
                             <input
                                 type="radio"
                                 name="topic"
                                 value={k}
-                                defaultChecked={i === 0}
+                                defaultChecked={sent ? sent.topic === k : i === 0}
                                 className="sr-only"
                             />
                             {t(`topic_options.${k}`)}
@@ -150,13 +162,18 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
                 <label htmlFor={`${uid}-message`} className={label}>
                     {t("message_label")}
                 </label>
-                <textarea id={`${uid}-message`} name="message" required rows={5} placeholder={t("message_placeholder")} {...aria("message")} />
+                <textarea id={`${uid}-message`} name="message" required rows={5} defaultValue={sent?.message ?? ""} placeholder={t("message_placeholder")} {...aria("message")} />
                 <FieldError id={`${uid}-message-error`} message={errors.message} />
             </div>
 
             <div aria-live="polite">
                 {state.status === "error" && (
-                    <div role="alert" className="border-s-0 border-t-2 border-[var(--danger-void)] pt-4">
+                    <div
+                        ref={alertRef}
+                        tabIndex={-1}
+                        role="alert"
+                        className="scroll-mt-28 border-t-2 border-[var(--danger-void)] pt-4 outline-none"
+                    >
                         <p className="font-semibold text-[var(--on-surface)]">{t("error_title")}</p>
                         <p className="t-body mt-1 text-[var(--on-surface-2)]">{state.message ?? t("error_body")}</p>
                     </div>

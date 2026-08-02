@@ -86,6 +86,12 @@ export default async function LocaleLayout({
             className={`${archivo.variable} ${publicSans.variable} ${martianMono.variable}`}
         >
             <body className="flex min-h-screen flex-col bg-paper text-ink antialiased">
+                {/* Entrances start at opacity:0 and are revealed by an
+                    IntersectionObserver. Without JS that observer never runs and
+                    the page renders blank, so restore the final state outright. */}
+                <noscript>
+                    <style>{`[data-reveal]{opacity:1!important;transform:none!important}.line-mask>span{transform:none!important}`}</style>
+                </noscript>
                 <a
                     href="#main"
                     className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-100 focus:rounded-[6px] focus:bg-acid focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:tracking-[0.08em] focus:text-ink focus:uppercase"

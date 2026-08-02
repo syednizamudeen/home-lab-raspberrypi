@@ -16,7 +16,7 @@ const sizes: Record<Size, string> = {
 
 const variants: Record<Variant, string> = {
     /* Acid pill, ink type. Identical in both worlds: the accent is the constant. */
-    primary: "bg-acid text-ink hover:bg-[oklch(92%_0.2_125)]",
+    primary: "bg-acid text-ink hover:bg-acid-hover",
     outline:
         "border border-[var(--hairline)] text-[var(--on-surface)] hover:border-[var(--on-surface)] " +
         "hover:bg-[var(--surface-raised)]",

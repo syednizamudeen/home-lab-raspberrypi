@@ -27,6 +27,7 @@
 
     /* ---- The one accent ---- */
     --acid: oklch(88% 0.215 125);
+    --acid-hover: oklch(92% 0.2 125);
     --acid-deep: oklch(51% 0.13 132);
     --acid-wash: oklch(88% 0.215 125 / 0.14);
 
@@ -103,6 +104,7 @@
     --color-void-rule: var(--void-rule);
 
     --color-acid: var(--acid);
+    --color-acid-hover: var(--acid-hover);
     --color-acid-deep: var(--acid-deep);
 
     /* Alias colors — resolve to whichever world the element sits in. */
@@ -256,12 +258,15 @@ html[lang="zh"] .t-display-l { letter-spacing: -0.01em; }
 .line-mask {
     display: block;
     overflow: hidden;
-    padding-block: 0.04em;
+    /* Extra room at the bottom: the acid underline sits below the text
+       baseline, and with a flush mask it gets clipped away entirely. */
+    padding-block: 0.04em 0.18em;
 }
 
 .line-mask > span {
     display: block;
-    transform: translateY(110%);
+    /* Must exceed the mask's bottom padding, or the text peeks before it rises. */
+    transform: translateY(125%);
     transition: transform var(--t-display) var(--ease);
     transition-delay: var(--reveal-delay, 0ms);
 }
@@ -271,23 +276,32 @@ html[lang="zh"] .t-display-l { letter-spacing: -0.01em; }
     transform: none;
 }
 
+/* Reduced motion removes travel, not feedback.
+   A blanket `transition-duration: 1ms` on `*` also kills the 180ms colour
+   fades on buttons, links and inputs, which are the cues that tell a user
+   their pointer or keyboard landed. What triggers vestibular symptoms is
+   movement, so transforms and entrances go, and colour stays. */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
         animation-duration: 1ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 1ms !important;
         scroll-behavior: auto !important;
+        /* Movement only. Colour, border and opacity transitions survive. */
+        transition-property: color, background-color, border-color, outline-color,
+            text-decoration-color, fill, stroke, opacity, box-shadow !important;
     }
 
     [data-reveal] {
         opacity: 1;
         transform: none;
+        transition: none;
     }
 
     .line-mask > span {
         transform: none;
+        transition: none;
     }
 }
 

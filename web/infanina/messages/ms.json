@@ -491,5 +491,12 @@
       "title": "Terma Penggunaan",
       "description": "Terma dan syarat penggunaan laman web Infanina."
     }
+  },
+  "NotFound": {
+    "code": "Ralat 404",
+    "title": "Halaman itu tiada di sini.",
+    "lead": "Pautan itu mungkin sudah lapuk, atau alamatnya tersalah taip. Tiada apa yang hilang: laman ini kecil, dan semuanya ada dalam empat pautan ini.",
+    "elsewhere": "Cuba salah satu ini",
+    "report": "Datang dari pautan di tempat lain? Beritahu kami dan kami akan betulkan:"
   }
 }

@@ -139,7 +139,12 @@ export default function Header() {
                             <LanguageSwitcher />
                         </div>
                         <div className="hidden sm:block">
-                            <ButtonLink href="/contact" size="md">
+                            {/* DESIGN.md allows two acid moments per viewport. Over
+                                paper the hero CTA already spends one and the
+                                headline underline the other, so the nav sits
+                                outlined; it takes the accent once it is over the
+                                void and is the only call to action on screen. */}
+                            <ButtonLink href="/contact" size="md" variant={overVoid ? "primary" : "outline"}>
                                 {t("contact")}
                             </ButtonLink>
                         </div>

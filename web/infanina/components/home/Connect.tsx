@@ -14,11 +14,14 @@ export default function Connect() {
     const wa = whatsappLink(t("whatsapp_prefill"));
     const tel = telLink();
 
+    /* Only channels that actually work. A row reading "WhatsApp · [ to be
+       confirmed ]" is worse than no row: it is a promise of reachability,
+       printed as visibly unbuilt, next to copy calling WhatsApp the fast path. */
     const channels = [
         { key: "whatsapp", href: wa, value: display(SITE.whatsapp), external: true },
         { key: "phone", href: tel, value: display(SITE.phoneDisplay), external: false },
         { key: "email", href: `mailto:${SITE.email}`, value: SITE.email, external: false },
-    ];
+    ].filter((c) => c.href !== null);
 
     return (
         <Section id="connect" world="void" rhythm="normal">
@@ -49,20 +52,14 @@ export default function Connect() {
                             {channels.map((c) => (
                                 <li key={c.key} className="py-4">
                                     <p className="t-meta text-[var(--on-surface-3)]">{t(`channels.${c.key}`)}</p>
-                                    {c.href ? (
-                                        <a
-                                            href={c.href}
-                                            {...(c.external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-                                            dir="ltr"
-                                            className="mt-1 inline-block font-mono text-[0.875rem] text-[var(--on-surface)] underline decoration-[var(--hairline)] underline-offset-4 transition-colors duration-[180ms] hover:decoration-acid"
-                                        >
-                                            {c.value}
-                                        </a>
-                                    ) : (
-                                        <span className="mt-1 block font-mono text-[0.875rem] text-[var(--on-surface-3)]">
-                                            {c.value}
-                                        </span>
-                                    )}
+                                    <a
+                                        href={c.href as string}
+                                        {...(c.external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
+                                        dir="ltr"
+                                        className="mt-1 inline-block font-mono text-[0.875rem] text-[var(--on-surface)] underline decoration-[var(--hairline)] underline-offset-4 transition-colors duration-[180ms] hover:decoration-acid"
+                                    >
+                                        {c.value}
+                                    </a>
                                 </li>
                             ))}
                         </ul>

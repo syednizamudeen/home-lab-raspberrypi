@@ -491,5 +491,12 @@
       "title": "Terms of use",
       "description": "The terms that apply to the Infanina website. Project work is governed by a separate signed agreement."
     }
+  },
+  "NotFound": {
+    "code": "Error 404",
+    "title": "That page isn't here.",
+    "lead": "The link may be out of date, or the address may have a typo in it. Nothing is lost: the site is small, and everything on it is one of these four.",
+    "elsewhere": "Try one of these",
+    "report": "Followed a link from somewhere else? Tell us and we will fix it:"
   }
 }
