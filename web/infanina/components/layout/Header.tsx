@@ -23,6 +23,11 @@ export default function Header() {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
     const [overVoid, setOverVoid] = useState(false);
+    /* The sheet's subtree has never been rasterised before its first open, which
+       costs one ~50ms frame. Warming a compositor layer the moment the user
+       reaches for the trigger removes it; it is dropped again once the sheet has
+       closed, so will-change is never left on at rest. */
+    const [warm, setWarm] = useState(false);
     const [lifted, setLifted] = useState(false);
     const frame = useRef(0);
     const triggerRef = useRef<HTMLButtonElement>(null);
@@ -152,6 +157,9 @@ export default function Header() {
                         <button
                             ref={triggerRef}
                             type="button"
+                            onPointerEnter={() => setWarm(true)}
+                            onPointerDown={() => setWarm(true)}
+                            onFocus={() => setWarm(true)}
                             onClick={() => setOpen(true)}
                             aria-label="Open menu"
                             aria-controls="mobile-menu"
@@ -173,12 +181,26 @@ export default function Header() {
                 aria-modal="true"
                 aria-label="Menu"
                 inert={!open}
-                /* `inert` does the hiding: it blocks focus, pointer events and
-                   assistive tech in one attribute. A `visibility` toggle would
-                   fight the fade and, mid-transition, make the close button
-                   briefly unfocusable. */
-                className={`world-void fixed inset-0 z-50 flex h-dvh flex-col transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
-                    open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
+                /* The sheet arrives the way the page's world cut arrives: an
+                   opaque void surface wiping down over the paper, with the acid
+                   hairline riding its leading edge. Not a cross-fade. Fading two
+                   full-screen layers through each other is what read as muddy;
+                   an opaque panel on a composited transform reads as one object
+                   moving.
+
+                   `inert` does the hiding: it blocks focus, pointer events and
+                   assistive tech in one attribute. Under reduced motion the
+                   transform still applies, it just is not transitioned, so the
+                   sheet appears in place instead of sliding. */
+                onTransitionEnd={() => {
+                    if (!open) setWarm(false);
+                }}
+                className={`world-void fixed inset-0 z-50 flex h-dvh flex-col border-b-2 border-acid transition-transform ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
+                    warm || open ? "will-change-transform" : ""
+                } ${
+                    open
+                        ? "translate-y-0 duration-[380ms]"
+                        : "-translate-y-full duration-[240ms]"
                 }`}
             >
                 <div className="shell flex h-14 items-center justify-between pt-3 sm:pt-4">
@@ -205,11 +227,12 @@ export default function Header() {
                         {[...NAV_ITEMS, { href: "/contact", key: "contact" } as const].map((item, i) => (
                             <li
                                 key={item.href}
-                                /* Each row arrives just after the one above it. The delay is
-                                   dropped on close so the sheet leaves in one piece. */
-                                style={{ transitionDelay: open ? `${80 + i * 45}ms` : "0ms" }}
-                                className={`transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                                    open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+                                /* Rows arrive after the surface has landed, one just
+                                   behind the next. On close the delay is dropped so
+                                   the sheet leaves as one object. */
+                                style={{ transitionDelay: open ? `${140 + i * 40}ms` : "0ms" }}
+                                className={`transition-[opacity,transform] duration-[280ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                                    open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
                                 }`}
                             >
                                 <Link
@@ -226,7 +249,14 @@ export default function Header() {
                         ))}
                     </ul>
 
-                    <div className="mt-auto pt-8">
+                    {/* Arrives last, after the nav rows: it is the secondary
+                        choice on this sheet and should not land first. */}
+                    <div
+                        style={{ transitionDelay: open ? "300ms" : "0ms" }}
+                        className={`mt-auto pt-8 transition-[opacity,transform] duration-[280ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                            open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+                        }`}
+                    >
                         <p className="t-meta mb-2 text-[var(--on-surface-3)]">{t("language")}</p>
                         <LanguageSwitcher variant="inline" />
                     </div>
