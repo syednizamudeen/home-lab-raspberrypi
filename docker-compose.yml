@@ -8,6 +8,9 @@ services:
     environment:
       - NODE_ENV=production
       - TZ=${TZ}
+      # Where the contact form posts. If this is empty the form refuses to
+      # accept submissions rather than silently dropping them.
+      - INFANINA_CONTACT_ENDPOINT=${INFANINA_CONTACT_ENDPOINT}
     ports:
       - "3002:3000"
     networks:

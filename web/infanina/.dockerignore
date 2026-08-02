@@ -1,0 +1,26 @@
+# Build context hygiene. Without this, `COPY . .` ships the host's
+# node_modules and .next into the image, which is slow on a Raspberry Pi and
+# can shadow the dependencies installed by `npm ci` in the builder stage.
+node_modules
+.next
+out
+
+.git
+.gitignore
+.github
+
+# Local-only material
+.env
+.env.*
+!.env.example
+screenshots
+notes.txt
+docs
+.claude
+.superpowers
+messages/.review.md
+
+# Editor / OS noise
+.DS_Store
+*.log
+npm-debug.log*

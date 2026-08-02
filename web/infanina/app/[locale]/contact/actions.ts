@@ -34,7 +34,21 @@ export async function submitContactForm(
     const endpoint = process.env.INFANINA_CONTACT_ENDPOINT;
 
     if (!endpoint) {
-        // Dev fallback — log so the developer can see it. Mailto link is shown in the UI as a backup.
+        if (process.env.NODE_ENV === "production") {
+            /* Never tell a visitor "we'll be in touch" when the message has
+               nowhere to go. Failing loudly costs one enquiry; failing silently
+               costs every enquiry until someone notices. The UI shows the
+               mailto fallback alongside this error. */
+            console.error(
+                "[contact] INFANINA_CONTACT_ENDPOINT is not set in production. Submission was NOT delivered.",
+            );
+            return {
+                status: "error",
+                message: "Our form is not connected right now. Please email us directly and we will reply the same way.",
+            };
+        }
+
+        // Development: log the submission so it can be inspected locally.
         console.info("[contact] No INFANINA_CONTACT_ENDPOINT set; logging submission instead.", {
             name,
             email,

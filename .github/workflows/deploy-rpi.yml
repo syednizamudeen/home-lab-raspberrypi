@@ -11,8 +11,10 @@ jobs:
     environment: Production
 
     steps:
+      # v5 runs on Node 24. v4 bundles the Node 20 runtime, which newer runners
+      # refuse to start and shim onto Node 24 with a deprecation warning.
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Synchronize Code to Project Directory
         run: |
@@ -26,6 +28,7 @@ jobs:
           echo "TZ=${{ secrets.TZ }}" > .env
           echo "INFANINA_TUNNEL_TOKEN=${{ secrets.INFANINA_TUNNEL_TOKEN }}" >> .env
           echo "MY_HOME_CLOCK_TUNNEL_TOKEN=${{ secrets.MY_HOME_CLOCK_TUNNEL_TOKEN }}" >> .env
-          echo ".env file created with 3 lines."
+          echo "INFANINA_CONTACT_ENDPOINT=${{ secrets.INFANINA_CONTACT_ENDPOINT }}" >> .env
+          echo ".env file created with 4 lines."
           docker compose build --no-cache infanina-app
           docker compose up -d --remove-orphans

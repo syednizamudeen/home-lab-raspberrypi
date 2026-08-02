@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# superpowers brainstorming workspace
+.superpowers/
+
+# design reference captures of other companies' sites — local mood board, not source
+screenshots/
