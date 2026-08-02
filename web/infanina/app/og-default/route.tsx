@@ -1,11 +1,32 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { SITE } from "@/lib/site";
 
-export const runtime = "edge";
+/**
+ * The share card. This is the most-seen image of the brand after the site
+ * itself: WhatsApp, LinkedIn and Slack all render it.
+ *
+ * It uses the void world rather than paper, because link previews sit on white
+ * feed backgrounds and a dark card holds its edges there.
+ *
+ * Node runtime, not edge: the studio deploys to its own hardware, and reading
+ * the font off disk is simpler and more reliable than fetching it at build.
+ */
+export const runtime = "nodejs";
 export const dynamic = "force-static";
 export const contentType = "image/png";
 
+const VOID = "#1A1320";
+const VOID_INK = "#F4F1EC";
+const VOID_INK_3 = "#9A8FA4";
+const ACID = "#A8E63C";
+
 export async function GET() {
+    /* A *static* instance, deliberately. Satori hard-crashes the render
+       process on Archivo's variable TTF, with no error thrown. */
+    const archivo = await readFile(join(process.cwd(), "app/og-default/Archivo-ExtraBold.ttf"));
+
     return new ImageResponse(
         (
             <div
@@ -15,57 +36,34 @@ export async function GET() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
-                    padding: "72px 80px",
-                    background:
-                        "radial-gradient(60% 50% at 18% 18%, rgba(255,163,175,0.45), transparent 70%), radial-gradient(50% 60% at 92% 8%, rgba(251,175,0,0.30), transparent 70%), linear-gradient(135deg, #007CBE 0%, #005B8C 100%)",
-                    color: "white",
-                    fontFamily: "system-ui, -apple-system, Segoe UI, sans-serif",
+                    padding: "68px 76px",
+                    background: VOID,
+                    color: VOID_INK,
+                    fontFamily: "Archivo",
                 }}
             >
-                <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-                    <svg width="64" height="64" viewBox="0 0 28 28">
-                        <rect x="3" y="3" width="22" height="22" rx="6" fill="#FFFFFF" />
-                        <path
-                            d="M9 19V11.5C9 10.1193 10.1193 9 11.5 9C12.8807 9 14 10.1193 14 11.5V13.5C14 14.8807 15.1193 16 16.5 16C17.8807 16 19 14.8807 19 13.5"
-                            stroke="#007CBE"
-                            strokeWidth="2.4"
-                            strokeLinecap="round"
-                            fill="none"
-                        />
-                    </svg>
-                    <div
-                        style={{
-                            fontSize: 40,
-                            fontWeight: 700,
-                            letterSpacing: "-0.02em",
-                        }}
-                    >
-                        infanina
-                    </div>
+                <div style={{ display: "flex", alignItems: "baseline", fontSize: 38, fontWeight: 800, letterSpacing: "-0.045em" }}>
+                    infanina
+                    <span style={{ color: ACID }}>.</span>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+                <div style={{ display: "flex", flexDirection: "column" }}>
                     <div
                         style={{
-                            fontSize: 96,
-                            fontWeight: 700,
-                            lineHeight: 1.02,
+                            fontSize: 94,
+                            fontWeight: 800,
+                            lineHeight: 1.04,
                             letterSpacing: "-0.035em",
-                            maxWidth: 980,
+                            maxWidth: 900,
+                            display: "flex",
+                            flexDirection: "column",
                         }}
                     >
-                        AI products that ship.
-                    </div>
-                    <div
-                        style={{
-                            fontSize: 30,
-                            fontWeight: 400,
-                            opacity: 0.9,
-                            maxWidth: 880,
-                            lineHeight: 1.3,
-                        }}
-                    >
-                        Built for the businesses that build everything else.
+                        <span>Your next build</span>
+                        <span style={{ display: "flex", flexDirection: "column" }}>
+                            <span>starts here.</span>
+                            <span style={{ width: 430, height: 8, background: ACID, marginTop: 10 }} />
+                        </span>
                     </div>
                 </div>
 
@@ -74,17 +72,23 @@ export async function GET() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        fontSize: 22,
-                        opacity: 0.85,
+                        fontSize: 21,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        color: VOID_INK_3,
+                        borderTop: `1px solid #3A2C44`,
+                        paddingTop: 26,
                     }}
                 >
-                    <span style={{ fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase" }}>
-                        AI product studio
-                    </span>
-                    <span style={{ fontWeight: 500 }}>{SITE.url.replace(/^https?:\/\//, "")}</span>
+                    <span>Singapore · Web · Mobile · AI automation</span>
+                    <span style={{ color: VOID_INK }}>{SITE.url.replace(/^https?:\/\//, "")}</span>
                 </div>
             </div>
         ),
-        { width: 1200, height: 630 },
+        {
+            width: 1200,
+            height: 630,
+            fonts: [{ name: "Archivo", data: archivo, style: "normal", weight: 800 }],
+        },
     );
 }

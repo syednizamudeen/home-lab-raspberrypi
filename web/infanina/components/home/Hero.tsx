@@ -6,15 +6,19 @@ import { Reveal, RevealLine } from "../ui/Reveal";
 /**
  * Section 01.
  *
- * Headline on the left, then one wide photograph of the Singapore CBD as a
- * full-bleed band. The photo is the "we are here" signal; the facts that used
+ * Headline on the left, then a wide line drawing of the Singapore skyline as a
+ * full-bleed band. The drawing is the "we are here" signal; the facts that used
  * to sit beside the headline (UEN, direct line, response time) now live in the
  * footer, where a visitor looks for them anyway.
  *
- * Photo: Skyline of Singapore Central Business District, Wikimedia Commons,
- * released CC0. https://commons.wikimedia.org/wiki/File:Skyline_of_Singapore_Central_Business_District_20250903.jpg
- * To swap it, drop a replacement at public/singapore-cbd.jpg at 2560×1028 or
- * wider, keeping roughly a 2.5:1 crop.
+ * The drawing is generated line art on the site's own paper colour, so it is
+ * placed at its natural aspect ratio with no crop and no gradient wash: the
+ * background of the file and the background of the page are the same value
+ * (sRGB 245,243,238), and the edges simply disappear.
+ *
+ * The source art and the exact rebuild command live in design/README.md; that
+ * directory is versioned but neither served nor deployed. public/singapore-skyline.webp
+ * is the processed result used here.
  */
 export default function Hero() {
     const t = useTranslations("Hero");
@@ -54,28 +58,29 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* Full-bleed band. Taller crop on phones so the towers still read. */}
-            <Reveal index={4} className="mt-14 sm:mt-20">
-                <figure className="relative m-0 h-[min(52vh,340px)] w-full overflow-hidden sm:h-[min(48vh,420px)] lg:h-[min(56vh,520px)]">
+            {/* Full-bleed, uncropped. On phones the drawing is scaled up and
+                anchored to the CBD end, because at 390px wide the full
+                panorama would render the towers as illegible specks. */}
+            <Reveal index={4} className="mt-12 sm:mt-16">
+                <figure className="m-0 overflow-hidden">
                     <Image
-                        src="/singapore-cbd.jpg"
+                        src="/singapore-skyline.webp"
                         alt={t("image_alt")}
-                        fill
+                        width={3082}
+                        height={610}
                         priority
                         sizes="100vw"
-                        /* Bias the crop down: in a tall phone box, centring
-                           this 2.5:1 frame fills it with sky. */
-                        className="object-cover object-[center_68%] sm:object-[center_60%]"
-                    />
-                    {/* A warm paper wash top and bottom so the photo joins the
-                        page instead of sitting on it like a pasted rectangle. */}
-                    <span
-                        aria-hidden
-                        className="pointer-events-none absolute inset-0"
-                        style={{
-                            background:
-                                "linear-gradient(to bottom, var(--paper) 0%, transparent 18%, transparent 82%, var(--paper) 100%)",
-                        }}
+                        /* Served byte-for-byte. The optimizer's lossy re-encode
+                           shifts this drawing's flat background by a few values,
+                           which shows as a seam against the page. The file is
+                           already a 272KB palette-reduced lossless WebP. */
+                        unoptimized
+                        /* The art is trimmed to the ink, so it is now 5:1 and
+                           very short. Phones zoom into the Marina Bay end
+                           rather than showing the full panorama at 77px tall;
+                           the empty water in the middle of the panorama is the
+                           one part not worth cropping to. */
+                        className="w-[240%] max-w-none sm:w-[150%] lg:w-full"
                     />
                 </figure>
             </Reveal>
