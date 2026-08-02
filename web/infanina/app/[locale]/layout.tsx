@@ -38,7 +38,7 @@ const martianMono = Martian_Mono({
 
 export const viewport: Viewport = {
     /* Fixed art direction: the page opens on paper regardless of system theme. */
-    themeColor: "#F5F2EB",
+    themeColor: "#F5F3EE",
 };
 
 export async function generateMetadata({

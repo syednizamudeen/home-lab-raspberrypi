@@ -172,7 +172,7 @@ export default function Header() {
                    assistive tech in one attribute. A `visibility` toggle would
                    fight the fade and, mid-transition, make the close button
                    briefly unfocusable. */
-                className={`world-void fixed inset-0 z-50 flex flex-col transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
+                className={`world-void fixed inset-0 z-50 flex h-dvh flex-col transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
                     open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
                 }`}
             >
@@ -190,7 +190,12 @@ export default function Header() {
                     </button>
                 </div>
 
-                <nav className="shell mt-10 flex flex-1 flex-col" aria-label="Mobile">
+                {/* Scrollable, because five language rows plus the nav overflow a
+                    667px-tall phone, and padded for the home indicator. */}
+                <nav
+                    className="shell mt-8 flex flex-1 flex-col overflow-y-auto overscroll-contain pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+                    aria-label="Mobile"
+                >
                     <ul className="rule-list border-t border-[var(--hairline)]">
                         {[...NAV_ITEMS, { href: "/contact", key: "contact" } as const].map((item, i) => (
                             <li
@@ -216,8 +221,8 @@ export default function Header() {
                         ))}
                     </ul>
 
-                    <div className="mt-auto border-t border-[var(--hairline)] py-6">
-                        <p className="t-meta mb-3 text-[var(--on-surface-3)]">Language</p>
+                    <div className="mt-auto pt-8">
+                        <p className="t-meta mb-2 text-[var(--on-surface-3)]">{t("language")}</p>
                         <LanguageSwitcher variant="inline" />
                     </div>
                 </nav>
