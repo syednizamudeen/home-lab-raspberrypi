@@ -25,6 +25,8 @@ export default function Header() {
     const [overVoid, setOverVoid] = useState(false);
     const [lifted, setLifted] = useState(false);
     const frame = useRef(0);
+    const triggerRef = useRef<HTMLButtonElement>(null);
+    const sheetRef = useRef<HTMLDivElement>(null);
 
     /* Close the sheet when the route changes, adjusted during render rather
        than in an effect so it never paints an open menu on the new page. */
@@ -67,6 +69,30 @@ export default function Header() {
         document.body.style.overflow = open ? "hidden" : "";
         return () => {
             document.body.style.overflow = "";
+        };
+    }, [open]);
+
+    /* Escape closes, and focus moves into the sheet on open and back to the
+       trigger on close, so the menu is operable without a pointer. */
+    useEffect(() => {
+        if (!open) return;
+
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+        document.addEventListener("keydown", onKey);
+
+        /* Focus the close control rather than the first link: it is the
+           standard exit for a dialog, and it is reliably focusable once the
+           inert attribute has been lifted on this frame. */
+        const raf = requestAnimationFrame(() => {
+            sheetRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+        });
+
+        return () => {
+            document.removeEventListener("keydown", onKey);
+            cancelAnimationFrame(raf);
+            triggerRef.current?.focus();
         };
     }, [open]);
 
@@ -119,9 +145,11 @@ export default function Header() {
                         </div>
 
                         <button
+                            ref={triggerRef}
                             type="button"
                             onClick={() => setOpen(true)}
                             aria-label="Open menu"
+                            aria-controls="mobile-menu"
                             aria-expanded={open}
                             className="t-meta inline-flex h-11 items-center gap-2 rounded-pill border border-[var(--hairline)] px-4 text-[var(--on-surface)] md:hidden"
                         >
@@ -131,12 +159,22 @@ export default function Header() {
                 </div>
             </div>
 
-            {/* Mobile sheet — always the void world, so the cut reads as intentional. */}
+            {/* Mobile sheet — always the void world, so the cut reads as intentional.
+                It moves as well as fades: opacity alone reads as a flicker. */}
             <div
-                className={`world-void fixed inset-0 z-50 flex flex-col transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
-                    open ? "opacity-100" : "pointer-events-none opacity-0"
+                ref={sheetRef}
+                id="mobile-menu"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Menu"
+                inert={!open}
+                /* `inert` does the hiding: it blocks focus, pointer events and
+                   assistive tech in one attribute. A `visibility` toggle would
+                   fight the fade and, mid-transition, make the close button
+                   briefly unfocusable. */
+                className={`world-void fixed inset-0 z-50 flex flex-col transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
+                    open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
                 }`}
-                aria-hidden={!open}
             >
                 <div className="shell flex h-14 items-center justify-between pt-3 sm:pt-4">
                     <span className="text-[var(--on-surface)]">
@@ -154,12 +192,19 @@ export default function Header() {
 
                 <nav className="shell mt-10 flex flex-1 flex-col" aria-label="Mobile">
                     <ul className="rule-list border-t border-[var(--hairline)]">
-                        {[...NAV_ITEMS, { href: "/contact", key: "contact" } as const].map((item) => (
-                            <li key={item.href}>
+                        {[...NAV_ITEMS, { href: "/contact", key: "contact" } as const].map((item, i) => (
+                            <li
+                                key={item.href}
+                                /* Each row arrives just after the one above it. The delay is
+                                   dropped on close so the sheet leaves in one piece. */
+                                style={{ transitionDelay: open ? `${80 + i * 45}ms` : "0ms" }}
+                                className={`transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                                    open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+                                }`}
+                            >
                                 <Link
                                     href={item.href}
                                     onClick={() => setOpen(false)}
-                                    tabIndex={open ? undefined : -1}
                                     className="t-h2 flex items-baseline justify-between py-5 text-[var(--on-surface)]"
                                 >
                                     {t(item.key)}
@@ -171,9 +216,9 @@ export default function Header() {
                         ))}
                     </ul>
 
-                    <div className="mt-auto flex items-center justify-between border-t border-[var(--hairline)] py-6">
-                        <LanguageSwitcher />
-                        <span className="t-meta text-[var(--on-surface-3)]">Singapore</span>
+                    <div className="mt-auto border-t border-[var(--hairline)] py-6">
+                        <p className="t-meta mb-3 text-[var(--on-surface-3)]">Language</p>
+                        <LanguageSwitcher variant="inline" />
                     </div>
                 </nav>
             </div>

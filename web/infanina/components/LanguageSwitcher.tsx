@@ -13,7 +13,13 @@ const LANGUAGES = [
     { code: "ar", name: "العربية", label: "AR" },
 ] as const;
 
-export default function LanguageSwitcher() {
+/**
+ * `menu` is the desktop dropdown. `inline` is a row of pills for the mobile
+ * sheet: a dropdown anchored to a control in the bottom-left corner of a
+ * full-screen sheet opens below the fold and off the left edge, so on small
+ * screens the options are laid out flat instead.
+ */
+export default function LanguageSwitcher({ variant = "menu" }: { variant?: "menu" | "inline" }) {
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
     const pathname = usePathname();
@@ -23,6 +29,44 @@ export default function LanguageSwitcher() {
     const ref = useRef<HTMLDivElement>(null);
 
     const current = LANGUAGES.find((l) => l.code === locale) ?? LANGUAGES[0];
+
+    const change = (next: string) => {
+        startTransition(() => {
+            // next-intl typed routing: for dynamic segments, pass `{ pathname, params }` so
+            // the route pattern (e.g. "/work/[slug]") is rehydrated with the current slug.
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            router.replace({ pathname, params: params as any } as any, { locale: next });
+            setOpen(false);
+        });
+    };
+
+    if (variant === "inline") {
+        return (
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Language">
+                {LANGUAGES.map((lang) => {
+                    const active = locale === lang.code;
+                    return (
+                        <button
+                            key={lang.code}
+                            type="button"
+                            lang={lang.code}
+                            disabled={isPending || active}
+                            aria-current={active ? "true" : undefined}
+                            onClick={() => change(lang.code)}
+                            className={`t-meta inline-flex h-11 min-w-11 items-center justify-center rounded-pill border px-4 transition-colors duration-[180ms] disabled:opacity-100 ${
+                                active
+                                    ? "border-acid bg-acid text-ink"
+                                    : "border-[var(--hairline)] text-[var(--on-surface-2)] hover:border-[var(--on-surface-2)] hover:text-[var(--on-surface)]"
+                            }`}
+                        >
+                            {lang.label}
+                            <span className="sr-only">{lang.name}</span>
+                        </button>
+                    );
+                })}
+            </div>
+        );
+    }
 
     useEffect(() => {
         const onClick = (e: MouseEvent) => {
@@ -38,16 +82,6 @@ export default function LanguageSwitcher() {
             document.removeEventListener("keydown", onKey);
         };
     }, []);
-
-    const change = (next: string) => {
-        startTransition(() => {
-            // next-intl typed routing: for dynamic segments, pass `{ pathname, params }` so
-            // the route pattern (e.g. "/work/[slug]") is rehydrated with the current slug.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            router.replace({ pathname, params: params as any } as any, { locale: next });
-            setOpen(false);
-        });
-    };
 
     return (
         <div className="relative" ref={ref}>
