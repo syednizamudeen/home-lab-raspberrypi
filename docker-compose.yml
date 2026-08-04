@@ -1,4 +1,19 @@
 services:
+  # LAN-only. host networking is required for local device discovery
+  # (mDNS/zeroconf, SSDP, DHCP) and has the useful side effect of keeping this
+  # container off tunnel_net, so no cloudflared container can route to it.
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+      - ./homeassistant/config:/config
+      - /run/dbus:/run/dbus:ro
+    environment:
+      - TZ=${TZ}
+
   infanina-app:
     build:
       context: ./web/infanina

@@ -16,10 +16,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
+      # This rsync runs with --delete, and everything Home Assistant writes into
+      # its bind mount (database, .storage credentials, UI automations, media)
+      # is gitignored — so it is absent from the source and would be deleted on
+      # every deploy. The include/exclude pair below is an allowlist: ONLY
+      # configuration.yaml is synced, and the '**' exclude protects everything
+      # else under homeassistant/config/ from deletion, including files HA
+      # starts writing in the future. Order matters — the include must come
+      # first, since rsync applies the first matching rule.
       - name: Synchronize Code to Project Directory
         run: |
           sudo apt update && sudo apt install rsync -y
-          sudo rsync -av --delete ${{ github.workspace }}/ /home/pi/home-lab/
+          sudo rsync -av --delete \
+            --include 'homeassistant/config/configuration.yaml' \
+            --exclude 'homeassistant/config/**' \
+            ${{ github.workspace }}/ /home/pi/home-lab/
+
+      # configuration.yaml !includes these, and they are excluded from rsync,
+      # so they have to exist on the Pi before Home Assistant starts.
+      - name: Bootstrap Home Assistant UI-managed files
+        run: |
+          HA_CONFIG="/home/pi/home-lab/homeassistant/config"
+          sudo mkdir -p "$HA_CONFIG/themes"
+          for f in automations.yaml scenes.yaml scripts.yaml; do
+            sudo test -f "$HA_CONFIG/$f" || echo "[]" | sudo tee "$HA_CONFIG/$f" > /dev/null
+          done
 
       - name: Deploy to Raspberry Pi
         run: |

@@ -1,0 +1,34 @@
+# Home Assistant — LAN-only deployment.
+#
+# This instance is deliberately NOT exposed to the internet. It runs with
+# network_mode: host (see docker-compose.yml) so it is not attached to
+# tunnel_net, which means the cloudflared containers cannot reach it even if
+# a tunnel were misconfigured. Do not add a trusted_proxies block or a
+# cloudflared service for this container.
+
+# Loads the standard set of integrations (frontend, history, logbook, mobile
+# app, local discovery via SSDP/zeroconf/DHCP, etc).
+default_config:
+
+homeassistant:
+  # Reachable only from the home network. If the Pi's LAN address changes,
+  # update this so notifications and links point at the right host.
+  internal_url: "http://192.168.28.25:8123"
+
+http:
+  # Bind on all interfaces so any device on the LAN can reach it. Exposure is
+  # controlled at the router (no port forward), not here.
+  server_host:
+    - 0.0.0.0
+  # Ban an IP after repeated failed logins.
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+# UI-managed files. These are edited through the Home Assistant UI and are
+# excluded from deploy-time rsync so a push never overwrites them.
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
