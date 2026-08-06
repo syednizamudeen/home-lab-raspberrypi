@@ -1,0 +1,279 @@
+# IR/RF remote command learning — Broadlink RM4 Pro ("Universal Remote",
+# 192.168.28.7, entity remote.universal_remote).
+#
+# WHAT IS AND IS NOT IN THIS FILE
+#
+# This file holds the *scripts* used to learn and replay commands. It never
+# holds the learned codes themselves. When remote.learn_command succeeds, Home
+# Assistant writes the captured code into
+#
+#   homeassistant/config/.storage/broadlink_remote_e816561c7d39_codes
+#
+# which lives only on the Pi, is gitignored, and is protected from the deploy's
+# `rsync --delete` by the allowlist in .github/workflows/deploy-rpi.yml. So
+# learning a command never dirties the repo and never needs a re-push — but it
+# also means the Pi is the only copy. Back that file up if the codes matter.
+#
+# DEVICE NAMESPACES
+#
+# Broadlink stores codes under (device, command). `device` is a free-text label,
+# not a real entity — it is only a namespace. That is what lets one RM4 Pro
+# serve several appliances, and what would let a second Broadlink take over a
+# room later without renaming anything.
+#
+# NOTE ON THE BEDROOM: there is no Tapo integration on this instance, and Tapo
+# hardware cannot learn or blast IR for Home Assistant regardless. The bedroom
+# device namespaces below therefore only work while the RM4 Pro can see the
+# bedroom appliances (or once a second Broadlink is added). See CLAUDE.md.
+
+script:
+  # ---------------------------------------------------------------------------
+  # Learn ONE command. This is the main UI entry point: Settings > Automations &
+  # Scenes > Scripts > "IR - Learn one command" > Run, or Developer Tools >
+  # Actions > script.ir_learn_one. The selectors below render as dropdowns.
+  #
+  # command accepts a custom value, so a button not listed here can still be
+  # learned without editing this file.
+  # ---------------------------------------------------------------------------
+  ir_learn_one:
+    alias: "IR - Learn one command"
+    icon: mdi:remote
+    mode: single
+    fields:
+      device:
+        name: Appliance
+        description: Namespace the code is filed under.
+        required: true
+        selector:
+          select:
+            custom_value: true
+            options:
+              - Office AC
+              - Office Fan
+              - Bedroom AC
+              - Bedroom Fan
+      command:
+        name: Command
+        description: Button name. Pick one or type your own.
+        required: true
+        selector:
+          select:
+            custom_value: true
+            options:
+              # Office AC (dial-style remote: absolute temperatures)
+              - power_on
+              - power_off
+              - mode
+              - fan_speed
+              - healthy_sleep
+              - cool_18
+              - cool_19
+              - cool_20
+              - cool_21
+              - cool_22
+              - cool_23
+              - cool_24
+              - cool_25
+              - cool_26
+              - cool_27
+              - cool_28
+              - cool_29
+              - cool_30
+              # Office Fan
+              - speed_low
+              - speed_medium
+              - speed_high
+              - speed
+              - light
+              # Bedroom AC (+/- style remote)
+              - power_toggle
+              - temp_up
+              - temp_down
+              - swing_vertical
+              - swing_horizontal
+              # Bedroom Fan
+              - speed_up
+              - speed_down
+      command_type:
+        name: Signal type
+        description: >-
+          ir for anything with line of sight. rf for 433/315MHz remotes — rf
+          learning is a two-step sweep: press and HOLD the button, then tap it
+          once when prompted.
+        required: true
+        default: ir
+        selector:
+          select:
+            options:
+              - ir
+              - rf
+      timeout:
+        name: Timeout (seconds)
+        default: 30
+        selector:
+          number:
+            min: 10
+            max: 120
+            unit_of_measurement: s
+    sequence:
+      - action: remote.learn_command
+        target:
+          entity_id: remote.universal_remote
+        data:
+          device: "{{ device }}"
+          command: "{{ command }}"
+          command_type: "{{ command_type }}"
+          timeout: "{{ timeout | int(30) }}"
+
+  # ---------------------------------------------------------------------------
+  # Replay a command, to check a capture actually worked before moving on.
+  # ---------------------------------------------------------------------------
+  ir_send_one:
+    alias: "IR - Send one command (test)"
+    icon: mdi:remote-tv
+    mode: single
+    fields:
+      device:
+        name: Appliance
+        required: true
+        selector:
+          select:
+            custom_value: true
+            options:
+              - Office AC
+              - Office Fan
+              - Bedroom AC
+              - Bedroom Fan
+      command:
+        name: Command
+        required: true
+        selector:
+          text:
+      num_repeats:
+        name: Repeats
+        description: Some AC units need the frame sent twice to latch.
+        default: 1
+        selector:
+          number:
+            min: 1
+            max: 5
+    sequence:
+      - action: remote.send_command
+        target:
+          entity_id: remote.universal_remote
+        data:
+          device: "{{ device }}"
+          command: "{{ command }}"
+          num_repeats: "{{ num_repeats | int(1) }}"
+
+  # ---------------------------------------------------------------------------
+  # Guided batch learning, one script per appliance. Run it, then work through
+  # the buttons as the notifications name them.
+  #
+  # continue_on_error is essential: remote.learn_command RAISES on timeout, so
+  # without it one missed button aborts the whole run. A skipped command just
+  # gets relearned individually with ir_learn_one afterwards.
+  #
+  # The sequence is written once and reused via a YAML anchor (&learn_batch /
+  # *learn_batch). Each script supplies its own target_device and commands as
+  # script-level variables, which the shared body reads.
+  # ---------------------------------------------------------------------------
+  ir_learn_office_ac:
+    alias: "IR - Learn all: Office AC"
+    icon: mdi:air-conditioner
+    mode: single
+    variables:
+      target_device: Office AC
+      commands:
+        - power_on
+        - power_off
+        - mode
+        - fan_speed
+        - healthy_sleep
+        - cool_18
+        - cool_19
+        - cool_20
+        - cool_21
+        - cool_22
+        - cool_23
+        - cool_24
+        - cool_25
+        - cool_26
+        - cool_27
+        - cool_28
+        - cool_29
+        - cool_30
+    sequence: &learn_batch
+      - repeat:
+          for_each: "{{ commands }}"
+          sequence:
+            - action: persistent_notification.create
+              data:
+                notification_id: ir_learn_progress
+                title: "Learning: {{ target_device }}"
+                message: >-
+                  Point the remote at the RM4 Pro and press
+                  **{{ repeat.item }}** now
+                  ({{ repeat.index }} of {{ repeat.items | count }}).
+            - action: remote.learn_command
+              continue_on_error: true
+              target:
+                entity_id: remote.universal_remote
+              data:
+                device: "{{ target_device }}"
+                command: "{{ repeat.item }}"
+                command_type: ir
+                timeout: 30
+            # Breathing room so a single long press is not captured twice.
+            - delay: "00:00:02"
+      - action: persistent_notification.create
+        data:
+          notification_id: ir_learn_progress
+          title: "Learning: {{ target_device }}"
+          message: >-
+            Finished. Verify each button with script.ir_send_one, and relearn
+            any that timed out with script.ir_learn_one.
+
+  ir_learn_office_fan:
+    alias: "IR - Learn all: Office Fan"
+    icon: mdi:fan
+    mode: single
+    variables:
+      target_device: Office Fan
+      commands:
+        - power_on
+        - power_off
+        - speed_low
+        - speed_medium
+        - speed_high
+        - speed
+        - light
+    sequence: *learn_batch
+
+  ir_learn_bedroom_ac:
+    alias: "IR - Learn all: Bedroom AC"
+    icon: mdi:air-conditioner
+    mode: single
+    variables:
+      target_device: Bedroom AC
+      commands:
+        - power_toggle
+        - mode
+        - fan_speed
+        - temp_up
+        - temp_down
+        - swing_vertical
+        - swing_horizontal
+    sequence: *learn_batch
+
+  ir_learn_bedroom_fan:
+    alias: "IR - Learn all: Bedroom Fan"
+    icon: mdi:fan
+    mode: single
+    variables:
+      target_device: Bedroom Fan
+      commands:
+        - power_toggle
+        - speed_up
+        - speed_down
+    sequence: *learn_batch

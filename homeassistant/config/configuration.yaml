@@ -15,6 +15,11 @@ homeassistant:
   # update this so notifications and links point at the right host.
   internal_url: "http://192.168.28.25:8123"
 
+  # Versioned, hand-authored config that is NOT UI-managed. Unlike
+  # automations.yaml / scripts.yaml below, this directory is committed and is
+  # explicitly allowlisted in the deploy rsync, so a push does update it.
+  packages: !include_dir_named packages
+
 http:
   # Bind on all interfaces so any device on the LAN can reach it. Exposure is
   # controlled at the router (no port forward), not here.

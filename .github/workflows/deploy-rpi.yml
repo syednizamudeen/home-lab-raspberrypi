@@ -20,15 +20,24 @@ jobs:
       # its bind mount (database, .storage credentials, UI automations, media)
       # is gitignored — so it is absent from the source and would be deleted on
       # every deploy. The include/exclude pair below is an allowlist: ONLY
-      # configuration.yaml is synced, and the '**' exclude protects everything
-      # else under homeassistant/config/ from deletion, including files HA
-      # starts writing in the future. Order matters — the include must come
-      # first, since rsync applies the first matching rule.
+      # configuration.yaml and packages/ are synced, and the '**' exclude
+      # protects everything else under homeassistant/config/ from deletion,
+      # including files HA starts writing in the future. Order matters — the
+      # includes must come first, since rsync applies the first matching rule.
+      #
+      # packages/ is hand-authored, committed config. Both the directory and its
+      # contents need an include: without the trailing-slash rule rsync never
+      # descends into it, so the '**' rule would never be reached. Because it IS
+      # synced, --delete applies inside it — a file removed from the repo is
+      # removed from the Pi, which is the intent for versioned config. Keep this
+      # in step with the matching negation in .gitignore.
       - name: Synchronize Code to Project Directory
         run: |
           sudo apt update && sudo apt install rsync -y
           sudo rsync -av --delete \
             --include 'homeassistant/config/configuration.yaml' \
+            --include 'homeassistant/config/packages/' \
+            --include 'homeassistant/config/packages/**' \
             --exclude 'homeassistant/config/**' \
             ${{ github.workspace }}/ /home/pi/home-lab/
 
